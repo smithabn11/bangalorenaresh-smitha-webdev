@@ -1,0 +1,10 @@
+{
+  "name": "Assignment 1",
+  "description": "Deploying first node js application",
+  "keywords": [
+    "node",
+    "server",
+    "mongo"
+  ],
+  "repository": "https://github.com/smithabn11/bangalorenaersh-smitha-webdev"
+}
