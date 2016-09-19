@@ -9,7 +9,7 @@ module.exports = function(app)
     if(process.env.MONGO_LAB_PASSWORD) {
         connectionString = process.env.MONGO_LAB_USER + ":" +
             process.env.MONGO_LAB_PASSWORD + "@" +
-            "ds033126.mlab.com:33126/bangalorenaresh-test"
+            "ds033126.mlab.com:33126" + "/" + process.env.MONGO_LAB_APPNAME
     }
 
     var mongoose = require("mongoose");
