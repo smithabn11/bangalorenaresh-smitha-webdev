@@ -3,5 +3,38 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 100px;
+}
+
+/*http://stackoverflow.com/questions/32322775/how-to-remove-a-list-item-border-in-bootstrap-list-group*/
+li.borderless { border: none; }
+
+
+
+.border-right-line {
+    border-right: 1px solid #ccc;
+}
+
+/*http://stackoverflow.com/questions/3148415/how-to-make-a-vertical-line-in-html*/
+hr.vertical-line {
+    width: 0px;
+    height: 100%;
+}
+
+.navbar {
+    background-color: cornflowerblue;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.navbar-default .glyphicon {
+    color: white;
 }
