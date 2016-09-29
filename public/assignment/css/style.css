@@ -48,3 +48,7 @@ ul.list-group .glyphicon {
 ul.list-group .list-group-item {
     text-decoration: none;
 }
+
+.glyph-vertical-align {
+    vertical-align: middle;
+}
