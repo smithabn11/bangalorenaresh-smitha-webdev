@@ -52,3 +52,7 @@ ul.list-group .list-group-item {
 .glyph-vertical-align {
     vertical-align: middle;
 }
+
+.space-right {
+    padding-right: 5px;
+}
