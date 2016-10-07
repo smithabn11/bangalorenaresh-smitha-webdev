@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-left space-right pull-left">
-            <li><a href="widget-list.html"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li><a href="widget-list.view.client.html"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
         </ul>
         <div class="navbar-header pull-left">
             <a class="navbar-brand" href="#">
@@ -19,7 +19,7 @@
             </a>
         </div>
         <ul class="nav navbar-nav navbar-right pull-right">
-            <li><a href="widget-list.html"><span class="glyphicon glyphicon-ok"></span></a></li>
+            <li><a href="widget-list.view.client.html"><span class="glyphicon glyphicon-ok"></span></a></li>
         </ul>
     </div>
 </nav>
@@ -28,23 +28,39 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Video name">
+            <input type="text" class="form-control" id="name" placeholder="Image name">
         </div>
         <div class="form-group">
             <label for="text">Text</label>
-            <input type="text" class="form-control" id="text" placeholder="Video description">
+            <input type="text" class="form-control" id="text" placeholder="Image description">
         </div>
         <div class="form-group">
             <label for="url">URL</label>
-            <input type="text" class="form-control" id="url" placeholder="https://www.youtube.com/watch?v=_OLUSELxFo">
+            <input type="text" class="form-control" id="url"
+                   placeholder="https://www.image.com/LocationPhotos-g60745-Boston_Massachusetts.html#22588325">
         </div>
         <div class="form-group">
             <label for="width">Width</label>
             <input type="text" class="form-control" id="width" placeholder="100%">
         </div>
+        <div class="form-group">
+            <label for="upload">Upload</label>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="upload">Choose File</button>
+      </span>
+                        <input type="text" class="form-control">
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+        </div>
     </form>
+    <a class="btn btn-primary btn-block"
+       href="#">Upload Image</a>
     <a class="btn btn-danger btn-block"
-       href="widget-list.html">Delete</a>
+       href="widget-list.view.client.html">Delete</a>
 </div>
 
 
@@ -52,7 +68,7 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right pull-right">
             <li>
-                <a href="profile.html"><span class="glyphicon glyphicon-user navbar-custom"></span>
+                <a href="../user/profile.view.client.html"><span class="glyphicon glyphicon-user navbar-custom"></span>
                 </a>
             </li>
         </ul>
