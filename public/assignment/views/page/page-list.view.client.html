@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../css/style.css" rel="stylesheet"/>
-</head>
-<body>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-left pull-left space-right">
-            <li><a href="../website/website-list.view.client.html"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li><a href="#/user/{{model.userId}}/website/{{model.websiteId}}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
         </ul>
         <div class="navbar-header pull-left">
             <a class="navbar-brand" href="#">
@@ -25,14 +16,8 @@
 </nav>
 
 <div class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item borderless"><a href="../widget/widget-list.view.client.html">Home </a><a href="page-edit.view.client.html"><i
-                class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../widget/widget-list.view.client.html">About </a><a href="page-edit.view.client.html"><i
-                class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../widget/widget-list.view.client.html">Products</a><a href="page-edit.view.client.html"><i
-                class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../widget/widget-list.view.client.html">Contact Us</a><a href="page-edit.view.client.html"><i
+    <ul class="list-group" ng-repeat="page in model.pages">
+        <li class="list-group-item borderless"><a href="../widget/widget-list.view.client.html">{{page.name}}</a><a href="#/user/{{model.userId}}/website/{{website._id}}/{{page._id}}"><i
                 class="glyphicon glyphicon-cog pull-right"></i></a></li>
     </ul>
 </div>
@@ -41,11 +26,9 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right pull-right">
             <li>
-                <a href="../user/profile.view.client.html"><span class="glyphicon glyphicon-user"></span>
+                <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"></span>
                 </a>
             </li>
         </ul>
     </div>
 </nav>
-</body>
-</html>

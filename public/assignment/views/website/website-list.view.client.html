@@ -9,28 +9,22 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
-            <a href="#/website/new"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="#/user/{{model.userId}}/website/new"><span class="glyphicon glyphicon-plus"></span></a>
         </p>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item borderless"><a href="../page/page-list.view.client.html">Bobby Flay's</a><a
-                href="#/website/123"> <i class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../page/page-list.view.client.html">Food for Thought</a> <a
-                href="#/website/234"> <i class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../page/page-list.view.client.html">Camping Basics</a><a
-                href="#/website/456"><i class="glyphicon glyphicon-cog pull-right"></i></a></li>
-        <li class="list-group-item borderless"><a href="../page/page-list.view.client.html">CheapOCheap</a>
-            <a href="#/website/567"><i class="glyphicon glyphicon-cog pull-right"></i></a></li>
+    <ul class="list-group" ng-repeat="website in model.websites">
+        <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a><a
+                href="#/user/{{model.userId}}/website/{{website._id}}"> <i class="glyphicon glyphicon-cog pull-right"></i></a></li>
     </ul>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="#/profile"><span class="glyphicon glyphicon-user"></span>
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"></span>
             </a>
         </p>
     </div>
