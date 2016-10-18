@@ -40,13 +40,16 @@
         vm.userId = userId;
         vm.register = register;
 
-        function register(username, password) {
+        function register(username, password, retype_password) {
             var user = UserService.findUserByCredentials(username, password);
-            console.log(user);
             if(user == null) {
-                var newuser = {_id: "100", username: username, password: password};
-                UserService.createUser(newuser);
-                $location.url("/user/"+newuser._id);
+                if(password.localeCompare(retype_password) != 0){
+                    vm.error = "Password did not match";
+                } else {
+                    var newuser = {_id: "100", username: username, password: password};
+                    UserService.createUser(newuser);
+                    $location.url("/user/" + newuser._id);
+                }
             } else {
                 vm.error = "User already present";
             }
