@@ -1,17 +1,19 @@
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-left space-right pull-left">
-            <li><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-        </ul>
+        <p class="navbar-text space-right pull-left">
+            <a href ng-click="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        </p>
         <div class="navbar-header pull-left">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 Edit Page
             </a>
         </div>
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li><a href="page-list.view.client.html"><span class="glyphicon glyphicon-ok"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href
+               ng-click="model.updatePage(model.page._id, model.websiteId, model.page.name, model.page.title, model.userId)"><span
+                    class="glyphicon glyphicon-ok"></span></a>
+        </p>
     </div>
 </nav>
 
@@ -19,25 +21,24 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Page name">
+            <input ng-model="model.page.name" type="text" class="form-control" id="name" placeholder="Page name">
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <textarea class="form-control" id="title" rows="3" placeholder="Page title"></textarea>
+            <textarea ng-model="model.page.title" class="form-control" id="title" rows="3"
+                      placeholder="Page title"></textarea>
         </div>
     </form>
     <a class="btn btn-danger btn-block"
-       href="page-list.view.client.html">Delete</a>
+       href ng-click="model.deletePage(model.page._id, model.websiteId, model.userId)">Delete</a>
 </div>
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li>
-                <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
-                </a>
-            </li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
     </div>
 </nav>

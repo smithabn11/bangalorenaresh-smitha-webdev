@@ -8,7 +8,7 @@
         .controller("EditWidgetController", EditWidgetController);
 
 
-    function WidgetListController($routeParams, WidgetService) {
+    function WidgetListController($routeParams, WidgetService, $sce) {
         console.log("In WidgetListController");
         var vm = this;
 
@@ -23,7 +23,28 @@
             vm.userId = userId;
             vm.websiteId = websiteId;
             vm.pageId = pageId;
+            vm.checkSafeHtml = checkSafeHtml;
+            vm.checkSafeYoutubeUrl = checkSafeYoutubeUrl;
         }
+
+        function checkSafeHtml(html) {
+            console.log(html);
+            return $sce.trustAsHtml(html);
+        }
+
+        function checkSafeYoutubeUrl(url) {
+            var parts = url.split('/');
+            var id = parts[parts.length - 1];
+            var finalUrl = "https://www.youtube.com/embed/" + id;
+            return $sce.trustAsResourceUrl(finalUrl);
+        }
+    }
+
+    function NewWidgetController($routeParams, WidgetService) {
+
+    }
+
+    function EditWidgetController($routeParams, WidgetService) {
 
     }
 })();

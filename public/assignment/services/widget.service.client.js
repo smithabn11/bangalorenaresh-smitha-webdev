@@ -49,7 +49,12 @@
         }
 
         function findWidgetById(widgetId) {
-
+            for(var w in widgets) {
+                if(widgets[w]._id === widgetId) {
+                    return widgets[w];
+                }
+            }
+            return null;
         }
 
         function updateWidget(widgetId, widget) {

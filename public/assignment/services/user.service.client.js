@@ -26,8 +26,9 @@
 
         function createUser(user) {
             if(user != null) {
-                users.add(user);
+                users.push(user);
             }
+            console.log(users);
         }
 
         function findUserByCredentials(username, password) {

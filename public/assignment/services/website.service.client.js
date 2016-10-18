@@ -7,12 +7,12 @@
 
     function WebsiteService() {
         var websites = [
-            { "_id": "123", "name": "Facebook",    "developerId": "456" },
-            { "_id": "234", "name": "Tweeter",     "developerId": "456" },
-            { "_id": "456", "name": "Gizmodo",     "developerId": "456" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123" },
-            { "_id": "678", "name": "Checkers",    "developerId": "123" },
-            { "_id": "789", "name": "Chess",       "developerId": "234" }
+            { "_id": "123", "name": "Facebook",    "developerId": "456" , "description": "Facebook site" },
+            { "_id": "234", "name": "Tweeter",     "developerId": "456" , "description": "Tweeter site" },
+            { "_id": "456", "name": "Gizmodo",     "developerId": "456" , "description": "Gizmodo site" },
+            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123" , "description": "Tic Tac Toe site" },
+            { "_id": "678", "name": "Checkers",    "developerId": "123" , "description": "Checkers site" },
+            { "_id": "789", "name": "Chess",       "developerId": "234" , "description": "Chess site" }
         ];
 
         var api = {
@@ -28,7 +28,7 @@
 
         function createWebsite(userId, website) {
             if(website != null) {
-                websites.add(website);
+                websites.push(website);
             }
         }
 
@@ -53,7 +53,7 @@
 
         function updateWebsite(websiteId, website) {
             for(var w in websites) {
-                if (w._id === websiteId) {
+                if (websites[w]._id === websiteId) {
                     websites[w] = website;
                 }
             }
@@ -61,7 +61,7 @@
 
         function deleteWebsite(websiteId) {
             for(var w in websites) {
-                if (w._id === websiteId) {
+                if (websites[w]._id === websiteId) {
                     websites.splice(w, 1);
                 }
             }

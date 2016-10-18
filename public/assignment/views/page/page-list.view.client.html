@@ -1,34 +1,38 @@
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-left pull-left space-right">
-            <li><a href="#/user/{{model.userId}}/website/{{model.websiteId}}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-left space-right">
+            <a href="#/user/{{model.userId}}/website"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        </p>
         <div class="navbar-header pull-left">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 Pages
             </a>
         </div>
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li><a href="page-new.view.client.html"><span class="glyphicon glyphicon-plus"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </p>
     </div>
 </nav>
 
 <div class="container-fluid">
     <ul class="list-group" ng-repeat="page in model.pages">
-        <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">{{page.name}}</a><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"><i
-                class="glyphicon glyphicon-cog pull-right"></i></a></li>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
+                <i class="glyphicon glyphicon-cog pull-right"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li>
-                <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"></span>
-                </a>
-            </li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"></span>
+            </a>
+        </p>
     </div>
 </nav>

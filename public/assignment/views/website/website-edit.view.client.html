@@ -19,12 +19,13 @@
                     <a href="#/user/{{model.userId}}/website"><span class="glyphicon glyphicon-chevron-left"></span></a>
                 </p>
                 <div class="navbar-header pull-left">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand">
                         Edit Website
                     </a>
                 </div>
                 <p class="navbar-text pull-right">
-                    <a href ng-click="model.updateWebsite(model.website._id, model.website.name, model.userId)"><span
+                    <a href
+                       ng-click="model.updateWebsite(model.website._id, model.website.name, model.website.description, model.userId)"><span
                             class="glyphicon glyphicon-ok"></span></a>
                 </p>
             </div>
@@ -37,7 +38,8 @@
         <div class="col-md-3 hidden-xs hidden-sm">
             <ul class="list-group" ng-repeat="website in model.websites">
                 <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a><a
-                        href="#/user/{{model.userId}}/website/{{website._id}}"> <i class="glyphicon glyphicon-cog pull-right"></i></a></li>
+                        href="#/user/{{model.userId}}/website/{{website._id}}"> <i
+                        class="glyphicon glyphicon-cog pull-right"></i></a></li>
             </ul>
         </div>
         <!--Not added line and differentiate between landscape and potrait view-->
@@ -50,12 +52,12 @@
                 </div>
                 <div class="form-group">
                     <label for="web_description">Web Description</label>
-                    <textarea class="form-control" id="web_description" rows="3"
+                    <textarea ng-model="model.website.description" class="form-control" id="web_description" rows="3"
                               placeholder="Create a beautiful blog that fits your style. Choose from a selection of easy-to-use templates – all with flexible layouts and hundreds of background images – or design something new."></textarea>
                 </div>
             </form>
             <a class="btn btn-danger btn-block"
-               href="#/website">Delete</a>
+               href ng-click="model.deleteWebsite(model.website._id, model.userId)">Delete</a>
         </div>
     </div>
 </div>

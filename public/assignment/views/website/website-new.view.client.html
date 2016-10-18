@@ -19,12 +19,12 @@
                     <a href="#/user/{{model.userId}}/website"><span class="glyphicon glyphicon-chevron-left"></span></a>
                 </p>
                 <div class="navbar-header pull-left">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand">
                         New Website
                     </a>
                 </div>
                 <p class="navbar-text pull-right">
-                    <a href="#/website"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a href ng-click="model.createWebsite(model.sitename, model.description, model.userId)"><span class="glyphicon glyphicon-ok"></span></a>
                 </p>
             </div>
         </div>
@@ -45,11 +45,11 @@
             <form>
                 <div class="form-group">
                     <label for="sitename">Username</label>
-                    <input ng-model="sitename" type="text" class="form-control" id="sitename" placeholder="Website name">
+                    <input ng-model="model.sitename" type="text" class="form-control" id="sitename" placeholder="Website name">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+                    <textarea ng-model="model.description" class="form-control" id="description" rows="3" placeholder="Description"></textarea>
                 </div>
             </form>
         </div>
