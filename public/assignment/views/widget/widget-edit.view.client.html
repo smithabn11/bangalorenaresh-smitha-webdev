@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left space-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        </p>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="#">
+                Widgets
+            </a>
+        </div>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"><span
+                    class="glyphicon glyphicon-plus"></span></a>
+        </p>
+    </div>
+</nav>
 
+<div class="container-fluid">
+    <div ng-include="'views/widget/widget-'+model.widget.widgetType+'.view.client.html'"></div>
+</div>
 
-</body>
-</html>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>

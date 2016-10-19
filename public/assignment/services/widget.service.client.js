@@ -34,7 +34,9 @@
         return api;
 
         function createWidget(pageId, widget) {
-
+            if(widget != null) {
+                widgets.push(widget);
+            }
         }
 
         function findWidgetsByPageId(pageId) {
@@ -58,11 +60,19 @@
         }
 
         function updateWidget(widgetId, widget) {
-
+            for(var w in widgets) {
+                if(widgets[w]._id === widgetId) {
+                    widgets[w] = widget;
+                }
+            }
         }
 
         function deleteWidget(widgetId) {
-
+            for(var w in widgets) {
+                if(widgets[w]._id === widgetId) {
+                    widgets.splice(w, 1);
+                }
+            }
         }
     }
 

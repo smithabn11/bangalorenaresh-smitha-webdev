@@ -1,9 +1,9 @@
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-left space-right">
-            <li><a href="widget-list.view.client.html"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-        </ul>
+        <p class="navbar-text space-right pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.widgetId}}/widget"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        </p>
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 Choose Widget
@@ -16,16 +16,19 @@
     <div class="container-fluid">
         <ul class="list-group">
             <!--add the links -->
-            <li class="list-group-item borderless"><a href="widget-heading.view.client.html"> Header </a> </li>
-            <li class="list-group-item borderless"><a href="#"> Label </a> </li>
-            <li class="list-group-item borderless"><a href="#"> HTML </a></li>
-            <li class="list-group-item borderless"><a href="#"> Text Input </a></li>
-            <li class="list-group-item borderless"><a href="#"> Link </a></li>
-            <li class="list-group-item borderless"><a href="#"> Button </a></li>
-            <li class="list-group-item borderless"><a href="widget-image.view.client.html"> Image </a></li>
-            <li class="list-group-item borderless"><a href="widget-youtube.view.client.html"> Youtube </a></li>
-            <li class="list-group-item borderless"><a href="#"> Data Table </a></li>
-            <li class="list-group-item borderless"><a href="#"> Repeater </a></li>
+            <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/heading"> Header </a>
+            </li>
+            <li class="list-group-item borderless"><a href> Label </a></li>
+            <li class="list-group-item borderless"><a href> HTML </a></li>
+            <li class="list-group-item borderless"><a href> Text Input </a></li>
+            <li class="list-group-item borderless"><a href> Link </a></li>
+            <li class="list-group-item borderless"><a href> Button </a></li>
+            <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/image"> Image </a>
+            </li>
+            <li class="list-group-item borderless"><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/youtube"> Youtube </a>
+            </li>
+            <li class="list-group-item borderless"><a href> Data Table </a></li>
+            <li class="list-group-item borderless"><a href> Repeater </a></li>
         </ul>
     </div>
 </div>
@@ -33,11 +36,9 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="../user/profile.view.client.html"><span class="glyphicon glyphicon-user navbar-custom"></span>
-                </a>
-            </li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
     </div>
 </nav>

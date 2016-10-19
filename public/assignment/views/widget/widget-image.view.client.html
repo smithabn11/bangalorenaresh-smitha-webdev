@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text space-right pull-left">
-            <a href="widget-list.view.client.html"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"><span class="glyphicon glyphicon-chevron-left"></span></a>
         </p>
         <div class="navbar-header pull-left">
             <a class="navbar-brand">
@@ -9,7 +9,7 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
-            <a href="widget-list.view.client.html"><span class="glyphicon glyphicon-ok"></span></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"><span class="glyphicon glyphicon-ok"></span></a>
         </p>
     </div>
 </nav>
@@ -18,7 +18,7 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Image name">
+            <input ng-model="model.widget.text" type="text" class="form-control" id="name" placeholder="Image name">
         </div>
         <div class="form-group">
             <label for="text">Text</label>
@@ -26,12 +26,12 @@
         </div>
         <div class="form-group">
             <label for="url">URL</label>
-            <input type="text" class="form-control" id="url"
+            <input ng-model="model.widget.url" type="text" class="form-control" id="url"
                    placeholder="https://www.image.com/LocationPhotos-g60745-Boston_Massachusetts.html#22588325">
         </div>
         <div class="form-group">
             <label for="width">Width</label>
-            <input type="text" class="form-control" id="width" placeholder="100%">
+            <input ng-model="model.widget.width" type="text" class="form-control" id="width" placeholder="100%">
         </div>
         <div class="form-group">
             <label for="upload">Upload</label>
@@ -57,7 +57,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="../user/profile.view.client.html"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
     </div>

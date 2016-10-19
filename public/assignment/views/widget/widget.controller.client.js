@@ -9,7 +9,6 @@
 
 
     function WidgetListController($routeParams, WidgetService, $sce) {
-        console.log("In WidgetListController");
         var vm = this;
 
         var userId = $routeParams['uid'];
@@ -18,7 +17,7 @@
 
         var widgets = WidgetService.findWidgetsByPageId(pageId);
 
-        if(widgets != null) {
+        if (widgets != null) {
             vm.widgets = widgets;
             vm.userId = userId;
             vm.websiteId = websiteId;
@@ -28,7 +27,6 @@
         }
 
         function checkSafeHtml(html) {
-            console.log(html);
             return $sce.trustAsHtml(html);
         }
 
@@ -41,10 +39,36 @@
     }
 
     function NewWidgetController($routeParams, WidgetService) {
+        var vm = this;
+
+        var userId = $routeParams['uid'];
+        var websiteId = $routeParams['wid'];
+        var pageId = $routeParams['pid'];
+
+
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.pageId = pageId;
+
+
 
     }
 
     function EditWidgetController($routeParams, WidgetService) {
+        var vm = this;
 
+        var userId = $routeParams['uid'];
+        var websiteId = $routeParams['wid'];
+        var pageId = $routeParams['pid'];
+        var widgetId = $routeParams['wgid'];
+
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.pageId = pageId;
+        vm.widgetId = widgetId;
+
+        var widget = WidgetService.findWidgetById(widgetId);
+        console.log(widget);
+        vm.widget = widget;
     }
 })();

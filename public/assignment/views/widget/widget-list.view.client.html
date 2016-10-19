@@ -1,17 +1,18 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-left pull-left space-right">
-            <li><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
-                    class="glyphicon glyphicon-chevron-left"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-left space-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        </p>
         <div class="navbar-header pull-left">
             <a class="navbar-brand" href="#">
                 Widgets
             </a>
         </div>
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li><a href="widget-choose.view.client.html"><span class="glyphicon glyphicon-ok"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"><span
+                    class="glyphicon glyphicon-plus"></span></a>
+        </p>
     </div>
 </nav>
 
@@ -32,73 +33,30 @@
             <h5 ng-switch-when="5">{{widget.text}}</h5>
             <h6 ng-switch-when="6">{{widget.text}}</h6>
         </div>
-        <div ng-switch-when="IMAGE" class="format-youtube">
+        <div ng-switch-when="IMAGE">
             <img ng-src="{{widget.url}}">
         </div>
         <div ng-switch-when="YOUTUBE" class="format-youtube">
             <iframe ng-src="{{model.checkSafeYoutubeUrl(widget.url)}}"></iframe>
         </div>
-        <div ng-switch-when="HTML" ng-bind-html="{{model.checkSafeHtml(widget.text)}}">
+        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
         </div>
     </div>
-
-    <!--<div>-->
-    <!--<div class="format-widget">-->
-    <!--<a href="widget-heading.view.client.html">-->
-    <!--<span class="glyphicon glyphicon-cog"></span>-->
-    <!--</a>-->
-    <!--<span class="glyphicon glyphicon-align-justify"></span>-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--<h3>Cooking Under 30 Mins</h3>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div>-->
-    <!--<div class="format-widget">-->
-    <!--<a href="widget-youtube.view.client.html">-->
-    <!--<span class="glyphicon glyphicon-cog"></span>-->
-    <!--</a>-->
-    <!--<span class="glyphicon glyphicon-align-justify"></span>-->
-    <!--</div>-->
-    <!--<div class="format-youtube">-->
-    <!--<iframe src="https://www.youtube.com/embed/xNfJdwMp7n8"></iframe>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;Image taken from http://www.chegg.com/play/food-and-fit/food/college-cooking-lovers-unite/&ndash;&gt;-->
-    <!--<div>-->
-    <!--<div class="format-widget">-->
-    <!--<a href="widget-image.view.client.html">-->
-    <!--<span class="glyphicon glyphicon-cog"></span>-->
-    <!--</a>-->
-    <!--<span class="glyphicon glyphicon-align-justify"></span>-->
-    <!--</div>-->
-    <!--<div class="format-youtube">-->
-    <!--<iframe src="http://www.chegg.com/play/wp-content/uploads/sites/3/2013/02/cooking-college.jpg"></iframe>-->
-    <!--</div>-->
-    <!--</div>-->
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-left pull-left space-right">
-            <li>
-                <a href="#"><span class="glyphicon glyphicon-play navbar-custom"></span>
-                </a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-left pull-left">
-            <li>
-                <a href="#"><span class="glyphicon glyphicon-eye-open navbar-custom"></span>
-                </a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li>
-                <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
-                </a>
-            </li>
-        </ul>
+        <p class="navbar-text pull-left space-right">
+            <a href="#"><span class="glyphicon glyphicon-play navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-left">
+            <a href="#"><span class="glyphicon glyphicon-eye-open navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
     </div>
 </nav>
