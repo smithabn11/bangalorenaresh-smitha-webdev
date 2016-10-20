@@ -51,10 +51,9 @@
         vm.pageId = pageId;
 
 
-
     }
 
-    function EditWidgetController($routeParams, WidgetService) {
+    function EditWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
 
         var userId = $routeParams['uid'];
@@ -68,7 +67,54 @@
         vm.widgetId = widgetId;
 
         var widget = WidgetService.findWidgetById(widgetId);
-        console.log(widget);
+        //console.log(widget);
         vm.widget = widget;
+        vm.deleteWidget = deleteWidget;
+
+        function updateWidgetHeader(widgetId, name, size, pageId, websiteId, userId) {
+            var widget = WidgetService.findWidgetById(wid);
+
+            if (widget != null) {
+                widget.text = name;
+                widget.size = size;
+
+                WidgetService.updateWidget(widgetId, widget);
+            }
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
+
+        function updateWidgetHtml(widgetId, name, pageId, websiteId, userId) {
+            var widget = WidgetService.findWidgetById(wid);
+
+            if (widget != null) {
+                widget.text = name;
+
+                WidgetService.updateWidget(widgetId, widget);
+            }
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
+
+        function updateYoutubeImage(widgetId, name,  url, width, pageId, websiteId, userId) {
+            var widget = WidgetService.findWidgetById(wid);
+
+            if (widget != null) {
+                widget.text = name;
+                widget.url = url;
+                widget.width = width;
+
+                WidgetService.updateWidget(widgetId, widget);
+            }
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
+
+        function deleteWidget(widgetId, pageId, websiteId, userId) {
+            var widget = WidgetService.findWidgetById(widgetId);
+
+            if (widget != null) {
+                //console.log(widget);
+                WidgetService.deleteWidget(widgetId);
+            }
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
     }
 })();

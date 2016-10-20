@@ -9,7 +9,7 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"><span class="glyphicon glyphicon-ok"></span></a>
+            <a href="model.updateWidgetHeader(model.widget._id, model.widget.text, model.widget.size, model.pageId, model.websiteId, model.userId)"><span class="glyphicon glyphicon-ok"></span></a>
         </p>
     </div>
 </nav>
@@ -30,7 +30,7 @@
         </div>
     </form>
     <a class="btn btn-danger btn-block"
-       href="widget-list.view.client.html">Delete</a>
+       href ng-click="model.deleteWidget(model.widget._id, model.pageId, model.websiteId, model.userId)">Delete</a>
 </div>
 
 
