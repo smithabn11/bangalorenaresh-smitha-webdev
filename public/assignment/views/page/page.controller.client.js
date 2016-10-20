@@ -34,7 +34,7 @@
         vm.createPage = createPage;
 
         function createPage(websiteId, pageName, pageTitle, userId) {
-            var newpage =  { "_id": "100", "name": pageName, "websiteId": websiteId, "title": pageTitle };
+            var newpage =  { _id: (new Date()).getTime() + "", "name": pageName, "websiteId": websiteId, "title": pageTitle };
             if(newpage != null) {
                 PageService.createPage(websiteId, newpage);
             }
@@ -59,7 +59,7 @@
             vm.deletePage = deletePage;
         }
 
-        function updatePage(pageId, websiteId, pageName, pageTitle, userId) {
+        function updatePage(pageId, pageName, pageTitle) {
             var page = PageService.findPageById(pageId);
 
             if (page != null) {
@@ -67,16 +67,16 @@
                 page.title = pageTitle;
                 PageService.updatePage(pageId, page);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
         }
 
-        function deletePage(pageId, websiteId, userId) {
+        function deletePage(pageId) {
             var page = PageService.findPageById(pageId);
 
             if(page != null) {
                 PageService.deletePage(pageId);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
         }
     }
 })();

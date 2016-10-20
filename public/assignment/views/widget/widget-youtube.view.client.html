@@ -10,7 +10,7 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
-            <a href="model.updateWidgetYoutubeImage(model.widget._id, model.widget.text, model.widget.url, model.widget.width, model.widget.size,model.pageId, model.websiteId, model.userId)"><span
+            <a ng-click="model.updateYoutubeImage(model.widget._id, model.widget.text, model.widget.url, model.widget.width)"><span
                     class="glyphicon glyphicon-ok"></span></a>
         </p>
     </div>
@@ -37,7 +37,7 @@
         </div>
     </form>
     <a class="btn btn-danger btn-block"
-       href ng-click="model.deleteWidget(model.widget._id, model.pageId, model.websiteId, model.userId)">Delete</a>
+       href ng-click="model.deleteWidget(model.widget._id)">Delete</a>
 </div>
 
 

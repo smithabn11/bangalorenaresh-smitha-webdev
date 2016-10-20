@@ -8,7 +8,7 @@
         .controller("EditWebsiteController", EditWebsiteController);
 
     function WebsiteListController($routeParams, WebsiteService) {
-        console.log("In WebsiteListController");
+
         var vm = this;
 
         var userId = $routeParams['uid'];
@@ -36,7 +36,7 @@
         }
 
         function createWebsite(sitename, description, userId) {
-            var website = {"_id": "100", "name": sitename, "developerId": userId, "description": description};
+            var website = {_id: (new Date()).getTime() + "", "name": sitename, "developerId": userId, "description": description};
             if (website != null) {
                 WebsiteService.createWebsite(userId, website);
             }
@@ -45,7 +45,6 @@
     }
 
     function EditWebsiteController($routeParams, $location, WebsiteService) {
-        console.log("In EditWebsiteController");
         var vm = this;
 
         var userId = $routeParams['uid'];
@@ -62,7 +61,7 @@
             vm.deleteWebsite = deleteWebsite;
         }
 
-        function updateWebsite(websiteId, websiteName, websiteDescription, userId) {
+        function updateWebsite(websiteId, websiteName, websiteDescription) {
             var website = WebsiteService.findWebsiteById(wid);
 
             if (website != null) {
@@ -70,7 +69,7 @@
                 website.description = websiteDescription;
                 WebsiteService.updateWebsite(websiteId, website);
             }
-            $location.url("/user/" + userId + "/website");
+            $location.url("/user/" + vm.userId + "/website");
         }
 
         function deleteWebsite(websiteId, userId) {
@@ -78,7 +77,7 @@
             if (website != null) {
                 WebsiteService.deleteWebsite(websiteId);
             }
-            $location.url("/user/" + userId + "/website");
+            $location.url("/user/" + vm.userId + "/website");
         }
     }
 

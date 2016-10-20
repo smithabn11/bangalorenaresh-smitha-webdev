@@ -38,7 +38,7 @@
         }
     }
 
-    function NewWidgetController($routeParams, WidgetService) {
+    function NewWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
 
         var userId = $routeParams['uid'];
@@ -49,8 +49,18 @@
         vm.userId = userId;
         vm.websiteId = websiteId;
         vm.pageId = pageId;
+        vm.createWidget = createWidget;
 
-
+        function createWidget(widgetType) {
+            var newWidget = {
+                _id: (new Date()).getTime() + "",
+                widgetType: widgetType,
+                pageId: vm.pageId
+            };
+            console.log(newWidget);
+            WidgetService.createWidget(vm.pageId, newWidget);
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+        }
     }
 
     function EditWidgetController($routeParams, $location, WidgetService) {
@@ -70,32 +80,35 @@
         //console.log(widget);
         vm.widget = widget;
         vm.deleteWidget = deleteWidget;
+        vm.updateWidgetHeader = updateWidgetHeader;
+        vm.updateWidgetHtml = updateWidgetHtml;
+        vm.updateYoutubeImage = updateYoutubeImage;
 
-        function updateWidgetHeader(widgetId, name, size, pageId, websiteId, userId) {
-            var widget = WidgetService.findWidgetById(wid);
+        function updateWidgetHeader(widgetId, name, text, size) {
+            var widget = WidgetService.findWidgetById(widgetId);
 
             if (widget != null) {
-                widget.text = name;
+                widget.name = name;
+                widget.text = text;
                 widget.size = size;
 
                 WidgetService.updateWidget(widgetId, widget);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
 
-        function updateWidgetHtml(widgetId, name, pageId, websiteId, userId) {
-            var widget = WidgetService.findWidgetById(wid);
+        function updateWidgetHtml(widgetId, name) {
+            var widget = WidgetService.findWidgetById(widgetId);
 
             if (widget != null) {
                 widget.text = name;
-
                 WidgetService.updateWidget(widgetId, widget);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
 
-        function updateYoutubeImage(widgetId, name,  url, width, pageId, websiteId, userId) {
-            var widget = WidgetService.findWidgetById(wid);
+        function updateYoutubeImage(widgetId, name, url, width) {
+            var widget = WidgetService.findWidgetById(widgetId);
 
             if (widget != null) {
                 widget.text = name;
@@ -104,17 +117,17 @@
 
                 WidgetService.updateWidget(widgetId, widget);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
 
-        function deleteWidget(widgetId, pageId, websiteId, userId) {
+        function deleteWidget(widgetId) {
             var widget = WidgetService.findWidgetById(widgetId);
 
             if (widget != null) {
                 //console.log(widget);
                 WidgetService.deleteWidget(widgetId);
             }
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
     }
 })();

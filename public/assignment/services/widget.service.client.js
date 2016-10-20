@@ -46,7 +46,6 @@
                     result.push(widgets[w]);
                 }
             }
-            console.log(result);
             return result;
         }
 
@@ -75,5 +74,4 @@
             }
         }
     }
-
 })();

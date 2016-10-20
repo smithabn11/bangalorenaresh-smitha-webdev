@@ -46,7 +46,7 @@
                 if(password.localeCompare(retype_password) != 0){
                     vm.error = "Password did not match";
                 } else {
-                    var newuser = {_id: "100", username: username, password: password};
+                    var newuser = {_id: (new Date()).getTime() + "", username: username, password: password};
                     UserService.createUser(newuser);
                     $location.url("/user/" + newuser._id);
                 }
