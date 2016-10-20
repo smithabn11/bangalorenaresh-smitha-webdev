@@ -6,9 +6,9 @@
                 Profile
             </a>
         </div>
-        <ul class="nav navbar-nav navbar-right pull-right">
-            <li><a href="#"><span class="glyphicon glyphicon-ok"></span></a></li>
-        </ul>
+        <p class="navbar-text pull-right">
+            <a href ng-click="model.updateProfile(model.user)"><span class="glyphicon glyphicon-ok"></span></a>
+        </p>
     </div>
 </nav>
 
@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="alicewonderland@gmail.com">
+            <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="alicewonderland@gmail.com">
         </div>
         <div class="form-group">
             <label for="first-name">First Name</label>

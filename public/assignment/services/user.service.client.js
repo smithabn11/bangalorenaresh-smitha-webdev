@@ -55,7 +55,7 @@
         function findUserById(userId) {
             for (var u in users) {
                 var user = users[u];
-                if (user._id === userId) {
+                if (user._id == userId) {
                     return user;
                 }
             }
@@ -65,7 +65,7 @@
         function updateUser(userId, userUpdated) {
             for (var u in users) {
                 var user = users[u];
-                if (user._id === userId) {
+                if (user._id == userId) {
                     users[u] = userUpdated;
                 }
             }
@@ -74,7 +74,7 @@
         function deleteUser(userId) {
             for (var u in users) {
                 var user = users[u];
-                if (user._id === userId) {
+                if (user._id == userId) {
                     users.splice(u, 1);
                 }
             }
