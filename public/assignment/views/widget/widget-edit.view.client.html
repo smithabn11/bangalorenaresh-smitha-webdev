@@ -17,7 +17,7 @@
 </nav>
 
 <div class="container-fluid">
-    <div ng-include="'views/widget/widget-'+model.widget.widgetType+'.view.client.html'"></div>
+    <div ng-include="'views/widget/widget-'+(model.widget.widgetType).toLowerCase()+'.view.client.html'"></div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
