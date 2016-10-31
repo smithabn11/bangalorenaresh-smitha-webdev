@@ -5,13 +5,13 @@
     angular.module("WebAppMaker")
         .factory("UserService", UserService);
 
-    function UserService() {
-        var users = [
-            {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
-            {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-            {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
-        ];
+    function UserService($http) {
+        // var users = [
+        //     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
+        //     {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
+        //     {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
+        //     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
+        // ];
 
         var api = {
             "createUser": createUser,
@@ -25,20 +25,24 @@
         return api;
 
         function createUser(user) {
-            if(user != null) {
-                users.push(user);
-            }
-            console.log(users);
+            // if(user != null) {
+            //     users.push(user);
+            // }
+            // console.log(users);
+            return $http.post("/api/user", user);
         }
 
         function findUserByCredentials(username, password) {
-            for (var u in users) {
-                var user = users[u];
-                if (user.username === username && user.password === password) {
-                    return user;
-                }
-            }
-            return null;
+            // for (var u in users) {
+            //     var user = users[u];
+            //     if (user.username === username && user.password === password) {
+            //         return user;
+            //     }
+            // }
+            // return null;
+            var url = '/api/user?username='+username+'&password='+password;
+            return $http.get(url);
+
         }
 
         function findUserByUsername(username) {
@@ -53,31 +57,40 @@
 
 
         function findUserById(userId) {
-            for (var u in users) {
-                var user = users[u];
-                if (user._id == userId) {
-                    return user;
-                }
-            }
-            return null;
+            // for (var u in users) {
+            //     var user = users[u];
+            //     if (user._id == userId) {
+            //         return user;
+            //     }
+            // }
+            // return null;
+
+            var url = '/api/user/'+ userId;
+            return $http.get(url);
         }
 
-        function updateUser(userId, userUpdated) {
-            for (var u in users) {
-                var user = users[u];
-                if (user._id == userId) {
-                    users[u] = userUpdated;
-                }
-            }
+        function updateUser(userUpdated) {
+            // for (var u in users) {
+            //     var user = users[u];
+            //     if (user._id == userId) {
+            //         users[u] = userUpdated;
+            //     }
+            // }
+
+            var url = "/api/user/" + userUpdated._id;
+            return $http.put(url, userUpdated);
         }
 
         function deleteUser(userId) {
-            for (var u in users) {
-                var user = users[u];
-                if (user._id == userId) {
-                    users.splice(u, 1);
-                }
-            }
+            // for (var u in users) {
+            //     var user = users[u];
+            //     if (user._id == userId) {
+            //         users.splice(u, 1);
+            //     }
+            // }
+
+            var url = "/api/user/" + userId;
+            return $http.delete(url);
         }
     }
 

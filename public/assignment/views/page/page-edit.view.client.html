@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text space-right pull-left">
-            <a href ng-click="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span
                     class="glyphicon glyphicon-chevron-left"></span></a>
         </p>
         <div class="navbar-header pull-left">
@@ -11,7 +11,7 @@
         </div>
         <p class="navbar-text pull-right">
             <a href
-               ng-click="model.updatePage(model.page._id, model.page.name, model.page.title)"><span
+               ng-click="model.updatePage(model.page)"><span
                     class="glyphicon glyphicon-ok"></span></a>
         </p>
     </div>

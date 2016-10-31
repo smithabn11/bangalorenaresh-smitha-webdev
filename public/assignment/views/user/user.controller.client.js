@@ -7,44 +7,77 @@
         .controller('ProfileController', ProfileController)
         .controller('RegisterController', RegisterController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, $http, UserService) {
         var vm = this;
         vm.login = login;
 
         function login(username, password) {
-            var user = UserService.findUserByCredentials(username, password);
-            console.log(user);
-            if (user == null) {
-                vm.error = "No such user";
-            } else {
-                $location.url("/user/" + user._id);
-            }
+            var promise = UserService.findUserByCredentials(username, password);
+            promise
+                .success(function (user) {
+                    if (user === '0') {
+                        vm.error = "No such user";
+                    } else {
+                        $location.url("/user/" + user._id);
+                    }
+                })
+                .error(function () {
+
+                })
         }
     }
 
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController($routeParams, $location, $http, UserService) {
         var vm = this;
 
         var userId = $routeParams.uid;
 
-        var user = UserService.findUserById(userId);
-
-        if (user != null) {
-            vm.user = user;
+        function init() {
             vm.userId = userId;
+            vm.updateProfile = updateProfile;
+            vm.unRegisterUser = unRegisterUser;
+
+            var promise = UserService.findUserById(userId);
+            promise
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+
+                    }
+                })
+                .error(function () {
+
+                });
         }
 
-        vm.updateProfile = updateProfile;
+        init();
+
+
         function updateProfile(user) {
-            UserService.updateUser(vm.userId, user);
+            UserService.updateUser(vm.user);
+        }
+
+        function unRegisterUser(user) {
+            UserService.deleteUser(vm.user._id)
+                .success(function () {
+                    $location.url('/login'); //need to wait as server may still be deleting hence need to wait
+                })
+                .error(function () {
+
+                });
         }
     }
 
-    function RegisterController($routeParams, $location, UserService) {
+    function RegisterController($routeParams, $location, $http, UserService) {
         var vm = this;
         var userId = $routeParams.uid;
-        vm.userId = userId;
-        vm.register = register;
+
+        function init() {
+            vm.userId = userId;
+            vm.register = register;
+        }
+
+        init();
 
         function register(username, password, retype_password) {
             var user = UserService.findUserByCredentials(username, password);
