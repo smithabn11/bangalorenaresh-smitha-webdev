@@ -83,7 +83,7 @@ module.exports = function (app) {
         var userId = req.params['uid'];
 
         for (var u in users) {
-            if (user[u]._id == userId) {
+            if (users[u]._id == userId) {
                 users.splice(u, 1);
             }
         }

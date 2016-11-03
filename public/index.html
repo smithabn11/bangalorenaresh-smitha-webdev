@@ -4,28 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Dev Course Home Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/home-page-style.css" rel="stylesheet"/>
 </head>
 <body>
-    <h1>Web Dev Course Home Page</h1>
+<div class="container-fluid main-body">
+    <div class="row hidden-xs hidden-sm">
+        <div class="col-md-3 content">
+            <img class="img-responsive img-circle myimg" src="img/smitha.jpg">
+        </div>
+        <div class="col-md-9">
+            <h1 class="content">Smitha Bangalore Naresh</h1>
+            <hr>
+            <h4 class="content">Software Engineer | Photographer | Biker </h4>
+            <hr>
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-default transparent" href="project/index.html">Project</a>
+                <a class="btn btn-default transparent" href="assignment/index.html">Assignment</a>
+                <a class="btn btn-default transparent" href="test/index.html">Test MongoDB</a>
+                <a class="btn btn-default transparent"
+                   href="https://github.com/smithabn11/bangalorenaresh-smitha-webdev">GitHub.com</a>
+            </div>
+        </div>
 
-    <p>
-        Customize this home page to your linking.
-    </p>
+    </div>
+    <div class="row hidden-md hidden-lg">
+        <div class="row">
+            <img class="img-responsive img-circle myimg center-block" src="img/smitha.jpg">
+        </div>
+        <div class="row text-center">
+            <h1 class="content">Smitha Bangalore Naresh</h1>
+            <hr>
+            <h4 class="content">Software Engineer | Photographer | Biker </h4>
+            <hr>
+            <div class="btn-group btn-group-sm">
+                <a class="btn btn-default transparent" href="project/index.html">Project</a>
+                <a class="btn btn-default transparent" href="assignment/index.html">Assignment</a>
+                <a class="btn btn-default transparent" href="test/index.html">Test MongoDB</a>
+                <a class="btn btn-default transparent"
+                   href="https://github.com/smithabn11/bangalorenaresh-smitha-webdev">GitHub.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-6">
+            <div class="panel panel-default transparent panel-left">
+                <div class="panel-heading">Professional Bio</div>
+                <div class="panel-body">
+                    <p>Graduate Computer Science student at Northeastern University. <br><br>
+                        Interests: Machine Learning, Data Mining, Database, Distrubuted Systems and Parallel
+                        Processing<br>
+                        Technical Skills: Java, C++, R, JavaScript, MySQL <br>
+                        Work Experience: 4+ years, Bosch, Charles River Development, Adobe
+                    </p>
+                    <i>Someday : Be a leader. Empower women. Be a role model to younger generation.</i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default transparent panel-right">
+                <div class="panel-heading">Personal Bio</div>
+                <div class="panel-body">
+                    <p>Enjoy Life!!! <br><br>
+                    Summer: Road Biking, Hiking, Camping <br>
+                    Winter: Gym, Trying to learn Skiing <br>
+                    All Season: Photography(Wildlife and Landscape), Volunteering, Travelling, Foodie
+                    </p>
+                    <i>Someday : Travel around the world and experience every culture. Bike Cross country.</i>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h2>Required links</h2>
-    <ul>
-        <li>
-            <a href="project/index.html">Project</a>
-        </li>
-        <li>
-            <a href="assignment/index.html">Assignment</a>
-        </li>
-        <li>
-            <a href="test/index.html">Test MongoDB</a>
-        </li>
-        <li>
-            <a href="https://github.com/smithabn11/bangalorenaresh-smitha-webdev">Your public repository at GitHub.com</a>
-        </li>
-    </ul>
+</div>
 </body>
 </html>

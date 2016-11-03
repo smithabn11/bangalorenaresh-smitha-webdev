@@ -2,7 +2,7 @@
  * Created by smitha on 10/7/16.
  */
 (function () {
-    angular.module('WebAppMaker')
+    angular.module('ShoppingAwesome')
         .controller('LoginController', LoginController)
         .controller('ProfileController', ProfileController)
         .controller('RegisterController', RegisterController);

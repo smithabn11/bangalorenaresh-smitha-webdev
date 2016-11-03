@@ -27,6 +27,11 @@
                         vm.pageId = pageId;
                         vm.checkSafeHtml = checkSafeHtml;
                         vm.checkSafeYoutubeUrl = checkSafeYoutubeUrl;
+
+                        //This method will compete with angular
+                        // var widgetsSortable = $(".wam-widgets").sortable({
+                        //     axis: 'y'
+                        // });
                     }
                 })
                 .error(function () {
@@ -96,6 +101,7 @@
                         vm.widget = widget;
                         vm.deleteWidget = deleteWidget;
                         vm.updateWidget = updateWidget;
+
                     }
                 })
                 .error(function () {
