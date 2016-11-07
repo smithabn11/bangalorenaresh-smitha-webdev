@@ -1,0 +1,24 @@
+<div class="container">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <div class="row">
+        <h1>Welcome to ShopAwesome</h1>
+    </div>
+    <div class="row">
+        <input type="text"
+               ng-model="model.username"
+               class="form-control"
+               placeholder="username"/>
+        <input type="password"
+               ng-model="model.password"
+               class="form-control"
+               placeholder="password"/>
+    </div>
+    <div class="row">
+        <a href ng-click="model.login(model.username, model.password)" class="btn btn-primary btn-md"
+        >Sign In</a>
+        <a class="btn btn-success btn-md"
+           href="#/register">Register</a>
+    </div>
+</div>

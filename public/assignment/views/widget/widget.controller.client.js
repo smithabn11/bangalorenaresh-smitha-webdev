@@ -34,8 +34,9 @@
                         // });
                     }
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
                 });
         }
 
@@ -75,9 +76,15 @@
                 widgetType: widgetType,
                 pageId: vm.pageId
             };
-            WidgetService.createWidget(vm.userId, vm.websiteId, vm.pageId, newWidget);
-
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+            WidgetService.createWidget(vm.userId, vm.websiteId, vm.pageId, newWidget)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" +
+                        vm.pageId + "/widget/" + newWidget._id);
+                })
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
+                });
         }
     }
 
@@ -101,11 +108,12 @@
                         vm.widget = widget;
                         vm.deleteWidget = deleteWidget;
                         vm.updateWidget = updateWidget;
-
+                        vm.uploadImage = uploadImage;
                     }
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
                 });
         }
 
@@ -117,8 +125,9 @@
                     .success(function () {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                     })
-                    .error(function () {
-
+                    .error(function (response) {
+                        vm.error = response;
+                        console.log(response);
                     })
             }
         }
@@ -128,9 +137,29 @@
                 .success(function () {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 })
-                .error(function () {
+                .error(function (req, status, error) {
 
                 })
+        }
+
+        function uploadImage() {
+            var formData = new FormData($('#imageUpload')[0]);
+            WidgetService.uploadImage(formData)
+                .success(function (res) {
+                    vm.widget.url = 'uploads/' + res.filename;
+                    $('#imgUploadFile').removeClass('has-error');
+                    $('#imgUploadFile').find('span').removeClass('glyphicon-remove');
+                    $('#imgUploadFile').addClass('has-success');
+                    $('#imgUploadFile').find('span').addClass('glyphicon-ok');
+                })
+                .error(function (response) {
+                    $('#imgUploadFile').removeClass('has-success');
+                    $('#imgUploadFile').find('span').removeClass('glyphicon-ok');
+                    $('#imgUploadFile').addClass('has-error');
+                    $('#imgUploadFile').find('span').addClass('glyphicon-remove');
+                    vm.error = response;
+                    console.log(response);
+                });
         }
     }
 })();

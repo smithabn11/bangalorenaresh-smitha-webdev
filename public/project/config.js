@@ -8,18 +8,23 @@
     function Config($routeProvider) {
         $routeProvider
             .when('/login', {
-                templateUrl: 'views/user/login.view.client.html',
+                templateUrl: 'views/shopper/login.view.client.html',
                 controller: 'LoginController',
                 controllerAs: "model"
             })
             .when('/register', {
-                templateUrl: 'views/user/register.view.client.html',
+                templateUrl: 'views/shopper/register.view.client.html',
                 controller: 'RegisterController',
                 controllerAs: "model"
             })
-            .when('/user/:uid', {
-                templateUrl: 'views/user/profile.view.client.html',
+            .when('/shopper/:uid', {
+                templateUrl: 'views/shopper/profile.view.client.html',
                 controller: 'ProfileController',
+                controllerAs: "model"
+            })
+            .when('/shopper/:uid/search', {
+                templateUrl: 'views/search/search-main.view.client.html',
+                controller: 'SearchMainController',
                 controllerAs: "model"
             })
             .otherwise({

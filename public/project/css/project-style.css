@@ -1,0 +1,93 @@
+html {
+    background-color: #f6f6f6;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    background-color: transparent;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.main-body {
+
+}
+
+.myimg {
+    display: block;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    width: 200px;
+    height: 200px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top-buffer { margin-top:20px; }
+
+/* From Quora*/
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+    h1 { font-size: 4.0vh; }
+    h2 { font-size: 3.5vh; }
+    h3 { font-size: 3.0vh; }
+    h4 { font-size: 2.0vh; }
+    h5 { font-size: 1.5vh; }
+    h6 { font-size: 1.0vh; }
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    h1 { font-size: 4.0vh; }
+    h2 { font-size: 3.5vh; }
+    h3 { font-size: 3.0vh; }
+    h4 { font-size: 2.0vh; }
+    h5 { font-size: 1.5vh; }
+    h6 { font-size: 1.0vh; }
+}
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+    h1 { font-size: 3.0vw; }
+    h2 { font-size: 2.5vw; }
+    h3 { font-size: 2.0vw; }
+    h4 { font-size: 1.5vw; }
+    h5 { font-size: 1.0vw; }
+    h6 { font-size: 0.5vw; }
+}
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+    h1 { font-size: 3.0vw; }
+    h2 { font-size: 2.5vw; }
+    h3 { font-size: 2.0vw; }
+    h4 { font-size: 1.5vw; }
+    h5 { font-size: 1.0vw; }
+    h6 { font-size: 0.5vw; }
+}
+
+.content {
+    color: black;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.panel-left {
+    margin-left: 5%;
+}
+
+.panel-right {
+    margin-right: 5%;
+}
+
+.panel-heading {
+    background-color: #f6f6f6 !important;
+}

@@ -18,13 +18,12 @@
 
 <div class="container-fluid">
 
-    <div class="wam-widgets wam-sortable">
+    <div class="sortable">
         <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
             <div class="format-widget">
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                     <span class="glyphicon glyphicon-cog"></span>
                 </a>
-                <!--<span class="glyphicon glyphicon-align-justify"></span>-->
             </div>
             <div ng-switch="widget.size" ng-switch-when="HEADER">
                 <h1 ng-switch-when="1">{{widget.text}}</h1>
@@ -48,14 +47,6 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <!--<p class="navbar-text pull-left space-right">-->
-        <!--<a href="#"><span class="glyphicon glyphicon-play navbar-custom"></span>-->
-        <!--</a>-->
-        <!--</p>-->
-        <!--<p class="navbar-text pull-left">-->
-        <!--<a href="#"><span class="glyphicon glyphicon-eye-open navbar-custom"></span>-->
-        <!--</a>-->
-        <!--</p>-->
         <p class="navbar-text pull-right">
             <a href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>

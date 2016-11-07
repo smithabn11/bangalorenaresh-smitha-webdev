@@ -4,12 +4,13 @@ input.form-control {
 
 body {
     padding-top: 75px;
+    padding-bottom: 75px;
 }
 
 /*http://stackoverflow.com/questions/32322775/how-to-remove-a-list-item-border-in-bootstrap-list-group*/
-li.borderless { border: none; }
-
-
+li.borderless {
+    border: none;
+}
 
 .border-right-line {
     border-right: 1px solid #ccc;
@@ -43,7 +44,6 @@ hr.vertical-line {
 ul.list-group .glyphicon {
     color: #337ab7;
 }
-
 
 ul.list-group .list-group-item {
     text-decoration: none;
@@ -84,4 +84,8 @@ ul.list-group .list-group-item {
 
 div.navbar-text.pull-left {
     margin-left: 0;
+}
+
+.handlesort {
+    cursor: move;
 }

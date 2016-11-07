@@ -15,14 +15,15 @@
             var promise = UserService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
-                    if (user === '0') {
-                        vm.error = "No such user";
+                    if (user == '0') {
+                        vm.error = "No such username or password mismatch";
                     } else {
                         $location.url("/user/" + user._id);
                     }
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
                 })
         }
     }
@@ -45,8 +46,9 @@
 
                     }
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
                 });
         }
 
@@ -62,8 +64,9 @@
                 .success(function () {
                     $location.url('/login'); //need to wait as server may still be deleting hence need to wait
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
                 });
         }
     }
@@ -80,18 +83,31 @@
         init();
 
         function register(username, password, retype_password) {
-            var user = UserService.findUserByCredentials(username, password);
-            if (user == null) {
-                if (password.localeCompare(retype_password) != 0) {
-                    vm.error = "Password did not match";
-                } else {
-                    var newuser = {_id: (new Date()).getTime() + "", username: username, password: password};
-                    UserService.createUser(newuser);
-                    $location.url("/user/" + newuser._id);
-                }
-            } else {
-                vm.error = "User already present";
-            }
+            var promise = UserService.findUserByCredentials(username, password);
+            promise
+                .success(function (user) {
+                    if (user == '0') {
+                        if (password.localeCompare(retype_password) != 0) {
+                            vm.error = "Password did not match";
+                        } else {
+                            var newuser = {_id: (new Date()).getTime() + "", username: username, password: password};
+                            UserService.createUser(newuser)
+                                .success(function(user){
+                                    $location.url("/user/" + user._id);
+                                })
+                                .error(function(response){
+                                    vm.error = response;
+                                    console.log(response);
+                                });
+                        }
+                    } else {
+                        vm.error = "User already present";
+                    }
+                })
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
+                });
         }
     }
 

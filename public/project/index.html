@@ -2,16 +2,24 @@
 <html lang="en" ng-app="ShoppingAwesome">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
     <script src="./app.js"></script>
     <script src="./config.js"></script>
 
-    <script src="services/user.service.client.js"></script>
-    <script src="views/user/user.controller.client.js"></script>
+    <script src="services/shopper.service.client.js"></script>
+    <script src="services/search.service.client.js"></script>
+
+    <script src="views/shopper/shopper.controller.client.js"></script>
+    <script src="views/search/search.controller.client.js"></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/project-style.css">
+
     <title>Project Home Page</title>
+
+
 </head>
 <body>
     <div ng-view>

@@ -4,7 +4,7 @@
 module.exports = function (app) {
 
     var multer = require('multer'); // npm install multer --save
-    var upload = multer({ dest: __dirname+'/../public/assignment/uploads' });
+    var upload = multer({ dest:  __dirname+'/../../public/assignment/uploads' });
 
     var widgets =
         [
@@ -29,6 +29,7 @@ module.exports = function (app) {
     app.put("/api/user/:uid/website/:wid/page/:pid/widget/:wgid", updateWidget);
     app.delete("/api/user/:uid/website/:wid/page/:pid/widget/:wgid", deleteWidget);
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
+    app.put("/api/sort", sortWidget);
 
     function findWidgetsByPageId(req, res) {
         var pageId = req.params['pid'];
@@ -92,5 +93,13 @@ module.exports = function (app) {
         var destination   = myFile.destination;  // folder where file is saved to
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
+        res.send(myFile);
+    }
+
+    function sortWidget(req, res) {
+        var start = req.query.start;
+        var end = req.query.end;
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        res.send(200);
     }
 }
