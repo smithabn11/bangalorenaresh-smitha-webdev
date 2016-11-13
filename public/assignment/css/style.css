@@ -17,7 +17,7 @@ li.borderless {
 }
 
 /*http://stackoverflow.com/questions/3148415/how-to-make-a-vertical-line-in-html*/
-hr.vertical-line {
+.vertical-line {
     width: 0px;
     height: 100%;
 }

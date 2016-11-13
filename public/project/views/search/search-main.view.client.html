@@ -1,5 +1,19 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+
 <div class="container">
-    <div class="input-group">
+    <div id="main-search" class="input-group row">
         <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
                     <button ng-click="model.searchItem(model.searchText)" type="button"
@@ -8,30 +22,42 @@
       </span>
     </div><!-- /input-group -->
     <!--{{model.searchItemList}}-->
-    <ul class="list-group" ng-repeat="item in model.searchItemList">
-        <div class="row">
-            <div class="col-md-4 borderless"><a href="#">{{item.name}}</a></div>
-            <div class="col-md-2 borderless"><a href="#">{{item.salePrice}}</a></div>
-            <div class="col-md-2 borderless">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <div ng-repeat="thumbnail in item.imageEntities">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <img ng-src="{{thumbnail.thumbnailImage}}">
+    <ul class="list-group">
+        <div ng-repeat="item in model.searchItemList">
+            <div class="row well">
+                <div class="col-xs-2">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div ng-repeat="thumbnail in item.imageEntities">
+                                <div class="item">
+                                    <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                </div>
+
+                <div class="col-xs-8">
+                    <h4>{{item.name}}</h4>
+                    <h4><span>MSRP :</span>{{item.msrp}}</h4>
+                    <h4><span>Sale Price :</span>{{item.salePrice}}</h4>
+                    <p>{{item.shortDescription}}</p>
+                </div>
+                <div class="col-xs-2">
+                <span class="pull-right buttons">
+                    <button class="btn btn-sm btn-default"><span class="glyphicon glyphicon-eye"></span>Show</button>
+                    <button class="btn btn-sm btn-primary"><span
+                            class="glyphicon glyphicon-shopping-cart"></span> Buy</button>
+                </span>
                 </div>
             </div>
+        </div>
+        <div ng-if="model.reqPagination">
+            <ul class="pagination">
+                <li id="pagination-left" class="disabled"><a ng-click="model.prevPageItems()">&laquo;</a></li>
+                <li class="active"><a href="#">{{model.curPageIndex}}</a></li>
+                <li id="pagination-right"><a ng-click="model.nextPageItems()">&raquo;</a></li>
+            </ul>
         </div>
     </ul>
 </div>

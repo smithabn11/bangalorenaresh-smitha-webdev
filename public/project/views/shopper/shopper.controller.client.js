@@ -18,7 +18,7 @@
                     if (user === '0') {
                         vm.error = "No such shopper";
                     } else {
-                        $location.url("/shopper/" + user._id);
+                        $location.url("/shopper/" + user._id + "/search");
                     }
                 })
                 .error(function () {

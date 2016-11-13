@@ -11,10 +11,31 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 5%;
+    padding-top: 75px;
+    padding-bottom: 75px;
 }
 
-.main-body {
+.navbar {
+    background-color: forestgreen;
+}
 
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.navbar-default .glyphicon {
+    color: white;
+}
+
+/** text color of bootstrap */
+ul.list-group .glyphicon {
+    color: #337ab7;
 }
 
 .myimg {
@@ -91,3 +112,13 @@ body {
 .panel-heading {
     background-color: #f6f6f6 !important;
 }
+
+.carousel-inner > .item {
+    height: 150px;
+    position: relative;
+}
+
+#main-search {
+    padding-bottom: 10px;
+}
+
