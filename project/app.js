@@ -3,6 +3,7 @@
  */
 
 module.exports = function(app) {
-    require("./services/shopper.service.server.js")(app);
-    require("./services/search.service.server.js")(app);
+    var models = require("./models/models.server")();
+    require("./services/shopper.service.server.js")(app, models);
+    require("./services/search.service.server.js")(app, models);
 };

@@ -28,13 +28,8 @@
         }
 
         function findUserByUsername(username) {
-            for (var u in users) {
-                var user = users[u];
-                if (user.username === username) {
-                    return user;
-                }
-            }
-            return null;
+            var url = '/api/shopper?username=' + username;
+            return $http.get(url);
         }
 
         function findUserById(userId) {

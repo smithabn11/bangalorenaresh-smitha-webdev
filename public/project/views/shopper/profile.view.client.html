@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header pull-left">
@@ -15,29 +14,68 @@
 
 <div class="container">
     <form>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="alicewonderland@gmail.com">
-        </div>
-        <div class="form-group">
-            <label for="first-name">First Name</label>
-            <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="Alice">
-        </div>
-        <div class="form-group">
-            <label for="last-name">Last Name</label>
-            <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Wonderland">
+        <div class="row">
+            <div class="col-md-4 well">
+                <h3>Personal Information</h3><br>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input ng-model="model.user.username" type="text" class="form-control" id="username"
+                           placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input ng-model="model.user.email" type="email" class="form-control" id="email"
+                           placeholder="alicewonderland@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name"
+                           placeholder="Alice">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name"
+                           placeholder="Wonderland">
+                </div>
+            </div>
+
+
+            <div class="col-md-4 well">
+                <h3>Address</h3><br>
+                <div class="form-group">
+                    <label for="staddress">Street</label>
+                    <input ng-model="model.user.street" type="text" class="form-control" id="staddress"
+                           placeholder="757 Main St, Apt 2">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input ng-model="model.user.city" type="text" class="form-control" id="city"
+                           placeholder="Malden">
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input ng-model="model.user.state" type="text" class="form-control" id="state"
+                           placeholder="MA">
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Zipcode</label>
+                    <input ng-model="model.user.zipcode" type="text" class="form-control" id="zipcode"
+                           placeholder="02148">
+                </div>
+                <div class="form-group">
+                    <label for="phonenum">Phone</label>
+                    <input ng-model="model.user.phonenum" type="text" class="form-control" id="phonenum"
+                           placeholder="617-775-5687">
+                </div>
+            </div>
         </div>
     </form>
 
-    <a class="btn btn-primary btn-block"
+    <a class="btn btn-primary"
        href="#/shopper/{{model.user._id}}/search">Search</a>
-    <a class="btn btn-danger  btn-block"
+    <a class="btn btn-danger"
        href ng-click="model.unRegisterUser(model.user)">Delete</a>
-    <a class="btn btn-danger  btn-block"
+    <a class="btn btn-warning"
        href="#/login">Logout</a>
 </div>
 

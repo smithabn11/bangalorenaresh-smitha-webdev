@@ -45,15 +45,15 @@
 
 
         function createWebsite(sitename, description, userId) {
-            var website = {
-                _id: (new Date()).getTime() + "",
+            var newWebsite = {
+                // _id: (new Date()).getTime() + "",
                 "name": sitename,
                 "developerId": userId,
                 "description": description
             };
-            if (website != null) {
-                WebsiteService.createWebsite(userId, website)
-                    .success(function () {
+            if (newWebsite != null) {
+                WebsiteService.createWebsite(userId, newWebsite)
+                    .success(function (website) {
                         $location.url("/user/" + userId + "/website");
                     })
                     .error(function (response) {

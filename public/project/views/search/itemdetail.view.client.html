@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-chevron-left navbar-custom"></span>
+            </a>
+        </p>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <div id="thisItem" class="carousel slide" data-ride="carousel">
+                <div class="row carousel-inner">
+                    <div class="item" ng-class="{active:!$index}" ng-repeat="lrgImg in model.item.imageEntities">
+                        <img ng-src="{{lrgImg.largeImage}}" class="img-responsive"/>
+                    </div>
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-target="#thisItem" data-slide-to="{{imgIndex}}"
+                        ng-class="{active:!imgIndex}" ng-repeat="lrgImg in model.item.imageEntities"
+                        ng-init="imgIndex = $index"></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="row">
+                <h4>{{model.item.name}}</h4>
+                <h4><span>MSRP :</span>{{model.item.msrp}}</h4>
+                <h4><span>Sale Price :</span>{{model.item.salePrice}}</h4>
+                <div ng-if="model.item.longDescription"><p class="text-left">{{model.item.longDescription}}</p></div>
+            </div>
+            <div class="row pull-right">
+                <span class="pull-right buttons">
+                    <button class="btn btn-sm btn-default"><span class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
+                    <button class="btn btn-sm btn-primary"><span
+                            class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

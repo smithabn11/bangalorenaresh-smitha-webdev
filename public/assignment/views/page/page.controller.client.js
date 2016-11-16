@@ -44,14 +44,14 @@
 
         function createPage(websiteId, pageName, pageTitle, userId) {
             var newpage = {
-                _id: (new Date()).getTime() + "",
+                // _id: (new Date()).getTime() + "",
                 "name": pageName,
                 "websiteId": websiteId,
                 "title": pageTitle
             };
             if (newpage != null) {
                 PageService.createPage(userId, websiteId, newpage)
-                    .success(function () {
+                    .success(function (page) {
                         $location.url("/user/" + userId + "/website/" + websiteId + "/page");
                     })
                     .error(function (response) {

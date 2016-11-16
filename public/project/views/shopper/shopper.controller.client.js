@@ -40,10 +40,7 @@
             var promise = ShopperService.findUserById(userId);
             promise
                 .success(function (user) {
-                    if (user != '0') {
-                        vm.user = user;
-
-                    }
+                    vm.user = user;
                 })
                 .error(function () {
 
@@ -80,18 +77,28 @@
         init();
 
         function register(username, password, retype_password) {
-            var user = ShopperService.findUserByCredentials(username, password);
-            if (user == null) {
-                if (password.localeCompare(retype_password) != 0) {
-                    vm.error = "Password did not match";
-                } else {
-                    var newuser = {_id: (new Date()).getTime() + "", username: username, password: password};
-                    UserService.createUser(newuser);
-                    $location.url("/shopper/" + newuser._id);
-                }
-            } else {
-                vm.error = "User already present";
-            }
+            ShopperService.findUserByUsername(username)
+                .success(function (user) {
+                    if (user == null) {
+                        if (password.localeCompare(retype_password) != 0) {
+                            vm.error = "Password did not match";
+                        } else {
+                            var newuser = {username: username, password: password};
+                            ShopperService.createUser(newuser)
+                                .success(function (user) {
+                                    $location.url("/shopper/" + user._id);
+                                })
+                                .error(function (err) {
+                                    vm.error = err;
+                                });
+                        }
+                    } else {
+                        vm.error = "User already present";
+                    }
+                })
+                .error(function (err) {
+                    vm.error = err;
+                });
         }
     }
 

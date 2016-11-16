@@ -67,14 +67,12 @@ ul.list-group .list-group-item {
     z-index: 1;
 }
 
-.format-youtube {
+.youtube-widget {
     position: relative;
-    padding-bottom: 60%;
+    padding-bottom: 56.25%; /* 16:9 */
     height: 0;
-    z-index: 0;
 }
-
-.format-youtube iframe {
+.youtube-widget iframe {
     position: absolute;
     top: 0;
     left: 0;

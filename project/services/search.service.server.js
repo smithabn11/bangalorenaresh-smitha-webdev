@@ -1,7 +1,7 @@
 /**
  * Created by smitha on 11/4/16.
  */
-module.exports = function (app) {
+module.exports = function (app, models) {
 
     app.get('/api/search', searchItem);
 

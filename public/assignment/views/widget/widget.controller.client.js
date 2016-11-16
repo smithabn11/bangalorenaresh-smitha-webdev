@@ -72,14 +72,13 @@
 
         function createWidget(widgetType) {
             var newWidget = {
-                _id: (new Date()).getTime() + "",
-                widgetType: widgetType,
-                pageId: vm.pageId
+                // _id: (new Date()).getTime() + "",
+                widgetType: widgetType
             };
             WidgetService.createWidget(vm.userId, vm.websiteId, vm.pageId, newWidget)
-                .success(function () {
+                .success(function (widget) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" +
-                        vm.pageId + "/widget/" + newWidget._id);
+                        vm.pageId + "/widget/" + widget._id);
                 })
                 .error(function (response) {
                     vm.error = response;

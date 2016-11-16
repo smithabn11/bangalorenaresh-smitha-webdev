@@ -23,15 +23,21 @@
     </div><!-- /input-group -->
     <!--{{model.searchItemList}}-->
     <ul class="list-group">
-        <div ng-repeat="item in model.searchItemList">
+        <div ng-repeat="item in model.searchItemList" ng-init="parentItemIndex = $index">
             <div class="row well">
                 <div class="col-xs-2">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div id="{{ 'item-' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="{{ '#item-' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
+                                ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
+                                ng-init="imgIndex = $index"></li>
+                        </ol>
+
+
                         <div class="carousel-inner">
-                            <div ng-repeat="thumbnail in item.imageEntities">
-                                <div class="item">
-                                    <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive">
-                                </div>
+                            <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
+                                <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
                             </div>
                         </div>
                     </div>
@@ -45,9 +51,10 @@
                 </div>
                 <div class="col-xs-2">
                 <span class="pull-right buttons">
-                    <button class="btn btn-sm btn-default"><span class="glyphicon glyphicon-eye"></span>Show</button>
-                    <button class="btn btn-sm btn-primary"><span
-                            class="glyphicon glyphicon-shopping-cart"></span> Buy</button>
+                    <a href="#/shopper/{{model.userId}}/search/{{item.itemId}}" class="btn btn-sm btn-default"><span
+                            class="show-btn glyphicon glyphicon-eye-open"></span> Show</a>
+                    <a class="btn btn-sm btn-primary"><span
+                            class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</a>
                 </span>
                 </div>
             </div>

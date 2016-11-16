@@ -33,10 +33,7 @@ body {
     color: white;
 }
 
-/** text color of bootstrap */
-ul.list-group .glyphicon {
-    color: #337ab7;
-}
+
 
 .myimg {
     display: block;
@@ -114,7 +111,6 @@ ul.list-group .glyphicon {
 }
 
 .carousel-inner > .item {
-    height: 150px;
     position: relative;
 }
 
@@ -122,3 +118,27 @@ ul.list-group .glyphicon {
     padding-bottom: 10px;
 }
 
+.carousel-indicators {
+    position: relative;
+    left : 0px;
+    padding-top: 10%;
+}
+.carousel-indicators li {
+    background-color: #337ab7;
+    border: #337ab7;
+    text-align: center;
+}
+
+.carousel-indicators .active {
+    background-color: darkgreen;
+    border: #337ab7;
+    text-align: center;
+}
+
+.buy-btn {
+    color: white;
+}
+
+.show-btn {
+    color: #337ab7;
+}

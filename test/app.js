@@ -4,7 +4,7 @@ module.exports = function(app)
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
 
-    var connectionString = 'mongodb://127.0.0.1:27017/test';
+    var connectionString = 'mongodb://localhost/test';
 
     if(process.env.MONGO_LAB_PASSWORD) {
         connectionString = process.env.MONGO_LAB_USER + ":" +

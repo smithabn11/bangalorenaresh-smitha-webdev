@@ -27,6 +27,16 @@
                 controller: 'SearchMainController',
                 controllerAs: "model"
             })
+            .when('/shopper/:uid/search/:itemid', {
+                templateUrl: 'views/search/itemdetail.view.client.html',
+                controller: 'ItemDetailController',
+                controllerAs: "model"
+            })
+            .when('/admin', {
+                templateUrl: 'views/admin/adminlogin.view.client.html',
+                controller: 'AdminLoginController',
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: '/login'
             });

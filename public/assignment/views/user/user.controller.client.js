@@ -41,10 +41,7 @@
             var promise = UserService.findUserById(userId);
             promise
                 .success(function (user) {
-                    if (user != '0') {
-                        vm.user = user;
-
-                    }
+                    vm.user = user;
                 })
                 .error(function (response) {
                     vm.error = response;
@@ -83,19 +80,22 @@
         init();
 
         function register(username, password, retype_password) {
-            var promise = UserService.findUserByCredentials(username, password);
+            var promise = UserService.findUserByUsername(username);
             promise
                 .success(function (user) {
-                    if (user == '0') {
+                    if (user == null) {
                         if (password.localeCompare(retype_password) != 0) {
                             vm.error = "Password did not match";
                         } else {
-                            var newuser = {_id: (new Date()).getTime() + "", username: username, password: password};
+                            var newuser = {
+                                // _id: (new Date()).getTime() + "",
+                                username: username, password: password
+                            };
                             UserService.createUser(newuser)
-                                .success(function(user){
+                                .success(function (user) {
                                     $location.url("/user/" + user._id);
                                 })
-                                .error(function(response){
+                                .error(function (response) {
                                     vm.error = response;
                                     console.log(response);
                                 });
