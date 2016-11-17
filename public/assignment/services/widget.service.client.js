@@ -19,11 +19,12 @@
 
         return api;
 
-        function sort(start, end) {
-            var url = "/api/sort?start=START&end=END";
-            url = url.replace("START", start)
+        function sort(userId, websiteId, pageId, start, end) {
+            var url = "/api/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget";
+            var queryurl = "?start=START&end=END";
+            queryurl = queryurl.replace("START", start)
                 .replace("END", end);
-            $http.put(url);
+            $http.put(url + queryurl);
         }
 
         function createWidget(userId, websiteId, pageId, widget) {

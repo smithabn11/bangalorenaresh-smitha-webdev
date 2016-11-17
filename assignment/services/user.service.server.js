@@ -64,9 +64,7 @@ module.exports = function (app, models) {
         userModel.findUserByUsername(username)
             .then(
                 function (user) {
-                    if (user != null) {
-                        res.json(user);
-                    }
+                    res.json(user);
                 },
                 function (error) {
                     res.sendStatus(400);
@@ -77,13 +75,6 @@ module.exports = function (app, models) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        // for (var u in users) {
-        //     if (users[u].username === username && users[u].password === password) {
-        //         res.send(users[u]);
-        //         return;
-        //     }
-        // }
-        // res.send('0');
 
         userModel.findUserByCredentials(username, password)
             .then(
@@ -98,13 +89,6 @@ module.exports = function (app, models) {
 
     function findUserById(req, res) {
         var userId = req.params.uid;
-        // for (var u in users) {
-        //     if (users[u]._id == userId) {
-        //         res.send(users[u]);
-        //         return;
-        //     }
-        // }
-        // res.send('0');
 
         userModel.findUserById(userId)
             .then(

@@ -15,10 +15,10 @@
             var promise = UserService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
-                    if (user == '0') {
-                        vm.error = "No such username or password mismatch";
-                    } else {
+                    if(user && user._id) {
                         $location.url("/user/" + user._id);
+                    } else {
+                        vm.error = "No such username or password mismatch";
                     }
                 })
                 .error(function (response) {

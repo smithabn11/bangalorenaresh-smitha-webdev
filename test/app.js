@@ -3,17 +3,16 @@ module.exports = function(app)
     app.get("/api/test", findAllMessages);
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
-
-    var connectionString = 'mongodb://localhost/test';
-
-    if(process.env.MONGO_LAB_PASSWORD) {
-        connectionString = process.env.MONGO_LAB_USER + ":" +
-            process.env.MONGO_LAB_PASSWORD + "@" +
-            "ds033126.mlab.com:33126" + "/" + process.env.MONGO_LAB_APPNAME
-    }
-
     var mongoose = require("mongoose");
-    mongoose.connect(connectionString);
+
+    // var connectionString = 'mongodb://localhost/test';
+    //
+    // if(process.env.MONGO_LAB_PASSWORD) {
+    //     connectionString = process.env.MONGO_LAB_USER + ":" +
+    //         process.env.MONGO_LAB_PASSWORD + "@" +
+    //         "ds033126.mlab.com:33126" + "/" + process.env.MONGO_LAB_APPNAME
+    // }
+    // mongoose.connect(connectionString);
 
     var TestSchema = mongoose.Schema({
         message: String

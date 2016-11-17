@@ -5,7 +5,7 @@
                     class="glyphicon glyphicon-chevron-left"></span></a>
         </p>
         <div class="navbar-header pull-left">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 Widgets
             </a>
         </div>
@@ -44,7 +44,7 @@
             <div ng-switch-when="INPUT">
                 <div ng-if="widget.formatted" text-angular ta-toolbar="..."></div>
                 <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
-                       placeholder="{{widget.textInput.placeholder}}" class="form-control"/>
+                       placeholder="{{widget.placeholder}}" class="form-control"/>
                 <textarea ng-if="!widget.formatted && (widget.rows > 1)"
                           rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
                           class="form-control">{{widget.text}}</textarea>

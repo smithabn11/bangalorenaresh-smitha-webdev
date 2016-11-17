@@ -31,12 +31,16 @@
         }
     }
 
-    function sortableController(WidgetService) {
+    function sortableController($routeParams, WidgetService) {
         var vm = this;
+        var userId = $routeParams['uid'];
+        var websiteId = $routeParams['wid'];
+        var pageId = $routeParams['pid'];
+
         vm.sort = sort;
 
         function sort(start, end) {
-            WidgetService.sort(start, end);
+            WidgetService.sort(userId, websiteId, pageId, start, end);
         }
     }
 

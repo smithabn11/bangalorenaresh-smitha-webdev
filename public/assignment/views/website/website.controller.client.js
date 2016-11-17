@@ -54,7 +54,11 @@
             if (newWebsite != null) {
                 WebsiteService.createWebsite(userId, newWebsite)
                     .success(function (website) {
-                        $location.url("/user/" + userId + "/website");
+                        if (website && website._id) {
+                            $location.url("/user/" + userId + "/website");
+                        } else {
+                            vm.error = "Could not create Website";
+                        }
                     })
                     .error(function (response) {
                         vm.error = response;
@@ -83,7 +87,7 @@
 
             var promise2 = WebsiteService.findWebsitesByUser(userId);
             promise2.success(function (websites) {
-                if (websites != '0') {
+                if (websites != null) {
                     vm.websites = websites;
                 }
             }).error(function (response) {

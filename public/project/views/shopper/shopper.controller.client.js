@@ -15,14 +15,14 @@
             var promise = ShopperService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
-                    if (user === '0') {
-                        vm.error = "No such shopper";
-                    } else {
+                    if (user && user._id) {
                         $location.url("/shopper/" + user._id + "/search");
+                    } else {
+                        vm.error = "Username or password mismatch";
                     }
                 })
-                .error(function () {
-
+                .error(function (response) {
+                    vm.error = response;
                 })
         }
     }

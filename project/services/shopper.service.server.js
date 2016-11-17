@@ -76,7 +76,7 @@ module.exports = function (app, models) {
                     res.json(user);
                 },
                 function (error) {
-                    res.send('0');
+                    res.sendStatus(400);
                 }
             );
     }
