@@ -3,20 +3,20 @@ var app = express();
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
-app.use(function(req, res, next) {
+app.all('/*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
 // require ("./test/app.js")(app);
-require ("./assignment/app.js")(app);
-require ("./project/app.js")(app);
+require("./assignment/app.js")(app);
+require("./project/app.js")(app);
 
 // var path = require('path');
 // var http = require("http");
@@ -26,8 +26,7 @@ require ("./project/app.js")(app);
 // var cors = require("cors");
 
 
-
-var port      = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 app.listen(port);
 

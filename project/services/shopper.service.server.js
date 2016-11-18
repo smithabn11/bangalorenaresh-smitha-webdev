@@ -9,6 +9,7 @@ module.exports = function (app, models) {
     app.put('/api/shopper/:uid', updateShopper);
     app.delete('/api/shopper/:uid', deleteShopper);
 
+
     var shopperModel = models.shopperModel;
 
     function createShopper(req, res) {

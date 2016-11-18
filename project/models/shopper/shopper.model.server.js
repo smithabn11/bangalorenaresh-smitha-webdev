@@ -12,7 +12,8 @@ module.exports = function () {
         findShopperByUsername: findShopperByUsername,
         findShopperByCredentials: findShopperByCredentials,
         updateShopper: updateShopper,
-        deleteShopper: deleteShopper
+        deleteShopper: deleteShopper,
+        addItemtoWishlist : addItemtoWishlist
     }
 
     return api;
@@ -40,5 +41,9 @@ module.exports = function () {
 
     function deleteShopper(userId) {
         return ShopperModel.remove({_id: userId});
+    }
+
+    function addItemtoWishlist(userId, itemId) {
+        return ShopperModel.update({_id : userId} , {$push: {'wishlist' : itemId}});
     }
 }

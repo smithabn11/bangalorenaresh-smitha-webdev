@@ -13,7 +13,8 @@ module.exports = function() {
         city: String,
         state: String,
         zipcode: Number,
-        phone: String
+        phone: String,
+        wishlist: [{type: Number}]
     });
     return ShopperSchema;
 }
