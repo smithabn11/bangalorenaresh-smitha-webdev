@@ -56,12 +56,12 @@ module.exports = function (mongoose) {
                 if (start < end) {
                     for (index = 0; index < widgets.length; index++) {
                         if (index == start) {
-                            prevDisplayOrder = widget[index].displayOrder;
+                            prevDisplayOrder = widgets[index].displayOrder;
                         } else if (index > start && index <= end) {
-                            var curDisplayOrder = widget[index].displayOrder;
-                            widget[index].displayOrder = prevDisplayOrder;
+                            var curDisplayOrder = widgets[index].displayOrder;
+                            widgets[index].displayOrder = prevDisplayOrder;
                             prevDisplayOrder = curDisplayOrder;
-                            if (idx == end) {
+                            if (index == end) {
                                 widgets[start].displayOrder = prevDisplayOrder;
                                 widgets[start].save();
                             }
@@ -71,12 +71,12 @@ module.exports = function (mongoose) {
                 } else {
                     for (index = widgets.length - 1; index >= 0; index--) {
                         if (index == start) {
-                            prevDisplayOrder = widget[index].displayOrder;
+                            prevDisplayOrder = widgets[index].displayOrder;
                         } else if (index < start && index >= end) {
-                            var curDisplayOrder = widget[index].displayOrder;
-                            widget[index].displayOrder = prevDisplayOrder;
+                            var curDisplayOrder = widgets[index].displayOrder;
+                            widgets[index].displayOrder = prevDisplayOrder;
                             prevDisplayOrder = curDisplayOrder;
-                            if (idx == end) {
+                            if (index == end) {
                                 widgets[start].displayOrder = prevDisplayOrder;
                                 widgets[start].save();
                             }

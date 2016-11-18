@@ -19,7 +19,7 @@
 <div class="container-fluid">
 
     <div class="sortable">
-        <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets | orderBy : 'displayOrder'">
             <div class="format-widget">
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                     <span class="glyphicon glyphicon-cog"></span>
