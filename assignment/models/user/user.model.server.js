@@ -12,10 +12,13 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findUserByGoogleId: findUserByGoogleId,
+        findUserByFacebookId: findUserByFacebookId
     }
 
     return api;
+
 
     function createUser(user) {
         return UserModel.create(user);
@@ -26,19 +29,27 @@ module.exports = function () {
     }
 
     function findUserByUsername(username) {
-        return UserModel.findOne({username : username});
+        return UserModel.findOne({username: username});
     }
 
     function findUserByCredentials(username, password) {
-        return UserModel.findOne({username : username, password : password});
+        return UserModel.findOne({username: username, password: password});
     }
 
     function updateUser(userId, user) {
         delete user._id;
-        return UserModel.update({_id : userId} , {$set : user});
+        return UserModel.update({_id: userId}, {$set: user});
     }
 
     function deleteUser(userId) {
         return UserModel.remove({_id: userId});
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByGoogleId(googleId) {
+        return UserModel.findOne({'google.id': googleId});
     }
 }

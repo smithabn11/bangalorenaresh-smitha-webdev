@@ -40,6 +40,10 @@
                 });
         }
 
+        function searchItemList(items) {
+            console.log(items);
+        }
+
         function prevPageItems() {
             if (vm.totalResults >= (vm.curPageIndex * numOfItemsPerRequest) &&
                 (vm.curPageIndex - 1) != 0) {

@@ -11,12 +11,41 @@
             "createUser": createUser,
             "findUserById": findUserById,
             "findUserByCredentials": findUserByCredentials,
-            "findUserByUsername" : findUserByUsername,
+            "findUserByUsername": findUserByUsername,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "login": login,
+            "checkLogin": checkLogin,
+            "logout": logout,
+            "findCurrentUser": findCurrentUser,
+            "checkAdmin": checkAdmin
         };
 
         return api;
+
+        function login(username, password) {
+            var user = {
+                username: username,
+                password: password
+            };
+            return $http.post("/api/login", user);
+        }
+
+        function checkLogin() {
+            return $http.post("/api/checkLogin");
+        }
+
+        function checkAdmin() {
+            return $http.post("/api/checkAdmin");
+        }
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
+        function findCurrentUser() {
+            return $http.get("/api/user");
+        }
 
         function createUser(user) {
             return $http.post("/api/user", user);

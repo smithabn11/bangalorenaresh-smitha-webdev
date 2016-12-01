@@ -12,7 +12,7 @@
     function SearchService($http) {
         var api = {
             "searchItem": searchItem,
-            "itemDetail" : itemDetail
+            "itemDetail": itemDetail
         };
 
         return api;
@@ -23,13 +23,14 @@
             var url = thirdPartUrl + "search?query=" + searchText +
                 "&format=json&apiKey=" + apiKey +
                 "&numItems=" + maxItemsInOneFetch +
-                "&start=" + startPageIndex;
-            return $http.get(url);
+                "&start=" + startPageIndex + "&format=json&callback=JSON_CALLBACK";
+            console.log(url);
+            return $http.jsonp(url);
         }
 
         function itemDetail(itemId) {
-            var url = thirdPartUrl + "items/" + itemId + "?format=json&apiKey=" + apiKey;
-            return $http.get(url);
+            var url = thirdPartUrl + "items/" + itemId + "?apiKey=" + apiKey + "&format=json&callback=JSON_CALLBACK";
+            return $http.jsonp(url);
         }
     }
-})();
+})()

@@ -12,10 +12,11 @@
         vm.login = login;
 
         function login(username, password) {
-            var promise = UserService.findUserByCredentials(username, password);
+            //var promise = UserService.findUserByCredentials(username, password);
+            var promise = UserService.login(username, password);
             promise
                 .success(function (user) {
-                    if(user && user._id) {
+                    if (user && user._id) {
                         $location.url("/user/" + user._id);
                     } else {
                         vm.error = "No such username or password mismatch";
@@ -31,14 +32,16 @@
     function ProfileController($routeParams, $location, $http, UserService) {
         var vm = this;
 
-        var userId = $routeParams.uid;
+        //var userId = $routeParams.uid;
 
         function init() {
-            vm.userId = userId;
+            //vm.userId = userId;
             vm.updateProfile = updateProfile;
             vm.unRegisterUser = unRegisterUser;
+            vm.logout = logout;
 
-            var promise = UserService.findUserById(userId);
+            //var promise = UserService.findUserById(userId);
+            var promise = UserService.findCurrentUser();
             promise
                 .success(function (user) {
                     vm.user = user;
@@ -65,6 +68,19 @@
                     vm.error = response;
                     console.log(response);
                 });
+        }
+
+        function logout() {
+            UserService.logout()
+                .success(function () {
+                    vm.user = null;
+                    $location.url("/login");
+                })
+                .error(function (response) {
+                    vm.error = response;
+                    console.log(response);
+                });
+
         }
     }
 

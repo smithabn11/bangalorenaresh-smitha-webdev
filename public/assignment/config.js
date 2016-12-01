@@ -7,6 +7,12 @@
 
     function Config($routeProvider) {
         $routeProvider
+            .when('/admin', {
+                templateUrl: 'views/admin/userlist.view.client.html',
+                resolve: {
+                    checkAdmin: checkAdmin
+                }
+            })
             .when('/login', {
                 templateUrl: 'views/user/login.view.client.html',
                 controller: 'LoginController',
@@ -17,10 +23,21 @@
                 controller: 'RegisterController',
                 controllerAs: "model"
             })
+            .when('/user', {
+                templateUrl: 'views/user/profile.view.client.html',
+                controller: 'ProfileController',
+                controllerAs: "model",
+                resolve: {
+                    checkLogin: checkLogin
+                }
+            })
             .when('/user/:uid', {
                 templateUrl: 'views/user/profile.view.client.html',
                 controller: 'ProfileController',
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLogin: checkLogin
+                }
             })
             .when('/user/:uid/website', {
                 templateUrl: 'views/website/website-list.view.client.html',
@@ -70,6 +87,35 @@
             .otherwise({
                 redirectTo: '/login'
             });
+
+        function checkLogin($q, UserService) {
+            var deferred = $q.defer();
+            UserService.checkLogin()
+                .success(function (user) {
+                    if (user != '0') {
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                    }
+                });
+            return deferred.promise;
+
+        }
+
+
+        function checkAdmin($q, UserService) {
+            var deferred = $q.defer();
+            UserService.checkAdmin()
+                .success(function (user) {
+                    if (user != '0') {
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                    }
+                });
+            return deferred.promise;
+
+        }
     }
 })();
 
