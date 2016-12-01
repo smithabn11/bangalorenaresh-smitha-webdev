@@ -9,6 +9,7 @@
 
         var api = {
             "createUser": createUser,
+            "register": register,
             "findUserById": findUserById,
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
@@ -45,6 +46,10 @@
 
         function findCurrentUser() {
             return $http.get("/api/user");
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
         }
 
         function createUser(user) {

@@ -72,34 +72,65 @@
         function init() {
             vm.userId = userId;
             vm.register = register;
+            removeErrorClasses();
         }
 
         init();
 
         function register(username, password, retype_password) {
-            ShopperService.findUserByUsername(username)
-                .success(function (user) {
-                    if (user == null) {
-                        if (password.localeCompare(retype_password) != 0) {
-                            vm.error = "Password did not match";
-                        } else {
-                            var newuser = {username: username, password: password};
-                            ShopperService.createUser(newuser)
-                                .success(function (user) {
-                                    $location.url("/shopper/" + user._id);
-                                })
-                                .error(function (err) {
-                                    vm.error = err;
-                                });
-                        }
-                    } else {
-                        vm.error = "User already present";
-                    }
-                })
-                .error(function (err) {
-                    vm.error = err;
-                });
-        }
-    }
+            removeErrorClasses();
 
+            if (username == null || password == null || retype_password == null) {
+                if (username == null) {
+                    vm.error = "username cannot be empty";
+                    $('#username').addClass('has-error');
+                    $('#username').removeClass('has-success');
+                }
+                else if (password == null) {
+                    vm.error = "password cannot be empty";
+                    $('#password').addClass('has-error');
+                    $('#password').removeClass('has-success');
+                }
+                else if (retype_password == null) {
+                    vm.error = "verify password cannot be empty";
+                    $('#retype_password').addClass('has-error');
+                    $('#retype_password').removeClass('has-success');
+                }
+            }
+            else {
+                ShopperService.findUserByUsername(username)
+                    .success(function (user) {
+                        if (user == null) {
+                            if (password.localeCompare(retype_password) != 0) {
+                                vm.error = "Password did not match";
+                            } else {
+                                var newuser = {username: username, password: password};
+                                ShopperService.createUser(newuser)
+                                    .success(function (user) {
+                                        $location.url("/shopper/" + user._id);
+                                    })
+                                    .error(function (err) {
+                                        vm.error = err;
+                                    });
+                            }
+                        } else {
+                            vm.error = "User already present";
+                        }
+                    })
+                    .error(function (err) {
+                        vm.error = err;
+                    });
+            }
+        }
+
+        function removeErrorClasses() {
+            $('#username').removeClass('has-error');
+            $('#username').removeClass('has-success')
+            $('#password').removeClass('has-error');
+            $('#password').removeClass('has-success');
+            $('#retype_password').removeClass('has-error');
+            $('#retype_password').removeClass('has-success');
+        }
+
+    }
 })();

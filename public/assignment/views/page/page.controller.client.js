@@ -43,21 +43,27 @@
         vm.createPage = createPage;
 
         function createPage(websiteId, pageName, pageTitle, userId) {
-            var newpage = {
-                // _id: (new Date()).getTime() + "",
-                "name": pageName,
-                "websiteId": websiteId,
-                "title": pageTitle
-            };
-            if (newpage != null) {
-                PageService.createPage(userId, websiteId, newpage)
-                    .success(function (page) {
-                        $location.url("/user/" + userId + "/website/" + websiteId + "/page");
-                    })
-                    .error(function (response) {
-                        vm.error = response;
-                        console.log(response);
-                    });
+            if (pageName == null) {
+                $('#pagename').addClass('has-error');
+                $('#pagename').removeClass('has-success');
+                vm.error = "Page Name cannot be empty"
+            } else {
+                var newpage = {
+                    // _id: (new Date()).getTime() + "",
+                    "name": pageName,
+                    "websiteId": websiteId,
+                    "title": pageTitle
+                };
+                if (newpage != null) {
+                    PageService.createPage(userId, websiteId, newpage)
+                        .success(function (page) {
+                            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                        })
+                        .error(function (response) {
+                            vm.error = response;
+                            console.log(response);
+                        });
+                }
             }
         }
     }
@@ -84,7 +90,6 @@
                 })
                 .error(function (response) {
                     vm.error = response;
-                    console.log(response);
                 });
         }
 
@@ -92,16 +97,23 @@
 
         function updatePage(page) {
             if (page != null) {
-                PageService.updatePage(vm.userId, vm.websiteId, page._id, page)
-                    .success(function () {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                    })
-                    .error(function () {
-                        vm.error = response;
-                        console.log(response);
-                    });
-            }
+                if (page.name == null || page.name == "") {
+                    $('#pagename').addClass('has-error');
+                    $('#pagename').removeClass('has-success');
+                    vm.error = "Page Name cannot be empty"
+                } else {
+                    vm.error = "";
+                    $('#pagename').removeClass('has-error');
 
+                    PageService.updatePage(vm.userId, vm.websiteId, page._id, page)
+                        .success(function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        })
+                        .error(function () {
+                            vm.error = response;
+                        });
+                }
+            }
         }
 
         function deletePage(pageId) {
@@ -112,7 +124,6 @@
                     })
                     .error(function (response) {
                         vm.error = response;
-                        console.log(response);
                     });
             }
         }

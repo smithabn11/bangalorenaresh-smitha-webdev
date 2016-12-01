@@ -29,6 +29,7 @@
         var vm = this;
         var userId = $routeParams['uid'];
 
+
         var promise = WebsiteService.findWebsitesByUser(userId);
         promise
             .success(function (websites) {
@@ -45,25 +46,33 @@
 
 
         function createWebsite(sitename, description, userId) {
-            var newWebsite = {
-                // _id: (new Date()).getTime() + "",
-                "name": sitename,
-                "developerId": userId,
-                "description": description
-            };
-            if (newWebsite != null) {
-                WebsiteService.createWebsite(userId, newWebsite)
-                    .success(function (website) {
-                        if (website && website._id) {
-                            $location.url("/user/" + userId + "/website");
-                        } else {
-                            vm.error = "Could not create Website";
-                        }
-                    })
-                    .error(function (response) {
-                        vm.error = response;
-                        console.log(response);
-                    });
+
+            if (sitename == null) {
+                $('#websitename').addClass('has-error');
+                vm.error = "Website Name cannot be empty"
+            } else {
+                vm.error = "";
+                $('#websitename').removeClass('has-error');
+
+                var newWebsite = {
+                    // _id: (new Date()).getTime() + "",
+                    "name": sitename,
+                    "developerId": userId,
+                    "description": description
+                };
+                if (newWebsite != null) {
+                    WebsiteService.createWebsite(userId, newWebsite)
+                        .success(function (website) {
+                            if (website && website._id) {
+                                $location.url("/user/" + userId + "/website");
+                            } else {
+                                vm.error = "Could not create Website";
+                            }
+                        })
+                        .error(function (response) {
+                            vm.error = response;
+                        });
+                }
             }
         }
     }
@@ -104,14 +113,21 @@
 
         function updateWebsite(website) {
             if (website != null) {
-                WebsiteService.updateWebsite(vm.userId, website)
-                    .success(function () {
-                        $location.url("/user/" + vm.userId + "/website");
-                    })
-                    .error(function (response) {
-                        vm.error = response;
-                        console.log(response);
-                    });
+                if (website.name == null || website.name == "") {
+                    $('#websitename').addClass('has-error');
+                    vm.error = "Website Name cannot be empty"
+                } else {
+                    vm.error = "";
+                    $('#websitename').removeClass('has-error');
+
+                    WebsiteService.updateWebsite(vm.userId, website)
+                        .success(function () {
+                            $location.url("/user/" + vm.userId + "/website");
+                        })
+                        .error(function (response) {
+                            vm.error = response;
+                        });
+                }
             }
         }
 

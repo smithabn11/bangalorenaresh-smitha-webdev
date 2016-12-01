@@ -16,8 +16,11 @@
 </nav>
 
 <div class="container-fluid">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <form>
-        <div class="form-group">
+        <div class="form-group" id="pagename">
             <label for="name">Name</label>
             <input ng-model="model.name" type="text" class="form-control" id="name" placeholder="Page name">
         </div>
