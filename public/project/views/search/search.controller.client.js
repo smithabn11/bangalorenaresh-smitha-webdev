@@ -5,7 +5,7 @@
     angular.module('ShoppingAwesome')
         .controller('SearchMainController', SearchMainController)
 
-    function SearchMainController($routeParams, $location, $http, SearchService) {
+    function SearchMainController($routeParams, $location, $http, $rootScope, SearchService) {
         var vm = this;
         var userId = $routeParams['uid'];
         var numOfItemsPerRequest = 25;
@@ -16,32 +16,33 @@
             vm.prevPageItems = prevPageItems;
             vm.nextPageItems = nextPageItems;
             vm.searchItem = searchItem;
+
+            if (vm.searchText == null && $rootScope.searchText) {
+                searchItem($rootScope.searchText);
+            }
         }
 
         init();
 
         function searchItem(searchText) {
-            console.log(searchText);
             vm.searchText = searchText;
+
             var promise = SearchService.searchItem(searchText, 1);
             promise
                 .success(function (result) {
                     if (result != null) {
+                        $rootScope.searchText = searchText;
+
                         vm.searchItemList = result.items;
                         if (result.totalResults > numOfItemsPerRequest) {
                             vm.reqPagination = true;
                             vm.totalResults = result.totalResults;
                         }
                     }
-                    console.log(vm.reqPagination);
                 })
                 .error(function (response) {
                     vm.error = response;
                 });
-        }
-
-        function searchItemList(items) {
-            console.log(items);
         }
 
         function prevPageItems() {
@@ -86,8 +87,5 @@
                 $('#pagination-right').addClass('disabled');
             }
         }
-
-
-
     }
 })();

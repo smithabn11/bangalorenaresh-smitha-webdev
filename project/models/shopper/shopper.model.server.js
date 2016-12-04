@@ -13,7 +13,10 @@ module.exports = function () {
         findShopperByCredentials: findShopperByCredentials,
         updateShopper: updateShopper,
         deleteShopper: deleteShopper,
-        addItemtoWishlist : addItemtoWishlist
+        findShopperByGoogleId: findShopperByGoogleId,
+        findShopperByFacebookId: findShopperByFacebookId,
+        addItemWishlist: addItemWishlist,
+        deleteItemWishlist: deleteItemWishlist
     }
 
     return api;
@@ -27,23 +30,38 @@ module.exports = function () {
     }
 
     function findShopperByUsername(username) {
-        return ShopperModel.findOne({username : username});
+        return ShopperModel.findOne({username: username});
     }
 
     function findShopperByCredentials(username, password) {
-        return ShopperModel.findOne({username : username, password : password});
+        return ShopperModel.findOne({username: username, password: password});
     }
 
     function updateShopper(userId, user) {
         delete user._id;
-        return ShopperModel.update({_id : userId} , {$set : user});
+        return ShopperModel.update({_id: userId}, {$set: user});
     }
 
     function deleteShopper(userId) {
         return ShopperModel.remove({_id: userId});
     }
 
-    function addItemtoWishlist(userId, itemId) {
-        return ShopperModel.update({_id : userId} , {$push: {'wishlist' : itemId}});
+
+    function findShopperByFacebookId(facebookId) {
+        return ShopperModel.findOne({'facebook.id': facebookId});
     }
+
+    function findShopperByGoogleId(googleId) {
+        return ShopperModel.findOne({'google.id': googleId});
+    }
+
+    function addItemWishlist(userId, itemId) {
+        return ShopperModel.update({_id: userId}, {$addToSet: {'wishlist': itemId}});
+    }
+
+    function deleteItemWishlist(userId, itemId) {
+        return ShopperModel.update({_id: userId}, {$pull: {'wishlist': itemId}});
+    }
+
+
 }

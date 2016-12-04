@@ -3,14 +3,238 @@
  */
 module.exports = function (app, models) {
 
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    var cookieParser = require('cookie-parser');
+    var session = require('express-session');
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
+    var bcrypt = require("bcrypt-nodejs");
+
+    app.use(session({
+        secret: process.env.SESSION_CLIENT_SECRET,
+        resave: true,
+        saveUninitialized: true
+    }));
+
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     app.get('/api/shopper', findShopper);
     app.get('/api/shopper/:uid', findShopperById);
     app.post('/api/shopper', createShopper);
     app.put('/api/shopper/:uid', updateShopper);
     app.delete('/api/shopper/:uid', deleteShopper);
+    app.post('/api/shopper/login', passport.authenticate('local'), login);
+    app.post('/api/shopper/checkLogin', checkLogin);
+    app.post('/api/shopper/logout', logout);
+    app.post('/api/shopper/checkAdmin', checkAdmin);
+    app.post('/api/shopper/register', register);
 
+    app.get('/shopper/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+    app.get('/shopper/auth/google/callback',
+        passport.authenticate('google', {
+            successRedirect: '/project/#/shopper',
+            failureRedirect: '/project/#/login'
+        }));
+
+    app.get('/shopper/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+    app.get('/shopper/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/project/#/shopper',
+            failureRedirect: '/project/#/login'
+        }));
+
+
+    var googleConfig = {
+        clientID: process.env.GOOGLE_PROJECT_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_PROJECT_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_PROJECT_CALLBACK_URL
+    };
+
+    var facebookProjectConfig = {
+        clientID: process.env.FACEBOOK_PROJECT_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_PROJECT_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_PROJECT_CALLBACK_URL
+    };
+
+    passport.use(new LocalStrategy(localShopperStrategy));
+    passport.use(new FacebookStrategy(facebookProjectConfig, facebookShopperStrategy));
+    passport.use(new GoogleStrategy(googleConfig, googleShopperStrategy));
+    passport.serializeUser(serializeShopper);
+    passport.deserializeUser(deserializeShopper);
 
     var shopperModel = models.shopperModel;
+    //console.log(shopperModel);
+
+    function localShopperStrategy(username, password, done) {
+        shopperModel.findShopperByUsername(username)
+            .then(
+                function (user) {
+                    // if the user exists, compare passwords with bcrypt.compareSync
+                    if (user != null && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.sendStatus(200);
+    }
+
+    function serializeShopper(user, done) {
+        done(null, user);
+    }
+
+    function deserializeShopper(user, done) {
+        shopperModel
+            .findShopperById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+    function checkLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function loggedInAndSelf(req, res, next) {
+        var loggedIn = req.isAuthenticated();
+        var userId = req.params.uid;
+        var self = userId == req.user._id;
+        if (self && loggedIn) {
+            next();
+        } else {
+            res.sendStatus(400).send("You are not the same person");
+        }
+
+    }
+
+    function checkAdmin(req, res) {
+        var loggedIn = req.isAuthenticated();
+        var isAdmin = req.user.role == 'ADMIN';
+        if (loggedIn && isAdmin) {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
+    }
+
+    function register(req, res) {
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
+        shopperModel
+            .createShopper(user)
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                }
+            );
+    }
+
+    function googleShopperStrategy(token, refreshToken, profile, done) {
+        shopperModel
+            .findShopperByGoogleId(profile.id)
+            .then(
+                function (user) {
+                    if (user) {
+                        return done(null, user);
+                    } else {
+                        var newGoogleUser = {
+                            lastName: profile.name.familyName,
+                            firstName: profile.name.givenName,
+                            email: profile.emails[0].value,
+                            google: {
+                                id: profile.id,
+                                token: token
+                            }
+                        };
+                        return shopperModel.createShopper(newGoogleUser);
+                    }
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            )
+            .then(
+                function (user) {
+                    return done(null, user);
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            );
+    }
+
+    function facebookShopperStrategy(token, refreshToken, profile, done) {
+        shopperModel
+            .findShopperByFacebookId(profile.id)
+            .then(
+                function (user) {
+                    if (user) {
+                        return done(null, user);
+                    } else {
+                        var names = profile.displayName.split(" ");
+                        var newFacebookUser = {
+                            lastName: names[1],
+                            firstName: names[0],
+                            email: profile.emails ? profile.emails[0].value : "",
+                            facebook: {
+                                id: profile.id,
+                                token: token
+                            }
+                        };
+                        shopperModel.createShopper(newFacebookUser)
+                            .then(
+                                function (user) {
+                                    return done(null, user);
+                                },
+                                function (err) {
+                                    if (err) {
+                                        return done(err);
+                                    }
+                                }
+                            );
+                    }
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            )
+
+    }
 
     function createShopper(req, res) {
         var newUser = req.body; //to get the shopper object
@@ -38,6 +262,8 @@ module.exports = function (app, models) {
             findShopperByCredentials(req, res);
         } else if (query.username) {
             findShopperByUsername(req, res);
+        } else {
+            return res.json(req.user);
         }
 
     }

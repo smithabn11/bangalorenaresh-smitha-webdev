@@ -8,14 +8,50 @@
     function ShopperService($http) {
         var api = {
             "createUser": createUser,
+            "register": register,
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "login": login,
+            "checkLogin": checkLogin,
+            "logout": logout,
+            "findCurrentUser": findCurrentUser,
+            "checkAdmin": checkAdmin
         };
 
         return api;
+
+
+
+        function login(username, password) {
+            var user = {
+                username: username,
+                password: password
+            };
+            return $http.post("/api/shopper/login", user);
+        }
+
+        function checkLogin() {
+            return $http.post("/api/shopper/checkLogin");
+        }
+
+        function checkAdmin() {
+            return $http.post("/api/shopper/checkAdmin");
+        }
+
+        function logout() {
+            return $http.post("/api/shopper/logout");
+        }
+
+        function findCurrentUser() {
+            return $http.get("/api/shopper");
+        }
+
+        function register(user) {
+            return $http.post("/api/shopper/register", user);
+        }
 
         function createUser(user) {
             return $http.post("/api/shopper", user);

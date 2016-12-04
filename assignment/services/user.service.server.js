@@ -3,66 +3,70 @@
  */
 module.exports = function (app, models) {
 
-    var passport = require('passport');
+    var passport = require('passport').Passport;
+    var passport_assignment = new passport();
+
+
     var LocalStrategy = require('passport-local').Strategy;
     var cookieParser = require('cookie-parser');
     var session = require('express-session');
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
+
     var bcrypt = require("bcrypt-nodejs");
 
     app.use(session({
-        secret: 'this is the secret',
+        secret: process.env.SESSION_CLIENT_SECRET,
         resave: true,
         saveUninitialized: true
     }));
 
     app.use(cookieParser());
-    app.use(passport.initialize());
-    app.use(passport.session());
+    app.use(passport_assignment.initialize());
+    app.use(passport_assignment.session());
 
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
     app.post('/api/user', createUser);
     app.put('/api/user/:uid', loggedInAndSelf, updateUser);
     app.delete('/api/user/:uid', loggedInAndSelf, deleteUser);
-    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/login', passport_assignment.authenticate('local'), login);
     app.post('/api/checkLogin', checkLogin);
     app.post('/api/logout', logout);
     app.post('/api/checkAdmin', checkAdmin);
     app.post('/api/register', register);
 
-    app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+    app.get('/auth/assignment/google', passport_assignment.authenticate('google', {scope: ['profile', 'email']}));
     app.get('/auth/google/callback',
-        passport.authenticate('google', {
+        passport_assignment.authenticate('google', {
             successRedirect: '/assignment/#/user',
             failureRedirect: '/assignment/#/login'
         }));
 
-    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+    app.get('/auth/assignment/facebook', passport_assignment.authenticate('facebook', {scope: 'email'}));
     app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
+        passport_assignment.authenticate('facebook', {
             successRedirect: '/assignment/#/user',
             failureRedirect: '/assignment/#/login'
         }));
 
     var googleConfig = {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL
+        clientID: process.env.GOOGLE_ASSIGNMENT_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_ASSIGNMENT_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_ASSIGNMENT_CALLBACK_URL
     };
 
-    var facebookConfig = {
-        clientID: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    var facebookAssignmentConfig = {
+        clientID: process.env.FACEBOOK_ASSIGNMENT_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_ASSIGNMENT_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_ASSIGNMENT_CALLBACK_URL
     };
 
-    passport.use(new LocalStrategy(localStrategy));
-    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    passport_assignment.use(new LocalStrategy(localStrategy));
+    passport_assignment.use(new FacebookStrategy(facebookAssignmentConfig, facebookStrategy));
+    passport_assignment.use(new GoogleStrategy(googleConfig, googleStrategy));
+    passport_assignment.serializeUser(serializeUser);
+    passport_assignment.deserializeUser(deserializeUser);
 
     var userModel = models.userModel;
 
@@ -71,7 +75,7 @@ module.exports = function (app, models) {
             .then(
                 function (user) {
                     // if the user exists, compare passwords with bcrypt.compareSync
-                    if(user != null && bcrypt.compareSync(password, user.password)) {
+                    if (user != null && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
@@ -237,9 +241,6 @@ module.exports = function (app, models) {
 
     function createUser(req, res) {
         var newUser = req.body; //to get the user object
-        // user._id = (new Date()).getTime() + "";
-        // users.push(user);
-        // res.send(user);
 
         userModel.findUserByUsername(newUser.username)
             .then(function (user) {
@@ -273,13 +274,6 @@ module.exports = function (app, models) {
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        // for (var u in users) {
-        //     if (users[u].username == username) {
-        //         res.send(users[u]);
-        //         return;
-        //     }
-        // }
-        // res.send('0');
 
         userModel.findUserByUsername(username)
             .then(
@@ -325,13 +319,6 @@ module.exports = function (app, models) {
         var userUpdated = req.body;
         var userId = req.params['uid']; //can also use req.params.uid
 
-        // for (var u in users) {
-        //     if (users[u]._id == userId) {
-        //         users[u] = userUpdated;
-        //     }
-        // }
-        // res.send(200); //just update successfully
-
         userModel.updateUser(userId, userUpdated)
             .then(
                 function (status) {
@@ -345,14 +332,6 @@ module.exports = function (app, models) {
 
     function deleteUser(req, res) {
         var userId = req.params['uid'];
-
-        // for (var u in users) {
-        //     if (users[u]._id == userId) {
-        //         users.splice(u, 1);
-        //     }
-        // }
-        //
-        // res.send(200); //just update successfully
 
         userModel.deleteUser(userId)
             .then(

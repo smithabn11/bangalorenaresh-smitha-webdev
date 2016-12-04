@@ -6,6 +6,8 @@
     </div>
     <div class="row">
         <h1>Welcome to ShopAwesome</h1>
+
+
         <div class="form-group" id="username">
             <input type="text"
                    ng-model="model.username"
@@ -18,21 +20,27 @@
                    class="form-control"
                    placeholder="password"/>
         </div>
+        <div class="padding-button">
+            <a href ng-click="model.login(model.username, model.password)"
+               class="btn btn-primary btn-md center-block"
+            >Sign In</a>
+        </div>
+        <div class="padding-button">
+            <a class="btn btn-success btn-md center-block"
+               href="#/register">Register</a>
+        </div>
+        <div class="padding-button">
+            <a href="/shopper/auth/google" class="btn btn-danger btn-md center-block">
+                <span class="fa fa-google-plus"></span>
+                Google
+            </a>
+        </div>
+        <div class="padding-button">
+            <a href="/shopper/auth/facebook" class="btn btn-primary btn-md center-block">
+                <span class="fa fa-facebook"></span>
+                Facebook
+            </a>
+        </div>
+
+
     </div>
-    <div class="row">
-        <a href ng-click="model.login(model.username, model.password)" class="btn btn-primary btn-md"
-        >Sign In</a>
-        <a class="btn btn-success btn-md"
-           href="#/register">Register</a>
-    </div>
-    <a class="btn btn-success btn-block"
-       href="#/register">Register</a>
-    <a href="/auth/google" class="btn btn-danger btn-block">
-        <span class="fa fa-google-plus"></span>
-        Google
-    </a>
-    <a href="/auth/facebook" class="btn btn-primary btn-block">
-        <span class="fa fa-facebook"></span>
-        Facebook
-    </a>
-</div>

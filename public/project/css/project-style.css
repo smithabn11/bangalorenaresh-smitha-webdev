@@ -102,6 +102,11 @@ body {
     margin-left: 5%;
 }
 
+.padding-button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .panel-right {
     margin-right: 5%;
 }
@@ -120,7 +125,7 @@ body {
 
 .carousel-indicators {
     position: relative;
-    left : 0px;
+    left : 5px;
     padding-top: 10%;
 }
 .carousel-indicators li {
@@ -141,4 +146,12 @@ body {
 
 .show-btn {
     color: #337ab7;
+}
+
+.wishlist-success {
+    color: forestgreen;
+}
+
+.wishlist-error {
+    color: red;
 }

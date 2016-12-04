@@ -6,6 +6,10 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
+            <a href="#/shopper/{{model.userId}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
@@ -27,19 +31,17 @@
             <div class="row well">
                 <div class="col-xs-2">
                     <div id="{{ 'item-' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
+                                <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
+                            </div>
+                        </div>
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="{{ '#item-' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
                                 ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
                                 ng-init="imgIndex = $index"></li>
                         </ol>
-
-
-                        <div class="carousel-inner">
-                            <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
-                                <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

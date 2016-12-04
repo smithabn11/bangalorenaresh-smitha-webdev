@@ -1,11 +1,19 @@
 /**
  * Created by smitha on 11/15/16.
  */
-module.exports = function() {
+module.exports = function () {
     var mongoose = require("mongoose");
     var ShopperSchema = mongoose.Schema({
-        username: {type: String, required: true},
+        username: {type: String},
         password: String,
+        google: {
+            id: String,
+            token: String
+        },
+        facebook: {
+            id: String,
+            token: String
+        },
         firstName: String,
         lastName: String,
         email: String,
@@ -14,7 +22,8 @@ module.exports = function() {
         state: String,
         zipcode: Number,
         phone: String,
-        wishlist: [{type: Number}]
+        wishlist: [{type: Number}],
+        roles: {type: String, enum: ['ADMIN', 'USER'], default: 'USER'}
     });
     return ShopperSchema;
 }

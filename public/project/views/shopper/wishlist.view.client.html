@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <h1>Your ShopAwesome Wishlist</h1>
+    <div ng-repeat="item in model.wishlistItems" ng-init="parentItemIndex = $index">
+        <div class="row well">
+            <div class="col-xs-2">
+                <div id="{{ 'item-' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="{{ '#item-' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
+                            ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
+                            ng-init="imgIndex = $index"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
+                            <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <h4>{{item.name}}</h4>
+                <h4><span>MSRP :</span>{{item.msrp}}</h4>
+                <h4><span>Sale Price :</span>{{item.salePrice}}</h4>
+                <p>{{item.shortDescription}}</p>
+            </div>
+            <div class="row pull-right">
+                <span class="pull-right buttons">
+                    <button ng-click="model.removeItemWishlist(item.itemId)" class="btn btn-sm btn-default">
+                        <span id="wishlist" class="show-btn glyphicon glyphicon-trash"></span> Remove</button>
+                    <button class="btn btn-sm btn-primary"><span
+                            class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -68,6 +68,14 @@
                            placeholder="617-775-5687">
                 </div>
             </div>
+
+            <div class="col-md-4 well">
+                <div class="form-group">
+                    <a href="#/shopper/{{model.user._id}}/wishlist" id="wishlist" class="btn btn-sm btn-default">
+                        My Wishlist
+                    </a>
+                </div>
+            </div>
         </div>
     </form>
 
@@ -77,6 +85,9 @@
        href ng-click="model.unRegisterUser(model.user)">Delete</a>
     <a class="btn btn-warning"
        href="#/login">Logout</a>
+    <a class="btn btn-warning  btn-block"
+       ng-show="model.user.role == 'ADMIN'"
+       href="#/admin">Admin</a>
 </div>
 
 

@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-chevron-left navbar-custom"></span>
+            <a href="#/shopper/{{model.userId}}/search"><span
+                    class="glyphicon glyphicon-chevron-left navbar-custom"></span>
             </a>
         </p>
         <div class="navbar-header pull-left">
@@ -9,6 +10,10 @@
                 Welcome to ShopAwesome
             </a>
         </div>
+        <p class="navbar-text pull-right">
+            <a href="#/shopper/{{model.userId}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
+            </a>
+        </p>
         <p class="navbar-text pull-right">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
@@ -42,8 +47,9 @@
             </div>
             <div class="row pull-right">
                 <span class="pull-right buttons">
-                    <button class="btn btn-sm btn-default"><span class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
-                    <button class="btn btn-sm btn-primary"><span
+                    <button ng-click="model.addWishList()" class="btn btn-sm btn-default">
+                        <span id="wishlist" class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
+                    <button ng-click="model.addItemShoppingCart(model.item)" class="btn btn-sm btn-primary"><span
                             class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</button>
                 </span>
             </div>
