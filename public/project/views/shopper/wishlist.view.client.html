@@ -5,35 +5,40 @@
                 Welcome to ShopAwesome
             </a>
         </div>
-        <p class="navbar-text pull-right">
+        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
     </div>
 </nav>
 <div class="container-fluid">
-    <h1>Your ShopAwesome Wishlist</h1>
+    <div class="row">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+    </div>
+    <h3 class="shopawesome-h3">Your ShopAwesome Wishlist</h3>
     <div ng-repeat="item in model.wishlistItems" ng-init="parentItemIndex = $index">
         <div class="row well">
             <div class="col-xs-2">
                 <div id="{{ 'item-' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
+                            <img ng-src="{{thumbnail.mediumImage}}" class="img-responsive"/>
+                        </div>
+                    </div>
                     <!-- Indicators -->
-                    <ol class="carousel-indicators">
+                    <ol class="carousel-indicators center-block">
                         <li data-target="{{ '#item-' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
                             ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
                             ng-init="imgIndex = $index"></li>
                     </ol>
-                    <div class="carousel-inner">
-                        <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
-                            <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-xs-8">
                 <h4>{{item.name}}</h4>
-                <h4><span>MSRP :</span>{{item.msrp}}</h4>
-                <h4><span>Sale Price :</span>{{item.salePrice}}</h4>
+                <h5><span>MSRP :</span>{{item.msrp}}</h5>
+                <h5><span>Sale Price :</span>{{item.salePrice}}</h5>
                 <p>{{item.shortDescription}}</p>
             </div>
             <div class="row pull-right">

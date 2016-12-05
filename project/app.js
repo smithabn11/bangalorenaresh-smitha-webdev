@@ -7,4 +7,5 @@ module.exports = function(app) {
     require("./services/shopper.service.server.js")(app, models);
     require("./services/shoppingcart.service.server.js")(app, models);
     require("./services/wishlist.service.server.js")(app, models);
+    require("./services/order.service.server.js")(app, models);
 };

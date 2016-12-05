@@ -5,11 +5,12 @@
                 Welcome to ShopAwesome
             </a>
         </div>
-        <p class="navbar-text pull-right">
-            <a href="#/shopper/{{model.userId}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/shoppingcart"><span
+                    class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
             </a>
         </p>
-        <p class="navbar-text pull-right">
+        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
@@ -18,56 +19,92 @@
 
 <div class="container">
     <div id="main-search" class="input-group row">
-        <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
-        <span class="input-group-btn">
+    <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
                     <button ng-click="model.searchItem(model.searchText)" type="button"
                             class="btn btn-primary"
                     >Go!</button>
       </span>
-    </div><!-- /input-group -->
+</div><!-- /input-group -->
     <!--{{model.searchItemList}}-->
     <ul class="list-group">
         <div ng-repeat="item in model.searchItemList" ng-init="parentItemIndex = $index">
-            <div class="row well">
+            <div class="row well hidden-sm hidden-xs">
                 <div class="col-xs-2">
                     <div id="{{ 'item-' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="item" ng-class="{active:!$index}" ng-repeat="thumbnail in item.imageEntities">
-                                <img ng-src="{{thumbnail.thumbnailImage}}" class="img-responsive"/>
+                                <img ng-src="{{thumbnail.mediumImage}}" class="img-responsive"/>
                             </div>
                         </div>
                         <!-- Indicators -->
-                        <ol class="carousel-indicators">
+                        <ol class="carousel-indicators center-block">
                             <li data-target="{{ '#item-' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
                                 ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
                                 ng-init="imgIndex = $index"></li>
                         </ol>
                     </div>
                 </div>
-
                 <div class="col-xs-8">
                     <h4>{{item.name}}</h4>
-                    <h4><span>MSRP :</span>{{item.msrp}}</h4>
-                    <h4><span>Sale Price :</span>{{item.salePrice}}</h4>
+                    <h5><span>MSRP :</span>{{item.msrp}}</h5>
+                    <h5><span>Sale Price :</span>{{item.salePrice}}</h5>
                     <p>{{item.shortDescription}}</p>
                 </div>
                 <div class="col-xs-2">
                 <span class="pull-right buttons">
                     <a href="#/shopper/{{model.userId}}/search/{{item.itemId}}" class="btn btn-sm btn-default"><span
                             class="show-btn glyphicon glyphicon-eye-open"></span> Show</a>
-                    <a class="btn btn-sm btn-primary"><span
+                    <a ng-click="model.addItemShoppingCart(item)" class="btn btn-sm btn-primary"><span
                             class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</a>
                 </span>
                 </div>
             </div>
-        </div>
-        <div ng-if="model.reqPagination">
-            <ul class="pagination">
-                <li id="pagination-left" class="disabled"><a ng-click="model.prevPageItems()">&laquo;</a></li>
-                <li class="active"><a href="#">{{model.curPageIndex}}</a></li>
-                <li id="pagination-right"><a ng-click="model.nextPageItems()">&raquo;</a></li>
-            </ul>
+
+            <div class="row well hidden-md hidden-lg">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4>{{item.name}}</h4>
+                        <h4><span>MSRP :</span>{{item.msrp}}</h4>
+                        <h4><span>Sale Price :</span>{{item.salePrice}}</h4>
+                        <p>{{item.shortDescription}}</p>
+                    </div>
+                    <div class="col-xs-4">
+                <span class="pull-right buttons">
+                    <a href="#/shopper/{{model.userId}}/search/{{item.itemId}}" class="btn btn-sm btn-default"><span
+                            class="show-btn glyphicon glyphicon-eye-open"></span> Show</a>
+                    <a ng-click="model.addItemShoppingCart(item)" class="btn btn-sm btn-primary"><span
+                            class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div id="{{ 'itemsm_' + parentItemIndex }}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item" ng-class="{active:!$index}"
+                                     ng-repeat="thumbnail in item.imageEntities">
+                                    <img ng-src="{{thumbnail.mediumImage}}" class="img-responsive"/>
+                                </div>
+                            </div>
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators center-block">
+                                <li data-target="{{ '#itemsm_' + parentItemIndex }}" data-slide-to="{{imgIndex}}"
+                                    ng-class="{active:!imgIndex}" ng-repeat="thumbnail in item.imageEntities"
+                                    ng-init="imgIndex = $index"></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </ul>
+    <div ng-if="model.reqPagination" class="text-center">
+        <ul class="pagination">
+            <li id="pagination-left" class="disabled"><a ng-click="model.prevPageItems()">&laquo;</a></li>
+            <li class="active"><a href="#">{{model.curPageIndex}}</a></li>
+            <li id="pagination-right"><a ng-click="model.nextPageItems()">&raquo;</a></li>
+        </ul>
+    </div>
 </div>
 

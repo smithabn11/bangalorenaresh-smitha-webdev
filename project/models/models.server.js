@@ -12,11 +12,12 @@ module.exports = function () {
     }
 
     var mongoose = require("mongoose");
-    // mongoose.createConnection(connectionString);
+    //mongoose.createConnection(connectionString);
 
     return {
         shopperModel: require("./shopper/shopper.model.server.js")(),
         shoppingCartModel: require("./shoppingcart/shoppingcart.model.server.js")(),
         adminModel: require("./admin/admin.model.server.js")(),
+        orderModel: require("./order/order.model.server.js")()
     };
 }

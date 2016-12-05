@@ -4,7 +4,12 @@
 module.exports = function () {
     var mongoose = require("mongoose");
     var ShopperSchema = require("./shopper.schema.server.js")();
-    var ShopperModel = mongoose.model("ShopperModel", ShopperSchema);
+    var ShopperModel;
+    if (mongoose.models.ShopperModel) {
+        ShopperModel = mongoose.model("ShopperModel");
+    } else {
+        ShopperModel = mongoose.model("ShopperModel", ShopperSchema);
+    }
 
     var api = {
         createShopper: createShopper,
@@ -30,7 +35,8 @@ module.exports = function () {
     }
 
     function findShopperByUsername(username) {
-        return ShopperModel.findOne({username: username});
+        var result = ShopperModel.findOne({username: username});
+        return result;
     }
 
     function findShopperByCredentials(username, password) {

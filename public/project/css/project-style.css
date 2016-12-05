@@ -33,8 +33,6 @@ body {
     color: white;
 }
 
-
-
 .myimg {
     display: block;
     margin-left: 5%;
@@ -50,44 +48,117 @@ body {
     margin-right: auto;
 }
 
-.top-buffer { margin-top:20px; }
+.top-buffer {
+    margin-top: 20px;
+}
 
 /* From Quora*/
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
-    h1 { font-size: 4.0vh; }
-    h2 { font-size: 3.5vh; }
-    h3 { font-size: 3.0vh; }
-    h4 { font-size: 2.0vh; }
-    h5 { font-size: 1.5vh; }
-    h6 { font-size: 1.0vh; }
+    h1 {
+        font-size: 4.0vh;
+    }
+
+    h2 {
+        font-size: 3.5vh;
+    }
+
+    h3 {
+        font-size: 3.0vh;
+    }
+
+    h4 {
+        font-size: 2.0vh;
+    }
+
+    h5 {
+        font-size: 1.5vh;
+    }
+
+    h6 {
+        font-size: 1.0vh;
+    }
 }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
-    h1 { font-size: 4.0vh; }
-    h2 { font-size: 3.5vh; }
-    h3 { font-size: 3.0vh; }
-    h4 { font-size: 2.0vh; }
-    h5 { font-size: 1.5vh; }
-    h6 { font-size: 1.0vh; }
+    h1 {
+        font-size: 4.0vh;
+    }
+
+    h2 {
+        font-size: 3.5vh;
+    }
+
+    h3 {
+        font-size: 3.0vh;
+    }
+
+    h4 {
+        font-size: 2.0vh;
+    }
+
+    h5 {
+        font-size: 1.5vh;
+    }
+
+    h6 {
+        font-size: 1.0vh;
+    }
 }
+
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
-    h1 { font-size: 3.0vw; }
-    h2 { font-size: 2.5vw; }
-    h3 { font-size: 2.0vw; }
-    h4 { font-size: 1.5vw; }
-    h5 { font-size: 1.0vw; }
-    h6 { font-size: 0.5vw; }
+    h1 {
+        font-size: 3.0vw;
+    }
+
+    h2 {
+        font-size: 2.5vw;
+    }
+
+    h3 {
+        font-size: 2.0vw;
+    }
+
+    h4 {
+        font-size: 1.5vw;
+    }
+
+    h5 {
+        font-size: 1.0vw;
+    }
+
+    h6 {
+        font-size: 0.5vw;
+    }
 }
+
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
-    h1 { font-size: 3.0vw; }
-    h2 { font-size: 2.5vw; }
-    h3 { font-size: 2.0vw; }
-    h4 { font-size: 1.5vw; }
-    h5 { font-size: 1.0vw; }
-    h6 { font-size: 0.5vw; }
+    h1 {
+        font-size: 3.0vw;
+    }
+
+    h2 {
+        font-size: 2.5vw;
+    }
+
+    h3 {
+        font-size: 2.0vw;
+    }
+
+    h4 {
+        font-size: 1.5vw;
+    }
+
+    h5 {
+        font-size: 1.0vw;
+    }
+
+    h6 {
+        font-size: 0.5vw;
+    }
 }
 
 .content {
@@ -125,9 +196,10 @@ body {
 
 .carousel-indicators {
     position: relative;
-    left : 5px;
-    padding-top: 10%;
+    left: 0px;
+    padding-top: 15%;
 }
+
 .carousel-indicators li {
     background-color: #337ab7;
     border: #337ab7;
@@ -154,4 +226,27 @@ body {
 
 .wishlist-error {
     color: red;
+}
+
+.center-block {
+    float: none !important
+}
+
+.shopawesome-h3 {
+    color: darkblue;
+}
+
+.profile-button {
+    background-color: palegoldenrod;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.glyph-padding {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.total-text {
+    text-align: right;
 }

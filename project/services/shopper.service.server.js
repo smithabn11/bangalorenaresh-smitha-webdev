@@ -3,7 +3,9 @@
  */
 module.exports = function (app, models) {
 
-    var passport = require('passport');
+    var passport = require('passport').Passport;
+    var passport_project = new passport();
+
     var LocalStrategy = require('passport-local').Strategy;
     var cookieParser = require('cookie-parser');
     var session = require('express-session');
@@ -18,30 +20,30 @@ module.exports = function (app, models) {
     }));
 
     app.use(cookieParser());
-    app.use(passport.initialize());
-    app.use(passport.session());
+    app.use(passport_project.initialize());
+    app.use(passport_project.session());
 
     app.get('/api/shopper', findShopper);
     app.get('/api/shopper/:uid', findShopperById);
     app.post('/api/shopper', createShopper);
     app.put('/api/shopper/:uid', updateShopper);
     app.delete('/api/shopper/:uid', deleteShopper);
-    app.post('/api/shopper/login', passport.authenticate('local'), login);
+    app.post('/api/shopper/login', passport_project.authenticate('local'), login);
     app.post('/api/shopper/checkLogin', checkLogin);
     app.post('/api/shopper/logout', logout);
     app.post('/api/shopper/checkAdmin', checkAdmin);
     app.post('/api/shopper/register', register);
 
-    app.get('/shopper/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+    app.get('/shopper/auth/google', passport_project.authenticate('google', {scope: ['profile', 'email']}));
     app.get('/shopper/auth/google/callback',
-        passport.authenticate('google', {
+        passport_project.authenticate('google', {
             successRedirect: '/project/#/shopper',
             failureRedirect: '/project/#/login'
         }));
 
-    app.get('/shopper/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+    app.get('/shopper/auth/facebook', passport_project.authenticate('facebook', {scope: 'email'}));
     app.get('/shopper/auth/facebook/callback',
-        passport.authenticate('facebook', {
+        passport_project.authenticate('facebook', {
             successRedirect: '/project/#/shopper',
             failureRedirect: '/project/#/login'
         }));
@@ -59,13 +61,15 @@ module.exports = function (app, models) {
         callbackURL: process.env.FACEBOOK_PROJECT_CALLBACK_URL
     };
 
-    passport.use(new LocalStrategy(localShopperStrategy));
-    passport.use(new FacebookStrategy(facebookProjectConfig, facebookShopperStrategy));
-    passport.use(new GoogleStrategy(googleConfig, googleShopperStrategy));
-    passport.serializeUser(serializeShopper);
-    passport.deserializeUser(deserializeShopper);
-
     var shopperModel = models.shopperModel;
+
+    passport_project.use(new LocalStrategy(localShopperStrategy));
+    passport_project.use(new FacebookStrategy(facebookProjectConfig, facebookShopperStrategy));
+    passport_project.use(new GoogleStrategy(googleConfig, googleShopperStrategy));
+    passport_project.serializeUser(serializeUser);
+    passport_project.deserializeUser(deserializeUser);
+
+
     //console.log(shopperModel);
 
     function localShopperStrategy(username, password, done) {
@@ -95,11 +99,11 @@ module.exports = function (app, models) {
         res.sendStatus(200);
     }
 
-    function serializeShopper(user, done) {
+    function serializeUser(user, done) {
         done(null, user);
     }
 
-    function deserializeShopper(user, done) {
+    function deserializeUser(user, done) {
         shopperModel
             .findShopperById(user._id)
             .then(
@@ -113,7 +117,8 @@ module.exports = function (app, models) {
     }
 
     function checkLogin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : '0');
+        var user = req.user;
+        res.json(req.isAuthenticated() ? req.user : '0');
     }
 
     function loggedInAndSelf(req, res, next) {
@@ -169,6 +174,7 @@ module.exports = function (app, models) {
                         var newGoogleUser = {
                             lastName: profile.name.familyName,
                             firstName: profile.name.givenName,
+                            isShopper: true,
                             email: profile.emails[0].value,
                             google: {
                                 id: profile.id,
@@ -208,6 +214,7 @@ module.exports = function (app, models) {
                         var newFacebookUser = {
                             lastName: names[1],
                             firstName: names[0],
+                            isShopper: true,
                             email: profile.emails ? profile.emails[0].value : "",
                             facebook: {
                                 id: profile.id,

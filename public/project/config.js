@@ -28,7 +28,7 @@
                 controller: 'ProfileController',
                 controllerAs: "model",
                 resolve: {
-                    checkLogin: checkLogin
+                    checkShopperLogin: checkShopperLogin
                 }
             })
             .when('/shopper/:uid', {
@@ -56,6 +56,11 @@
                 controller: 'ShoppingCartController',
                 controllerAs: "model"
             })
+            .when('/shopper/:uid/order/:oid', {
+                templateUrl: 'views/order/order.view.client.html',
+                controller: 'OrderController',
+                controllerAs: "model"
+            })
             .when('/admin', {
                 templateUrl: 'views/admin/adminlogin.view.client.html',
                 controller: 'AdminLoginController',
@@ -65,14 +70,14 @@
                 redirectTo: '/login'
             });
 
-        $httpProvider.defaults.useXDomain = true;
-        $httpProvider.defaults.withCredentials = true;
-        delete $httpProvider.defaults.headers.common["X-Requested-With"];
-        $httpProvider.defaults.headers.common["Accept"] = "application/json";
-        $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+        // $httpProvider.defaults.useXDomain = true;
+        // $httpProvider.defaults.withCredentials = true;
+        // delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        // $httpProvider.defaults.headers.common["Accept"] = "application/json";
+        // $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
 
-        function checkLogin($q, ShopperService) {
+        function checkShopperLogin($q, $location, ShopperService) {
             var deferred = $q.defer();
             ShopperService.checkLogin()
                 .success(function (user) {
@@ -81,6 +86,10 @@
                     } else {
                         deferred.reject();
                     }
+
+                })
+                .error(function (err) {
+                    $location.url("/login");
                 });
             return deferred.promise;
 

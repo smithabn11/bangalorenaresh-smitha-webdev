@@ -77,14 +77,13 @@
             if ($routeParams.uid) {
                 vm.userId = $routeParams.uid;
             }
-            else {
+            else if ($rootScope.currentUser) {
                 vm.userId = $rootScope.currentUser._id;
             }
 
 
-            var promise = ShopperService.findUserById(userId);
-
-            // var promise = ShopperService.findCurrentUser();
+            //var promise = ShopperService.findUserById(userId);
+            var promise = ShopperService.findCurrentUser();
             promise
                 .success(function (user) {
                     vm.user = user;
@@ -92,6 +91,8 @@
                 .error(function (response) {
                     vm.error = response;
                 });
+
+
         }
 
         init();
@@ -121,10 +122,7 @@
                 .error(function (response) {
                     vm.error = response;
                 });
-
         }
-
-
     }
 
     function RegisterController($routeParams, $location, $http, $rootScope, ShopperService) {
@@ -165,7 +163,7 @@
                             if (password.localeCompare(retype_password) != 0) {
                                 vm.error = "Password did not match";
                             } else {
-                                var newuser = {username: username, password: password};
+                                var newuser = {username: username, password: password, isShopper: true};
                                 ShopperService.register(newuser)
                                     .success(function (user) {
                                         vm.user = user;

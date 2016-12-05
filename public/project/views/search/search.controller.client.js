@@ -5,7 +5,7 @@
     angular.module('ShoppingAwesome')
         .controller('SearchMainController', SearchMainController)
 
-    function SearchMainController($routeParams, $location, $http, $rootScope, SearchService) {
+    function SearchMainController($routeParams, $location, $http, $rootScope, SearchService, ShoppingCartService) {
         var vm = this;
         var userId = $routeParams['uid'];
         var numOfItemsPerRequest = 25;
@@ -16,6 +16,7 @@
             vm.prevPageItems = prevPageItems;
             vm.nextPageItems = nextPageItems;
             vm.searchItem = searchItem;
+            vm.addItemShoppingCart = addItemShoppingCart;
 
             if (vm.searchText == null && $rootScope.searchText) {
                 searchItem($rootScope.searchText);
@@ -85,6 +86,49 @@
                     });
             } else {
                 $('#pagination-right').addClass('disabled');
+            }
+        }
+
+        function addItemShoppingCart(item) {
+            if (vm.userId) {
+                ShoppingCartService.findShoppingCartByUserId(userId)
+                    .success(function (result) {
+                        if (result == null) {
+                            ShoppingCartService.createShoppingCart(userId, {
+                                itemId: item.itemId,
+                                quantity: 1,
+                                price: item.salePrice
+                            })
+                                .success(function (cart) {
+                                    $location.url("/shopper/" + vm.userId + "/shoppingcart");
+                                })
+                                .error(function (error) {
+                                    if (error) {
+                                        vm.error = error;
+                                    }
+                                })
+
+                        } else {
+                            ShoppingCartService.addItemShoppingCart(userId, {
+                                itemId: item.itemId,
+                                quantity: 1,
+                                price: item.salePrice
+                            })
+                                .success(function (cart) {
+                                    $location.url("/shopper/" + vm.userId + "/shoppingcart");
+                                })
+                                .error(function (error) {
+                                    if (error) {
+                                        vm.error = error;
+                                    }
+                                })
+                        }
+                    })
+                    .error(function (error) {
+                        if (error) {
+                            vm.error = error;
+                        }
+                    })
             }
         }
     }

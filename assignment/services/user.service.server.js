@@ -62,13 +62,14 @@ module.exports = function (app, models) {
         callbackURL: process.env.FACEBOOK_ASSIGNMENT_CALLBACK_URL
     };
 
+    var userModel = models.userModel;
+
     passport_assignment.use(new LocalStrategy(localStrategy));
     passport_assignment.use(new FacebookStrategy(facebookAssignmentConfig, facebookStrategy));
     passport_assignment.use(new GoogleStrategy(googleConfig, googleStrategy));
     passport_assignment.serializeUser(serializeUser);
     passport_assignment.deserializeUser(deserializeUser);
 
-    var userModel = models.userModel;
 
     function localStrategy(username, password, done) {
         userModel.findUserByUsername(username)
@@ -98,20 +99,40 @@ module.exports = function (app, models) {
     }
 
     function serializeUser(user, done) {
-        done(null, user);
+        if (user.isShopper == undefined) {
+            done(null, user);
+        }
     }
 
     function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function (user) {
-                    done(null, user);
-                },
-                function (err) {
-                    done(err, null);
-                }
-            );
+        if (user.isShopper == undefined) {
+            userModel
+                .findUserById(user._id)
+                .then(
+                    function (user) {
+                        done(null, user);
+
+                    },
+                    function (err) {
+                        done(err, null);
+                    }
+                );
+        }
+
+        if (user.isShopper) {
+            models.shopperModel
+                .findShopperById(user._id)
+                .then(
+                    function (user) {
+                        done(null, user);
+                    },
+                    function (err) {
+                        done(err, null);
+                    }
+                );
+        }
+
+
     }
 
     function checkLogin(req, res) {

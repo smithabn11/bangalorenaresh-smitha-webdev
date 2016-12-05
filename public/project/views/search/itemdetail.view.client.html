@@ -10,11 +10,11 @@
                 Welcome to ShopAwesome
             </a>
         </div>
-        <p class="navbar-text pull-right">
+        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
             </a>
         </p>
-        <p class="navbar-text pull-right">
+        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
@@ -30,7 +30,7 @@
                         <img ng-src="{{lrgImg.largeImage}}" class="img-responsive"/>
                     </div>
                 </div>
-                <ol class="carousel-indicators">
+                <ol class="carousel-indicators center-block">
                     <li data-target="#thisItem" data-slide-to="{{imgIndex}}"
                         ng-class="{active:!imgIndex}" ng-repeat="lrgImg in model.item.imageEntities"
                         ng-init="imgIndex = $index"></li>

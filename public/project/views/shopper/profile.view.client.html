@@ -2,18 +2,40 @@
     <div class="container-fluid">
         <div class="navbar-header pull-left">
             <a class="navbar-brand">
-                Profile
+                My Account
             </a>
         </div>
-        <p class="navbar-text pull-right">
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.user._id}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right glyph-padding">
             <a href ng-click="model.updateProfile(model.user)"><span class="glyphicon glyphicon-ok"></span></a>
         </p>
+
     </div>
 </nav>
 
 
 <div class="container">
+    <div class="row">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+    </div>
     <form>
+        <div class="row well hidden-lg hidden-md">
+            <a class="btn btn-primary center-block"
+               href="#/shopper/{{model.user._id}}/search">Search</a>
+            <a href="#/shopper/{{model.user._id}}/wishlist" id="wishlistsm"
+               class="btn btn-default center-block profile-button">
+                My Wishlist
+            </a>
+            <a href="#/shopper/{{model.user._id}}/orders" id="orderssm"
+               class="btn btn-default center-block profile-button">
+                My Orders
+            </a>
+        </div>
         <div class="row">
             <div class="col-md-4 well">
                 <h3>Personal Information</h3><br>
@@ -69,20 +91,26 @@
                 </div>
             </div>
 
-            <div class="col-md-4 well">
-                <div class="form-group">
-                    <a href="#/shopper/{{model.user._id}}/wishlist" id="wishlist" class="btn btn-sm btn-default">
+            <div class="hidden-sm hidden-xs">
+                <div class="col-md-4 well">
+                    <a class="btn btn-primary center-block"
+                       href="#/shopper/{{model.user._id}}/search">Search</a>
+                    <a href="#/shopper/{{model.user._id}}/wishlist" id="wishlist"
+                       class="btn btn-default center-block profile-button">
                         My Wishlist
+                    </a>
+                    <a href="#/shopper/{{model.user._id}}/orders" id="orders"
+                       class="btn btn-default center-block profile-button">
+                        My Orders
                     </a>
                 </div>
             </div>
         </div>
     </form>
 
-    <a class="btn btn-primary"
-       href="#/shopper/{{model.user._id}}/search">Search</a>
+
     <a class="btn btn-danger"
-       href ng-click="model.unRegisterUser(model.user)">Delete</a>
+       href ng-click="model.unRegisterUser(model.user)">Delete Account</a>
     <a class="btn btn-warning"
        href="#/login">Logout</a>
     <a class="btn btn-warning  btn-block"

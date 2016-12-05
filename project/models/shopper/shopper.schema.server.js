@@ -6,6 +6,7 @@ module.exports = function () {
     var ShopperSchema = mongoose.Schema({
         username: {type: String},
         password: String,
+        isShopper: {type: Boolean, default: true},
         google: {
             id: String,
             token: String

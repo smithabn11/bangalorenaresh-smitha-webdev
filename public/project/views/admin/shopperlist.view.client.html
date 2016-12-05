@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div ng-if="model.error" class="row">
         <div ng-show="model.error" class="alert alert-danger" role="alert">
             {{model.error}}
         </div>
