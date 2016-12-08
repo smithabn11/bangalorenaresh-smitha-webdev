@@ -6,7 +6,7 @@
         .factory("SearchService", SearchService);
 
     var apiKey = "hw322tqs9xfk4twrv3anuqdx";
-    var thirdPartUrl = "http://api.walmartlabs.com/v1/";
+    var thirdPartUrl = "https://api.walmartlabs.com/v1/";
     var maxItemsInOneFetch = 10;
 
     function SearchService($http) {
