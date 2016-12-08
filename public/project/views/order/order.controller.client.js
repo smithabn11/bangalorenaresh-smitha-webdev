@@ -3,10 +3,10 @@
  */
 (function () {
     angular.module('ShoppingAwesome')
-        .controller('OrderController', OrderController)
-        .controller('ModalInstanceCtrl', ModalInstanceCtrl);
+        .controller('OrderController', OrderController);
 
-    function OrderController($routeParams, $location, $http, $rootScope, SearchService, ShopperService, OrderService, ModalService) {
+    function OrderController($routeParams, $location, $http, $rootScope, SearchService,
+                             ShopperService, ShoppingCartService, OrderService) {
         var vm = this;
         var userId = $routeParams['uid'];
         var orderId = $routeParams['oid'];
@@ -36,19 +36,27 @@
                                 vm.error = error;
                             })
 
-                        ShopperService.findUserById(vm.userId)
-                            .success(function (user) {
-                                if (user.street && user.city && user.state && user.zipcode) {
-                                    vm.order.shippingStreet = user.street;
-                                    vm.order.shippingCity = user.city;
-                                    vm.order.shippingState = user.state;
-                                    vm.order.shippingZipcode = user.zipcode;
-
-                                }
-                            })
-                            .error(function (error) {
-                                vm.error = error;
-                            })
+                        if (!order.submitted) {
+                            ShopperService.findUserById(vm.userId)
+                                .success(function (user) {
+                                    if (user.street && user.city && user.state && user.zipcode) {
+                                        vm.order.shippingStreet = user.street;
+                                        vm.order.shippingCity = user.city;
+                                        vm.order.shippingState = user.state;
+                                        vm.order.shippingZipcode = user.zipcode;
+                                    }
+                                })
+                                .error(function (error) {
+                                    vm.error = error;
+                                })
+                        } else {
+                            $('#staddress').attr('readonly', true);
+                            $('#city').attr('readonly', true);
+                            $('#state').attr('readonly', true);
+                            $('#zipcode').attr('readonly', true);
+                            vm.success = true;
+                            vm.successMsg = "Order was successfully submitted!!! Order Id " + order._id;
+                        }
 
                     }
                 })
@@ -60,13 +68,24 @@
         init();
 
         function deleteOrderByOrderId() {
-            OrderService.deleteOrderByOrderId(userId, orderId)
-                .success(function (status) {
-                    $location.url("/shopper/" + userId + "/shoppingcart")
+            OrderService.findOrderByOrderId(userId, orderId)
+                .success(function (order) {
+                    if (order.submitted) {
+                        $location.url("/shopper/" + userId + "/search")
+                    } else {
+                        OrderService.deleteOrderByOrderId(userId, orderId)
+                            .success(function (status) {
+                                $location.url("/shopper/" + userId + "/shoppingcart")
+                            })
+                            .error(function (error) {
+                                vm.error = error;
+                            })
+                    }
                 })
-                .error(function (error) {
+                .error(function (order) {
                     vm.error = error;
                 })
+
         }
 
         function gotoProfile() {
@@ -84,34 +103,74 @@
         }
 
         function submitOrder() {
-            OrderService.submitOrder(userId, orderId, vm.order)
-                .success(function (order) {
-                    vm.success = true;
+            if (validateShippingAddressOrder()) {
+                OrderService.submitOrder(userId, orderId, vm.order)
+                    .success(function (order) {
+                        if (order.submitted) {
+                            vm.order = order;
+                            ShoppingCartService.deleteShoppingCart(userId)
+                                .success(function (status) {
+                                    vm.success = true;
+                                    vm.successMsg = "Order is successfully submitted!!! Order Id " + order._id;
+                                    $('#staddress').attr('readonly', true);
+                                    $('#city').attr('readonly', true);
+                                    $('#state').attr('readonly', true);
+                                    $('#zipcode').attr('readonly', true);
+                                })
+                                .error(function (error) {
+                                    vm.error = "Order could not be sucessfully submitted";
+                                    console.log("Could not delete shopping cart");
+                                })
 
-                    // ModalService.showModal({
-                    //     templateUrl: "/project/views/order/successOrderModal.html",
-                    //     controller: "ModalInstanceCtrl"
-                    // }).then(function (modal) {
-                    //     modal.element.modal();
-                    //     modal.close.then(function (result) {
-                    //         $scope.yesNoResult = result ? "You said Yes" : "You said No";
-                    //     });
-                    // });
+                        } else {
+                            vm.error = "Order could not be sucessfully submitted";
+                        }
+                    })
+                    .error(function (error) {
+                        vm.error = error;
+                    })
+            }
+        }
 
+        function validateShippingAddressOrder() {
+            var success = true;
+            if (vm.order.shippingStreet == undefined || vm.order.shippingStreet == "") {
+                vm.error = "Shipping Street cannot be empty";
+                $('#fmgrp-staddress').addClass("has-error");
+                success = false;
+            } else if (vm.order.shippingCity == undefined || vm.order.shippingCity == "") {
+                vm.error = "Shipping City cannot be empty";
+                $('#fmgrp-city').addClass("has-error");
+                success = false;
+            } else if (vm.order.shippingState == undefined || vm.order.shippingState == "") {
+                vm.error = "Shipping State cannot be empty";
+                $('#fmgrp-state').addClass("has-error");
+                success = false;
+            } else if (vm.order.shippingZipcode == undefined || vm.order.shippingZipcode == "") {
+                vm.error = "Shipping Zipcode cannot be empty";
+                $('#fmgrp-zipcode').addClass("has-error");
+                success = false;
+            }
 
-                })
-                .error(function (error) {
-                    vm.error = error;
-                })
+            var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(vm.order.shippingZipcode);
+            if(success == true && !isValidZip){
+                success = false;
+                vm.error = "Shipping Zipcode incorrect digits";
+                $('#fmgrp-zipcode').addClass("has-error");
+            }
+
+            if (success == true) {
+                $('#fmgrp-staddress').removeClass("has-error");
+                $('#fmgrp-city').removeClass("has-error");
+                $('#fmgrp-state').removeClass("has-error");
+                $('#fmgrp-zipcode').removeClass("has-error");
+                vm.error = "";
+            }
+
+            return success;
         }
     }
 
-    function ModalInstanceCtrl($scope) {
 
-        $scope.close = function (result) {
-            close(result, 500); // close, but give 500ms for bootstrap to animate
-        };
-    }
-
-
-})();
+})
+();

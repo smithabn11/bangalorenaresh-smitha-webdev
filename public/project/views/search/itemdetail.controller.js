@@ -23,6 +23,10 @@
                 .success(function (result) {
                     if (result != null) {
                         vm.item = result;
+                        if (result.longDescription) {
+                            vm.longdesc = $('<p>').html(result.longDescription).text();
+                        }
+
                     }
                 })
                 .error(function (error) {
@@ -47,7 +51,6 @@
                 });
 
         }
-
 
         function addItemShoppingCart(item) {
             if (vm.userId) {

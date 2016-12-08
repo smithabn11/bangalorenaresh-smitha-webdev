@@ -28,6 +28,7 @@ module.exports = function (app, models) {
     app.post('/api/shopper', createShopper);
     app.put('/api/shopper/:uid', updateShopper);
     app.delete('/api/shopper/:uid', deleteShopper);
+    app.get('/api/shopper/:uid/allShoppers', findAllShoppers);
     app.post('/api/shopper/login', passport_project.authenticate('local'), login);
     app.post('/api/shopper/checkLogin', checkLogin);
     app.post('/api/shopper/logout', logout);
@@ -135,7 +136,7 @@ module.exports = function (app, models) {
 
     function checkAdmin(req, res) {
         var loggedIn = req.isAuthenticated();
-        var isAdmin = req.user.role == 'ADMIN';
+        var isAdmin = req.user.roles == 'ADMIN';
         if (loggedIn && isAdmin) {
             res.json(req.user);
         } else {
@@ -344,4 +345,27 @@ module.exports = function (app, models) {
             )
     }
 
+    function findAllShoppers(req, res) {
+        var userId = req.params['uid'];
+
+        shopperModel.findShopperById(userId)
+            .then(
+                function (user) {
+                    if (user.toJSON().roles == 'ADMIN') {
+                        shopperModel.findAllShoppers()
+                            .then(
+                                function (shoppers) {
+                                    res.json(shoppers);
+                                },
+                                function (error) {
+                                    res.sendStatus(400);
+                                }
+                            );
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400);
+                }
+            );
+    }
 }

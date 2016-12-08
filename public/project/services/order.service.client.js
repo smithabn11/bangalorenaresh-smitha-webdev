@@ -10,7 +10,8 @@
             "checkOut": checkOut,
             "findOrderByOrderId": findOrderByOrderId,
             "deleteOrderByOrderId": deleteOrderByOrderId,
-            "submitOrder": submitOrder
+            "submitOrder": submitOrder,
+            "findOrdersByUserId": findOrdersByUserId
         }
         return api;
 
@@ -28,6 +29,10 @@
 
         function submitOrder(userId, orderId, orderObj) {
             return $http.post("/api/shopper/" + userId + "/order/" + orderId + "/submit", orderObj);
+        }
+
+        function findOrdersByUserId(userId){
+            return $http.get("/api/shopper/" + userId + "/myorders");
         }
     }
 })();

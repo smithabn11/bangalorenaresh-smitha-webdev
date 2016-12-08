@@ -21,7 +21,8 @@ module.exports = function () {
         findShopperByGoogleId: findShopperByGoogleId,
         findShopperByFacebookId: findShopperByFacebookId,
         addItemWishlist: addItemWishlist,
-        deleteItemWishlist: deleteItemWishlist
+        deleteItemWishlist: deleteItemWishlist,
+        findAllShoppers: findAllShoppers
     }
 
     return api;
@@ -69,5 +70,8 @@ module.exports = function () {
         return ShopperModel.update({_id: userId}, {$pull: {'wishlist': itemId}});
     }
 
+    function findAllShoppers() {
+        return ShopperModel.find();
+    }
 
 }

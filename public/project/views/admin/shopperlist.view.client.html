@@ -1,23 +1,60 @@
-<div class="container-fluid">
-    <div ng-if="model.error" class="row">
-        <div ng-show="model.error" class="alert alert-danger" role="alert">
-            {{model.error}}
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/admin/{{model.userId}}"><span
+                    class="glyphicon glyphicon-chevron-left navbar-custom"></span>
+            </a>
+        </p>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <h3>Shoppers List</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Username</td>
+                    <td>Firstname</td>
+                    <td>Lastname</td>
+                    <td>Email</td>
+                    <td>Facebook</td>
+                    <td>Google</td>
+                    <td>Roles</td>
+                    <td>Orders</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="shopper in model.shoppers">
+                    <td>{{ shopper._id }}</td>
+                    <td>{{ shopper.username }}</td>
+                    <td>{{ shopper.firstName }}</td>
+                    <td>{{ shopper.lastName }}</td>
+                    <td>{{ shopper.email }}</td>
+                    <td ng-if="shopper.facebook"><span class="glyphicon glyphicon-ok"></span></td>
+                    <td ng-if="!shopper.facebook"></td>
+                    <td ng-if="shopper.google"><span class="glyphicon glyphicon-ok"></span></td>
+                    <td ng-if="!shopper.google"></td>
+                    <td>{{ shopper.roles }}</td>
+                    <td><a href="#/admin/{{model.userId}}/shopper/{{shopper._id}}/adminorder">Orders</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="row">
-        <h1>Welcome to ShopAwesome</h1>
-
-        <input type="text"
-               ng-model="model.username"
-               class="form-control"
-               placeholder="username"/>
-        <input type="password"
-               ng-model="model.password"
-               class="form-control"
-               placeholder="password"/>
-    </div>
-    <div class="row">
-        <a href ng-click="model.login(model.username, model.password)" class="btn btn-primary btn-md"
-        >Sign In</a>
-    </div>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

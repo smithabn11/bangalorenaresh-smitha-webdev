@@ -36,8 +36,8 @@ module.exports = function () {
             {$inc: {'total': totalPrice}});
     }
 
-    function removeItemShoppingCart(userId, itemId) {
-        return ShoppingCartModel.update({_shopper: userId}, {$pull: {items: {itemId : itemId}}});
+    function removeItemShoppingCart(userId, itemId, itemDbId) {
+        return ShoppingCartModel.update({_shopper: userId}, {$pull: {items: {itemId: itemId, _id: itemDbId}}});
     }
 
     function deleteShoppingCart(userId) {

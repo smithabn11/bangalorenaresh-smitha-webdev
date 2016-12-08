@@ -8,42 +8,59 @@
     function SearchMainController($routeParams, $location, $http, $rootScope, SearchService, ShoppingCartService) {
         var vm = this;
         var userId = $routeParams['uid'];
-        var numOfItemsPerRequest = 25;
+        var numOfItemsPerRequest = 10;
 
         function init() {
             vm.userId = userId;
             vm.curPageIndex = 1;
+            vm.error = "";
             vm.prevPageItems = prevPageItems;
             vm.nextPageItems = nextPageItems;
             vm.searchItem = searchItem;
             vm.addItemShoppingCart = addItemShoppingCart;
 
-            if (vm.searchText == null && $rootScope.searchText) {
-                searchItem($rootScope.searchText);
+            if (vm.searchText == null && $rootScope.searchText && $rootScope.curPageIndex) {
+                vm.curPageIndex = $rootScope.curPageIndex;
+                searchItem($rootScope.searchText, $rootScope.curPageIndex);
             }
         }
 
         init();
 
-        function searchItem(searchText) {
-            vm.searchText = searchText;
+        function searchItem(searchText, pageIndex) {
 
-            var promise = SearchService.searchItem(searchText, 1);
-            promise
-                .success(function (result) {
-                    if (result != null) {
-                        $rootScope.searchText = searchText;
+            if (searchText == undefined || searchText == "") {
+                vm.error = "Search Text cannot be empty. Please enter the search text.";
+                $('#main-search').addClass('has-error');
+                $('#searchtext-btn').removeClass('btn-default');
+                $('#searchtext-btn').addClass('btn-danger');
+            } else {
+                vm.error = "";
+                vm.searchText = searchText;
+                $('#main-search').removeClass('has-error');
+                $('#searchtext-btn').addClass('btn-default');
+                $('#searchtext-btn').removeClass('btn-danger');
 
-                        vm.searchItemList = result.items;
-                        if (result.totalResults > numOfItemsPerRequest) {
-                            vm.reqPagination = true;
-                            vm.totalResults = result.totalResults;
+
+                var promise = SearchService.searchItem(searchText, pageIndex);
+                promise
+                    .success(function (result) {
+                        if (result != null) {
+                            $rootScope.searchText = searchText;
+                            $rootScope.curPageIndex = vm.curPageIndex;
+
+
+                            vm.searchItemList = result.items;
+                            if (result.totalResults > numOfItemsPerRequest) {
+                                vm.reqPagination = true;
+                                vm.totalResults = result.totalResults;
+                            }
                         }
-                    }
-                })
-                .error(function (response) {
-                    vm.error = response;
-                });
+                    })
+                    .error(function (response) {
+                        vm.error = response;
+                    });
+            }
         }
 
         function prevPageItems() {
@@ -55,6 +72,7 @@
                         if (result != null) {
                             vm.searchItemList = result.items;
                             vm.curPageIndex = vm.curPageIndex - 1;
+                            $rootScope.curPageIndex = vm.curPageIndex;
                             $('#pagination-left').removeClass('disabled');
                         }
                     })
@@ -77,6 +95,7 @@
                         if (result != null) {
                             vm.searchItemList = result.items;
                             vm.curPageIndex = vm.curPageIndex + 1;
+                            $rootScope.curPageIndex = vm.curPageIndex;
                             $('#pagination-right').removeClass('disabled');
                             $('#pagination-left').removeClass('disabled');
                         }

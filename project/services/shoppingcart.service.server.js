@@ -6,7 +6,7 @@ module.exports = function (app, models) {
     app.post('/api/shopper/:uid/shoppingcart', createShoppingCart);
     app.get('/api/shopper/:uid/shoppingcart', findShoppingCartByUserId);
     app.put('/api/shopper/:uid/shoppingcart', addItemShoppingCart)
-    app.delete('/api/shopper/:uid/shoppingcart/:itemId', removeItemShoppingCart);
+    app.delete('/api/shopper/:uid/shoppingcart/:itemId/item/:itemDbId', removeItemShoppingCart);
     app.delete('/api/shopper/:uid/shoppingcart', deleteShoppingCart);
 
     var shoppingCartModel = models.shoppingCartModel;
@@ -62,7 +62,8 @@ module.exports = function (app, models) {
     function removeItemShoppingCart(req, res) {
         var userId = req.params.uid;
         var itemId = req.params.itemId;
-        shoppingCartModel.removeItemShoppingCart(userId, itemId)
+        var itemIDbId = req.params.itemDbId;
+        shoppingCartModel.removeItemShoppingCart(userId, itemId, itemIDbId)
             .then(
                 function (status) {
                     if (status) {

@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/admin/{{model.adminId}}/shopperlist"><span
+                    class="glyphicon glyphicon-chevron-left navbar-custom"></span>
+            </a>
+        </p>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.adminId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <h3>User {{model.shopperId}} Orders</h3>
+        <!--<ul class="list-unstyled">-->
+        <!--<li ng-repeat=" order in model.orders | orderBy: 'dateCreated' as filtered_result track by order._id">-->
+        <!--<p><a href="#/shopper/{{model.shopperId}}/order/{{order._id}}">{{ order._id }}</a> Date Submitted:-->
+        <!--{{order.dateCreated}}</p>-->
+        <!--</li>-->
+        <!--</ul>-->
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Items (ItemId, Price, Quantity)</td>
+                    <td>Total</td>
+                    <td>DateCreated</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in model.orders | orderBy: 'dateCreated' as filtered_result track by order._id">
+                    <td>{{ order._id }}</td>
+                    <td>
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+
+                            <tr ng-repeat="item in order.items">
+                                <td>{{ item.itemId }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.price }}</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td>{{ order.total }}</td>
+                    <td>{{ order.dateCreated }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

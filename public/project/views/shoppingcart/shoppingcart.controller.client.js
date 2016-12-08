@@ -50,7 +50,15 @@
         init();
 
         function removeItemShoppingCart(itemId) {
-            ShoppingCartService.removeItemShoppingCart(vm.userId, itemId)
+            var itemDbId;
+            for (var i = 0; i < vm.cart.items.length; i++) {
+                if (itemId == vm.cart.items[i].itemId) {
+                    itemDbId = vm.cart.items[i]._id;
+                    break;
+                }
+            }
+
+            ShoppingCartService.removeItemShoppingCart(vm.userId, itemId, itemDbId)
                 .success(function (cart) {
                     var shoppingCartItems = [];
                     vm.total = 0;

@@ -18,11 +18,11 @@
             "checkLogin": checkLogin,
             "logout": logout,
             "findCurrentUser": findCurrentUser,
-            "checkAdmin": checkAdmin
+            "checkAdmin": checkAdmin,
+            "findAllShoppers": findAllShoppers
         };
 
         return api;
-
 
 
         function login(username, password) {
@@ -81,6 +81,10 @@
         function deleteUser(userId) {
             var url = "/api/shopper/" + userId;
             return $http.delete(url);
+        }
+
+        function findAllShoppers(userId) {
+            return $http.get("/api/shopper/" + userId + "/allShoppers");
         }
     }
 })();

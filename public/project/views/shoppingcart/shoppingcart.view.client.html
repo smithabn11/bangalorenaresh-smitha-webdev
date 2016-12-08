@@ -14,6 +14,11 @@
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-search navbar-custom"></span>
+            </a>
+        </p>
+
     </div>
 </nav>
 
@@ -43,9 +48,11 @@
             </div>
             <div class="col-xs-8">
                 <h4>{{item.name}}</h4>
-                <h5><span>MSRP : </span>{{item.msrp}}</h5>
+                <h5 ng-if="item.msrp"><span>MSRP : </span> {{item.msrp}}</h5>
                 <h5><span>Sale Price : </span>{{item.salePrice}}</h5>
-                <p>{{item.shortDescription}}</p>
+                <h5 ng-if="item.customerRating"><span>Customer Rating : </span>{{item.customerRating}}</h5>
+                <h5 ng-if="item.numReviews"><span>Number of Reviews : </span>{{item.numReviews}}</h5>
+                <p ng-if="item.shortDescription">{{item.shortDescription}}</p>
             </div>
             <div class="row pull-right">
                 <span class="pull-right buttons">
@@ -59,9 +66,11 @@
             <div class="row">
                 <div class="col-xs-8">
                     <h4>{{item.name}}</h4>
-                    <h5><span>MSRP : </span> {{item.msrp}}</h5>
+                    <h5 ng-if="item.msrp"><span>MSRP : </span> {{item.msrp}}</h5>
                     <h5><span>Sale Price : </span>{{item.salePrice}}</h5>
-                    <p>{{item.shortDescription}}</p>
+                    <h5 ng-if="item.customerRating"><span>Customer Rating : </span>{{item.customerRating}}</h5>
+                    <h5 ng-if="item.numReviews"><span>Number of Reviews : </span>{{item.numReviews}}</h5>
+                    <p ng-if="item.shortDescription">{{item.shortDescription}}</p>
                 </div>
                 <div class="col-xs-4 pull-right">
                     <span class="pull-right buttons">
@@ -96,9 +105,10 @@
             </div>
             <div class="form-group col-xs-2 input-group pull-right">
                 <div class="row">
-                    <div class="col-xs-3"><h4>Total</h4></div>
+                    <div class="col-xs-3">
+                        <h4 class="shopawesome-h4">Total</h4></div>
                     <div class="col-xs-9">
-                        <input ng-model="model.total" type="text" class="form-control total-text">
+                        <input ng-model="model.total" type="text" class="form-control total-text" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -107,7 +117,7 @@
         <div ng-if="model.cartItems.items" class="row hidden-lg hidden-md">
             <div class="form-group col-xs-4"></div>
             <div class="form-group col-xs-4 total-text">
-                <h4>Total</h4>
+                <h4 class="shopawesome-h4">Total</h4>
             </div>
             <div class="form-group col-xs-4 input-group pull-right">
                 <input ng-model="model.total" type="text" class="form-control total-text" readonly="readonly">
@@ -115,6 +125,12 @@
         </div>
     </form>
     <span class="pull-right buttons row">
-        <button ng-if="model.cartItems.items" ng-click="model.checkOut()" class="btn btn-md btn-primary"> Checkout</button>
+        <button ng-if="model.cartItems.items" ng-click="model.checkOut()"
+                class="btn btn-md btn-primary"> Checkout</button>
     </span>
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

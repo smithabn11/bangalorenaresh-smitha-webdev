@@ -48,7 +48,7 @@
                         }
                     })
                     .error(function (response) {
-                        vm.error = response + " " + "No such username or password mismatch";
+                        vm.error = response + " " + "Please verify your credentials";
                     })
             }
         }
@@ -117,12 +117,15 @@
                 .success(function () {
                     vm.user = null;
                     $rootScope.currentUser = null;
+                    $rootScope.searchText = null;
+                    $rootScope.curPageIndex = null;
                     $location.url("/login");
                 })
                 .error(function (response) {
                     vm.error = response;
                 });
         }
+
     }
 
     function RegisterController($routeParams, $location, $http, $rootScope, ShopperService) {
@@ -195,7 +198,7 @@
 
     }
 
-    function WishlistController($routeParams, $location, $http, $rootScope, ShopperService, SearchService, WishlistService) {
+    function WishlistController($routeParams, $location, $http, $rootScope, ShopperService, SearchService, ShoppingCartService, WishlistService) {
         var vm = this;
         var userId = $routeParams.uid;
         if ($routeParams.uid) {
@@ -206,6 +209,8 @@
         }
 
         function init() {
+            vm.addItemShoppingCart = addItemShoppingCart;
+
             vm.removeItemWishlist = removeItemWishlist;
             if ($routeParams.uid) {
                 vm.userId = $routeParams.uid;
@@ -244,7 +249,7 @@
                                 $rootScope.currentUser = user;
 
                                 if (user.wishlist.length > 0) {
-                                    SearchService.lookupWishlistItems(user.wishlist)
+                                    SearchService.lookupItems(user.wishlist)
                                         .success(function (wishlistItems) {
                                             if (wishlistItems.items) {
                                                 vm.wishlistItems = wishlistItems.items;
@@ -265,6 +270,49 @@
                 .error(function (error) {
                     vm.error = error;
                 })
+        }
+
+        function addItemShoppingCart(item) {
+            if (vm.userId) {
+                ShoppingCartService.findShoppingCartByUserId(userId)
+                    .success(function (result) {
+                        if (result == null) {
+                            ShoppingCartService.createShoppingCart(userId, {
+                                itemId: item.itemId,
+                                quantity: 1,
+                                price: item.salePrice
+                            })
+                                .success(function (cart) {
+                                    $location.url("/shopper/" + vm.userId + "/shoppingcart");
+                                })
+                                .error(function (error) {
+                                    if (error) {
+                                        vm.error = error;
+                                    }
+                                })
+
+                        } else {
+                            ShoppingCartService.addItemShoppingCart(userId, {
+                                itemId: item.itemId,
+                                quantity: 1,
+                                price: item.salePrice
+                            })
+                                .success(function (cart) {
+                                    $location.url("/shopper/" + vm.userId + "/shoppingcart");
+                                })
+                                .error(function (error) {
+                                    if (error) {
+                                        vm.error = error;
+                                    }
+                                })
+                        }
+                    })
+                    .error(function (error) {
+                        if (error) {
+                            vm.error = error;
+                        }
+                    })
+            }
         }
     }
 

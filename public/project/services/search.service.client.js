@@ -7,7 +7,7 @@
 
     var apiKey = "hw322tqs9xfk4twrv3anuqdx";
     var thirdPartUrl = "http://api.walmartlabs.com/v1/";
-    var maxItemsInOneFetch = 25;
+    var maxItemsInOneFetch = 10;
 
     function SearchService($http) {
         var api = {

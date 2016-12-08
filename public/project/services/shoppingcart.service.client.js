@@ -28,8 +28,8 @@
             return $http.put("/api/shopper/" + userId + "/shoppingcart", itemObj);
         }
 
-        function removeItemShoppingCart(userId, itemId) {
-            return $http.delete("/api/shopper/" + userId + "/shoppingcart/" + itemId);
+        function removeItemShoppingCart(userId, itemId, itemDbId) {
+            return $http.delete("/api/shopper/" + userId + "/shoppingcart/" + itemId + "/item/" + itemDbId);
         }
 
         function deleteShoppingCart(userId) {

@@ -11,13 +11,19 @@
             </a>
         </div>
         <p class="navbar-text pull-right glyph-padding">
-            <a href="#/shopper/{{model.userId}}/shoppingcart"><span class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
-            </a>
-        </p>
-        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
             </a>
         </p>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-search navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/shoppingcart"><span
+                    class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
+            </a>
+        </p>
+
     </div>
 </nav>
 
@@ -43,7 +49,9 @@
                 <h4>{{model.item.name}}</h4>
                 <h4><span>MSRP :</span>{{model.item.msrp}}</h4>
                 <h4><span>Sale Price :</span>{{model.item.salePrice}}</h4>
-                <div ng-if="model.item.longDescription"><p class="text-left">{{model.item.longDescription}}</p></div>
+                <div ng-if="model.item.longDescription"><p class="text-left">
+                    {{model.item.longDescription}}</p></div>
+                <!--{{model.longdesc}}-->
             </div>
             <div class="row pull-right">
                 <span class="pull-right buttons">
@@ -54,7 +62,11 @@
                 </span>
             </div>
         </div>
+
     </div>
 </div>
 
-
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

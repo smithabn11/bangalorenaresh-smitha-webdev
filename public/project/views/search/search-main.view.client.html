@@ -6,26 +6,32 @@
             </a>
         </div>
         <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}/shoppingcart"><span
                     class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
             </a>
         </p>
-        <p class="navbar-text pull-right glyph-padding">
-            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
-            </a>
-        </p>
+
     </div>
 </nav>
 
 <div class="container">
+    <div class="row">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+    </div>
     <div id="main-search" class="input-group row">
-    <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
-    <span class="input-group-btn">
-                    <button ng-click="model.searchItem(model.searchText)" type="button"
-                            class="btn btn-primary"
+        <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+                    <button ng-click="model.searchItem(model.searchText, 1)" type="button"
+                            class="btn btn-primary" id="searchtext-btn"
                     >Go!</button>
       </span>
-</div><!-- /input-group -->
+    </div><!-- /input-group -->
     <!--{{model.searchItemList}}-->
     <ul class="list-group">
         <div ng-repeat="item in model.searchItemList" ng-init="parentItemIndex = $index">
@@ -102,9 +108,13 @@
     <div ng-if="model.reqPagination" class="text-center">
         <ul class="pagination">
             <li id="pagination-left" class="disabled"><a ng-click="model.prevPageItems()">&laquo;</a></li>
-            <li class="active"><a href="#">{{model.curPageIndex}}</a></li>
+            <li class="active"><a>{{model.curPageIndex}}</a></li>
             <li id="pagination-right"><a ng-click="model.nextPageItems()">&raquo;</a></li>
         </ul>
     </div>
 </div>
 
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

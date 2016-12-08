@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/shopper/{{model.userId}}"><span
+                    class="glyphicon glyphicon-chevron-left navbar-custom"></span>
+            </a>
+        </p>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand">
+                Welcome to ShopAwesome
+            </a>
+        </div>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}"><span class="glyphicon glyphicon-user navbar-custom"></span>
+            </a>
+        </p>
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-search navbar-custom"></span>
+            </a>
+        </p>
+
+    </div>
+</nav>
+<div class="container">
+    <!--{{model.orders}}-->
+    <h3>Your orders</h3>
+    <div class="row well">
+        <ul class="list-unstyled">
+            <li ng-repeat=" order in model.orders | orderBy: 'dateCreated' as filtered_result track by order._id">
+                <p><a href="#/shopper/{{model.userId}}/order/{{order._id}}">{{ order._id }}</a> Date Submitted:
+                    {{order.dateCreated}}</p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    </div>
+</nav>

@@ -5,7 +5,7 @@ module.exports = function (app, models) {
 
     app.post('/api/shopper/:uid/shoppingcart/checkout', createOrder);
     app.get('/api/shopper/:uid/order/:oid', findOrderByOrderId);
-    app.get('/api/shopper/:uid/orders', findOrdersByUserId);
+    app.get('/api/shopper/:uid/myorders', findOrdersByUserId);
     app.put('/api/shopper/:uid/order/:oid', updateOrderByOrderId);
     app.delete('/api/shopper/:uid/order/:oid', deleteOrderByOrderId);
     app.post('/api/shopper/:uid/order/:oid/submit', submitOrder);

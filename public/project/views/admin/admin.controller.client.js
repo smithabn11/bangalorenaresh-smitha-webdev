@@ -3,27 +3,57 @@
  */
 (function () {
     angular.module('ShoppingAwesome')
-        .controller('AdminLoginController', AdminLoginController)
+        .controller('AdminController', AdminController)
+        .controller('ShopperListController', ShopperListController)
+        .controller('AdminOrderController', AdminOrderController);
 
-    function AdminLoginController($location, $http, AdminService) {
+    function AdminController($routeParams, $location, $http) {
         var vm = this;
-        vm.adminLogin = adminLogin;
+        var userId = $routeParams['uid'];
 
-        function adminLogin(username, password) {
-            var promise = AdminService.findUserByCredentials(username, password);
-            promise
-                .success(function (user) {
-                    if (user === '0') {
-                        vm.error = "No admin access";
-                    } else {
-                        $location.url("/admin/" + user._id);
-                    }
-                })
-                .error(function (err) {
-                    vm.error = err;
-                })
+        function init() {
+            vm.userId = userId;
         }
+
+        init();
     }
 
+    function ShopperListController($routeParams, $location, $http, ShopperService) {
+        var vm = this;
+        var userId = $routeParams['uid'];
+
+        function init() {
+            vm.userId = userId;
+            ShopperService.findAllShoppers(userId)
+                .success(function (shoppers) {
+                    vm.shoppers = shoppers;
+                })
+                .error(function (error) {
+                    vm.error = error;
+                })
+        }
+
+        init();
+    }
+
+    function AdminOrderController($routeParams, $location, $http, OrderService) {
+        var vm = this;
+        var adminId = $routeParams['aid'];
+        var shopperId = $routeParams['uid'];
+
+        function init() {
+            vm.adminId = adminId;
+            vm.shopperId = shopperId;
+            OrderService.findOrdersByUserId(shopperId)
+                .success(function (orders) {
+                    vm.orders = orders;
+                })
+                .error(function (error) {
+                    vm.error = error;
+                })
+        }
+
+        init();
+    }
 
 })();

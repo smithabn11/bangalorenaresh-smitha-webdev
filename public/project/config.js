@@ -8,9 +8,35 @@
     function Config($routeProvider, $httpProvider) {
         $routeProvider
             .when('/admin', {
-                templateUrl: 'views/admin/shopperlist.view.client.html',
+                templateUrl: 'views/admin/admin.view.client.html',
+                controller: 'AdminController',
+                controllerAs: "model",
                 resolve: {
-                    checkAdmin: checkAdmin
+                    checkAdmin: checkShopperAdmin
+                }
+            })
+            .when('/admin/:uid', {
+                templateUrl: 'views/admin/admin.view.client.html',
+                controller: 'AdminController',
+                controllerAs: "model",
+                resolve: {
+                    checkAdmin: checkShopperAdmin
+                }
+            })
+            .when('/admin/:uid/shopperlist', {
+                templateUrl: 'views/admin/shopperlist.view.client.html',
+                controller: 'ShopperListController',
+                controllerAs: "model",
+                resolve: {
+                    checkAdmin: checkShopperAdmin
+                }
+            })
+            .when('/admin/:aid/shopper/:uid/adminorder', {
+                templateUrl: 'views/admin/adminorder.view.client.html',
+                controller: 'AdminOrderController',
+                controllerAs: "model",
+                resolve: {
+                    checkAdmin: checkShopperAdmin
                 }
             })
             .when('/login', {
@@ -41,6 +67,11 @@
                 controller: 'WishlistController',
                 controllerAs: "model"
             })
+            .when('/shopper/:uid/myorders', {
+                templateUrl: 'views/order/myorders.view.client.html',
+                controller: 'MyOrderController',
+                controllerAs: "model"
+            })
             .when('/shopper/:uid/search', {
                 templateUrl: 'views/search/search-main.view.client.html',
                 controller: 'SearchMainController',
@@ -59,11 +90,6 @@
             .when('/shopper/:uid/order/:oid', {
                 templateUrl: 'views/order/order.view.client.html',
                 controller: 'OrderController',
-                controllerAs: "model"
-            })
-            .when('/admin', {
-                templateUrl: 'views/admin/adminlogin.view.client.html',
-                controller: 'AdminLoginController',
                 controllerAs: "model"
             })
             .otherwise({
@@ -96,7 +122,7 @@
         }
 
 
-        function checkAdmin($q, ShopperService) {
+        function checkShopperAdmin($q, ShopperService) {
             var deferred = $q.defer();
             ShopperService.checkAdmin()
                 .success(function (user) {
