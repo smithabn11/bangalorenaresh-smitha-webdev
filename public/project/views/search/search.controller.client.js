@@ -11,6 +11,7 @@
         var numOfItemsPerRequest = 10;
 
         function init() {
+            $('html').removeClass('project-bk');
             vm.userId = userId;
             vm.curPageIndex = 1;
             vm.error = "";
@@ -45,8 +46,9 @@
                 var promise = SearchService.searchItem(searchText, pageIndex);
                 promise
                     .success(function (result) {
-                        if (result != null) {
+                        if (result != null && result.numItems > 0) {
                             $rootScope.searchText = searchText;
+                            vm.curPageIndex = pageIndex;
                             $rootScope.curPageIndex = vm.curPageIndex;
 
 
@@ -55,6 +57,8 @@
                                 vm.reqPagination = true;
                                 vm.totalResults = result.totalResults;
                             }
+                        } else if (result.numItems == 0) {
+                            vm.error = result.message;
                         }
                     })
                     .error(function (response) {

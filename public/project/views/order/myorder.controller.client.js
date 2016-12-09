@@ -5,7 +5,7 @@
     angular.module('ShoppingAwesome')
         .controller('MyOrderController', MyOrderController);
 
-    function MyOrderController($routeParams, $location, $http, OrderService) {
+    function MyOrderController($routeParams, OrderService) {
         var vm = this;
         var userId = $routeParams['uid'];
 

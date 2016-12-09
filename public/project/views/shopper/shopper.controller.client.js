@@ -8,10 +8,11 @@
         .controller('RegisterController', RegisterController)
         .controller('WishlistController', WishlistController);
 
-    function LoginController($location, $http, $rootScope, ShopperService) {
+    function LoginController($location, $rootScope, ShopperService) {
         var vm = this;
 
         function init() {
+            $('html').addClass('project-bk');
             vm.login = login;
             removeErrorClasses();
         }
@@ -22,15 +23,20 @@
             removeErrorClasses();
 
             if (username == null || password == null) {
-                if (username == null || username == "") {
+                if ((username == null || username == "") && (password == null || password == "")) {
                     $('#username').addClass('has-error');
-                    $('#username').removeClass('has-success')
+                    $('#password').addClass('has-error');
+                    vm.error = "username and password cannot be empty";
+                    updateError();
+                } else if (username == null || username == "") {
+                    $('#username').addClass('has-error');
                     vm.error = "username cannot be empty";
+                    updateError();
                 }
                 else if (password == null || password == "") {
                     $('#password').addClass('has-error');
-                    $('#password').removeClass('has-success')
                     vm.error = "password cannot be empty";
+                    updateError();
                 }
             } else {
                 vm.error = "";
@@ -45,10 +51,12 @@
                             $location.url("/shopper/" + user._id + "/search");
                         } else {
                             vm.error = "No such username or password mismatch";
+                            updateError();
                         }
                     })
                     .error(function (response) {
-                        vm.error = response + " " + "Please verify your credentials";
+                        vm.error = response + " " + "Please verify your credentials <br> New Shoppers please Register";
+                        updateError();
                     })
             }
         }
@@ -58,6 +66,13 @@
             $('#username').removeClass('has-success')
             $('#password').removeClass('has-error');
             $('#password').removeClass('has-success');
+            $('#loginerror').empty();
+        }
+
+        function updateError() {
+            $('#loginerror').empty();
+            $('#loginerror').append("<p class='myPClass'></p>");
+            $('.myPClass').html(vm.error);
         }
     }
 
@@ -67,6 +82,8 @@
         var userId = $routeParams.uid;
 
         function init() {
+            $('html').removeClass('project-bk');
+
             //vm.userId = userId;
             vm.updateProfile = updateProfile;
             vm.unRegisterUser = unRegisterUser;
@@ -133,6 +150,7 @@
 
         function init() {
             vm.register = register;
+            $('html').removeClass('project-bk');
             removeErrorClasses();
         }
 
@@ -142,22 +160,10 @@
             removeErrorClasses();
             vm.error = "";
 
-            if (username == null || password == null || retype_password == null) {
-                if (username == null) {
-                    vm.error = "username cannot be empty";
-                    $('#username').addClass('has-error');
-                    $('#username').removeClass('has-success');
-                }
-                else if (password == null) {
-                    vm.error = "password cannot be empty";
-                    $('#password').addClass('has-error');
-                    $('#password').removeClass('has-success');
-                }
-                else if (retype_password == null) {
-                    vm.error = "verify password cannot be empty";
-                    $('#retype_password').addClass('has-error');
-                    $('#retype_password').removeClass('has-success');
-                }
+            if (username == null || username == "" ||
+                password == null || password == "" ||
+                retype_password == null || retype_password == "") {
+                validateForm(username, password, retype_password);
             }
             else {
                 ShopperService.findUserByUsername(username)
@@ -189,11 +195,31 @@
 
         function removeErrorClasses() {
             $('#username').removeClass('has-error');
-            $('#username').removeClass('has-success');
             $('#password').removeClass('has-error');
-            $('#password').removeClass('has-success');
             $('#retype_password').removeClass('has-error');
-            $('#retype_password').removeClass('has-success');
+        }
+
+        function validateForm(username, password, retype_password) {
+            if ((username == null || username == "") &&
+                (password == null || password == "") &&
+                (retype_password == null || retype_password == "")) {
+                vm.error = "username and password fields cannot be empty";
+                $('#username').addClass('has-error');
+                $('#password').addClass('has-error');
+                $('#retype_password').addClass('has-error');
+            }
+            else if (username == null || username == "") {
+                vm.error = "username cannot be empty";
+                $('#username').addClass('has-error');
+            }
+            else if (password == null || password == "") {
+                vm.error = "password cannot be empty";
+                $('#password').addClass('has-error');
+            }
+            else if (retype_password == null || retype_password == "") {
+                vm.error = "verify password cannot be empty";
+                $('#retype_password').addClass('has-error');
+            }
         }
 
     }

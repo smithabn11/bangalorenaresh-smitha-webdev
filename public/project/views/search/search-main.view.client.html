@@ -25,12 +25,13 @@
         </div>
     </div>
     <div id="main-search" class="input-group row">
-        <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for...">
-        <span class="input-group-btn">
+            <input ng-model="model.searchText" type="text" class="form-control" placeholder="Search for..."
+                   ng-keyup="$event.keyCode == 13 ? model.searchItem(model.searchText, 1) : null">
+            <span class="input-group-btn">
                     <button ng-click="model.searchItem(model.searchText, 1)" type="button"
                             class="btn btn-primary" id="searchtext-btn"
                     >Go!</button>
-      </span>
+            </span>
     </div><!-- /input-group -->
     <!--{{model.searchItemList}}-->
     <ul class="list-group">

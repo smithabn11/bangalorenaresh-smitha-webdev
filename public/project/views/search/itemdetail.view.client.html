@@ -15,15 +15,14 @@
             </a>
         </p>
         <p class="navbar-text pull-right glyph-padding">
-            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-search navbar-custom"></span>
-            </a>
-        </p>
-        <p class="navbar-text pull-right glyph-padding">
             <a href="#/shopper/{{model.userId}}/shoppingcart"><span
                     class="glyphicon glyphicon-shopping-cart navbar-custom"></span>
             </a>
         </p>
-
+        <p class="navbar-text pull-right glyph-padding">
+            <a href="#/shopper/{{model.userId}}/search"><span class="glyphicon glyphicon-search navbar-custom"></span>
+            </a>
+        </p>
     </div>
 </nav>
 
@@ -47,16 +46,26 @@
         <div class="col-sm-8">
             <div class="row">
                 <h4>{{model.item.name}}</h4>
-                <h4><span>MSRP :</span>{{model.item.msrp}}</h4>
-                <h4><span>Sale Price :</span>{{model.item.salePrice}}</h4>
-                <div ng-if="model.item.longDescription"><p class="text-left">
-                    {{model.item.longDescription}}</p></div>
-                <!--{{model.longdesc}}-->
+                <h5><span>MSRP :</span>{{model.item.msrp}}</h5>
+                <h5><span>Sale Price :</span>{{model.item.salePrice}}</h5>
+                <div ng-if="model.item.longDescription"><h5>Description</h5></div>
+                <div class="panel">
+                    <div id="longDesc" class="panel-body">
+                    </div>
+                </div>
             </div>
-            <div class="row pull-right">
+            <div class="row pull-right hidden-xs hidden-sm">
+                <span class="pull-right buttons">
+                    <button ng-click="model.addWishList()" class="btn btn-md btn-default">
+                        <span id="wishlist" class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
+                    <button ng-click="model.addItemShoppingCart(model.item)" class="btn btn-md btn-primary"><span
+                            class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</button>
+                </span>
+            </div>
+            <div class="row pull-right hidden-lg hidden-md">
                 <span class="pull-right buttons">
                     <button ng-click="model.addWishList()" class="btn btn-sm btn-default">
-                        <span id="wishlist" class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
+                        <span id="wishlistsm" class="show-btn glyphicon glyphicon-heart"></span> Wishlist</button>
                     <button ng-click="model.addItemShoppingCart(model.item)" class="btn btn-sm btn-primary"><span
                             class="buy-btn glyphicon glyphicon-shopping-cart"></span> Buy</button>
                 </span>

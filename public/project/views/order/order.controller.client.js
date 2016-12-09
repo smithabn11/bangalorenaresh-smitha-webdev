@@ -5,7 +5,7 @@
     angular.module('ShoppingAwesome')
         .controller('OrderController', OrderController);
 
-    function OrderController($routeParams, $location, $http, $rootScope, SearchService,
+    function OrderController($routeParams, $location, SearchService,
                              ShopperService, ShoppingCartService, OrderService) {
         var vm = this;
         var userId = $routeParams['uid'];
@@ -152,12 +152,12 @@
                 success = false;
             }
 
-            var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(vm.order.shippingZipcode);
-            if(success == true && !isValidZip){
-                success = false;
-                vm.error = "Shipping Zipcode incorrect digits";
-                $('#fmgrp-zipcode').addClass("has-error");
-            }
+            // var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(vm.order.shippingZipcode);
+            // if(success == true && !isValidZip){
+            //     success = false;
+            //     vm.error = "Shipping Zipcode incorrect digits";
+            //     $('#fmgrp-zipcode').addClass("has-error");
+            // }
 
             if (success == true) {
                 $('#fmgrp-staddress').removeClass("has-error");

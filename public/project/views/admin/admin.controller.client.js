@@ -7,7 +7,7 @@
         .controller('ShopperListController', ShopperListController)
         .controller('AdminOrderController', AdminOrderController);
 
-    function AdminController($routeParams, $location, $http) {
+    function AdminController($routeParams) {
         var vm = this;
         var userId = $routeParams['uid'];
 
@@ -18,7 +18,7 @@
         init();
     }
 
-    function ShopperListController($routeParams, $location, $http, ShopperService) {
+    function ShopperListController($routeParams, ShopperService) {
         var vm = this;
         var userId = $routeParams['uid'];
 
@@ -36,7 +36,7 @@
         init();
     }
 
-    function AdminOrderController($routeParams, $location, $http, OrderService) {
+    function AdminOrderController($routeParams, OrderService) {
         var vm = this;
         var adminId = $routeParams['aid'];
         var shopperId = $routeParams['uid'];

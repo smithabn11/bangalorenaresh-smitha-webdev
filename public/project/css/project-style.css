@@ -7,6 +7,15 @@ html {
     background-size: cover;
 }
 
+.project-bk{
+    background: url(../../img/project_bk.jpg) no-repeat center center fixed;
+    background-color: #f6f6f6;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
     background-color: transparent;
     margin-left: 5%;
@@ -233,9 +242,9 @@ body {
     float: none !important
 }
 
-/*.shopawesome-h1{*/
-/*color: white;*/
-/*}*/
+.shopawesome-logincolor{
+color: white;
+}
 
 /*.shopawesome-h3 {*/
 /*color: white;*/

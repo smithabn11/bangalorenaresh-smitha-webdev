@@ -5,7 +5,7 @@
     angular.module('ShoppingAwesome')
         .controller('ShoppingCartController', ShoppingCartController)
 
-    function ShoppingCartController($routeParams, $location, $http, $rootScope,
+    function ShoppingCartController($routeParams, $location,
                                     SearchService, ShoppingCartService, OrderService) {
 
         var vm = this;

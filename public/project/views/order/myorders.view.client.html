@@ -27,7 +27,7 @@
     <div ng-if="model.orders" class="row well">
         <ul class="list-unstyled">
             <li ng-repeat=" order in model.orders | orderBy: 'dateCreated' as filtered_result track by order._id">
-                <p><a href="#/shopper/{{model.userId}}/order/{{order._id}}">{{ order._id }}</a> Date Submitted:
+                <p><a href="#/shopper/{{model.userId}}/vieworder/{{order._id}}">{{ order._id }}</a> Date Submitted:
                     {{order.dateCreated}}</p>
             </li>
         </ul>

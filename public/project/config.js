@@ -92,6 +92,11 @@
                 controller: 'OrderController',
                 controllerAs: "model"
             })
+            .when('/shopper/:uid/vieworder/:oid', {
+                templateUrl: 'views/order/vieworder.view.client.html',
+                controller: 'ViewOrderController',
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: '/login'
             });
