@@ -3,14 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Dev Course Home Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>Web Dev 2016 Course Home Page</title>
+    <script src="./assignment/js/jquery.js"></script>
+    <script src="./assignment/js/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/home-page-style.css" rel="stylesheet"/>
 </head>
+
 <body>
-<div class="container-fluid main-body">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">@smithabn</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#section1">About Me</a></li>
+                <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#section2">Professional
+                    Experience</a></li>
+                <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#section3">Webdev 2016</a></li>
+                <li><a data-toggle="collapse" data-target=".navbar-collapse" href="#section4">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div id="section1" class=" sectionmain container-fluid main-body">
     <div class="row hidden-xs hidden-sm">
         <div class="col-md-3 content">
             <img class="img-responsive img-circle myimg" src="img/smitha.jpg">
@@ -52,18 +80,20 @@
             </div>
         </div>
     </div>
-    <div class="row top-buffer hidden-md hidden-lg">
+    <div class="row top-buffer">
         <div class="col-md-6">
             <div class="panel panel-default transparent">
                 <div class="panel-heading main-page-panel-heading">Professional Bio</div>
                 <div class="panel-body main-page-panel">
-                    <p>Graduate Computer Science student at Northeastern University. <br><br>
-                        Interests: Machine Learning, Data Mining, Database, Distrubuted Systems and Parallel
-                        Processing<br>
-                        Technical Skills: Java, C++, R, JavaScript, MySQL <br>
-                        Work Experience: 4+ years, Bosch, Charles River Development, Adobe
-                    </p>
-                    <i>Someday : Be a leader. Empower women. Be a role model to younger generation.</i>
+                    <div class="well">
+                        <p>Graduate Computer Science student at Northeastern University. <br><br>
+                            Interests: Machine Learning, Data Mining, Database, Distrubuted Systems and Parallel
+                            Processing<br>
+                            Technical Skills: Java, C++, R, JavaScript, MySQL <br>
+                            Work Experience: 4+ years, Bosch, Charles River Development, Adobe
+                        </p>
+                        <i>Someday : Be a leader. Empower women. Be a role model to younger generation.</i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,46 +101,131 @@
             <div class="panel panel-default transparent">
                 <div class="panel-heading main-page-panel-heading">Personal Bio</div>
                 <div class="panel-body main-page-panel">
-                    <p>Enjoy Life!!! <br><br>
-                        Summer: Road Biking, Hiking, Camping <br>
-                        Winter: Gym, Trying to learn Skiing <br>
-                        All Season: Photography(Wildlife and Landscape), Volunteering, Travelling, Foodie
-                    </p>
-                    <i>Someday : Travel around the world and experience every culture. Bike Cross country.</i>
+                    <div class="well">
+                        <p>Enjoy Life!!! <br><br>
+                            Summer: Road Biking, Hiking, Camping <br>
+                            Winter: Gym, Trying to learn Skiing <br>
+                            All Season: Photography(Wildlife and Landscape), Volunteering, Travelling, Foodie
+                        </p>
+                        <i>Someday : Travel around the world and experience every culture. Bike Cross country.</i>
+                        <br/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row top-buffer hidden-sm hidden-xs">
-        <div class="col-md-6">
-            <div class="panel panel-default transparent panel-left">
-                <div class="panel-heading main-page-panel-heading">Professional Bio</div>
-                <div class="panel-body main-page-panel">
-                    <p>Graduate Computer Science student at Northeastern University. <br><br>
-                        Interests: Machine Learning, Data Mining, Database, Distrubuted Systems and Parallel
-                        Processing<br>
-                        Technical Skills: Java, C++, R, JavaScript, MySQL <br>
-                        Work Experience: 4+ years, Bosch, Charles River Development, Adobe
-                    </p>
-                    <i>Someday : Be a leader. Empower women. Be a role model to younger generation.</i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-default transparent panel-right">
-                <div class="panel-heading main-page-panel-heading">Personal Bio</div>
-                <div class="panel-body main-page-panel">
-                    <p>Enjoy Life!!! <br><br>
-                        Summer: Road Biking, Hiking, Camping <br>
-                        Winter: Gym, Trying to learn Skiing <br>
-                        All Season: Photography(Wildlife and Landscape), Volunteering, Travelling, Foodie
-                    </p>
-                    <i>Someday : Travel around the world and experience every culture. Bike Cross country.</i>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
+<br/>
+<div id="section2" class="sectionmain container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default transparent">
+                <div class="panel-heading main-page-panel-heading">Professional Experience</div>
+                <div class="panel-body main-page-panel">
+                    <div class="row">
+                        <div class="well wellproject">
+                            <p>Software Development Intern at Adobe, May 2016 - Aug 2016</p>
+                            <ul class="list-unstyled">
+                                <li>Worked as a full stack developer for Adobe Sign product.</li>
+                                <li>Designed and implemented a new backend admin page with pagination support for
+                                    account list with security using Backbone.js ,Spring, REST and MySQL.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="well wellproject">
+                            <p>Software Engineer - Co-op at Charles River Development, May 2015 - Dec 2015</p>
+                            <ul class="list-unstyled">
+                                <li>
+                                    Working in Agile team as a Java developer to develop and test “CRIMS”
+                                    (Charles River Investment Management Solution) that handles all the post-trade
+                                    processing workflows and interfaces with external venues such as Omgeo OASYS,
+                                    CTM and other aspects such as settlement instructions and SWIFT message support.
+                                </li>
+                                <li>Developed enhancements and bug fixing in Java along with database changes
+                                    in MS SQL server and unit testing using JUnit.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="well wellproject">
+                            <p>Software Engineer at Robert Bosch, Nov 2009 - Jan 2013</p>
+                            <ul class="list-unstyled">
+                                <li>
+                                    Worked in Bosch as a Software Engineer. Involved in requirement gathering, design,
+                                    development and testing of HMI and Application layer for media, phone, tuner,
+                                    Ford Sync and navigation modules for FORD car infotainment and navigation systems in
+                                    C++.
+                                </li>
+                                <li>
+                                    Experienced in each phase of the full software development life-cycle and
+                                    good understanding of Object Oriented Analysis and Design (OOAD).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="section3" class="sectionmain container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default transparent">
+                <div class="panel-heading main-page-panel-heading">Webdev Project 2016</div>
+                <div class="panel-body main-page-panel">
+                    <div class="row">
+                        <div class="well wellproject">
+                            <h4>Project</h4>
+                            <p>Video Link :<a href=""> ShopAwesome</a></p>
+                            <p><a href="project/index.html">ShopAwesome</a> Shop for Toys, Electronics,
+                                Furniture, Video
+                                Games, Baby, Clothing and more. Get great
+                                deals!!! Save money</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="well wellproject">
+                            <h4>Assignment</h4>
+                            <p><a href="assignment/index.html">WebAppMaker</a>
+                                MEAN stack application to build websites. User can login and create
+                                websites. Each website can create different pages and each page can
+                                add different widgets and format them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="section4" class="sectionmain container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class=" panel panel-default transparent">
+                <div class="panel-heading main-page-panel-heading">Contact Me</div>
+                <div class="panel-body main-page-panel contactme">
+                    <div class=" address">
+                        <div class="col-md-4">
+                            <p><span class="glyphcolor glyphicon glyphicon-home"></span> Malden MA,United
+                                States</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p><span class="glyphcolor glyphicon glyphicon-envelope"></span>
+                            bangalorenaresh.s@husky.neu.edu
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><span class="glyphcolor glyphicon glyphicon-earphone"></span> 617-775-5687</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

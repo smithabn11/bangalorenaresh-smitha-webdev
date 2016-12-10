@@ -10,7 +10,15 @@ body {
     background-color: transparent;
     margin-left: 5%;
     margin-right: 5%;
-    margin-bottom: 5%;
+}
+
+.navbar {
+    color: black;
+    background-color: #292c1d;
+}
+
+.sectionmain {
+    padding-top: 60px;
 }
 
 .myimg {
@@ -157,14 +165,13 @@ body {
 .main-page-panel-heading {
     color: darkblue;
     background-color: #fffffd !important;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .main-page-panel {
     color: black;
     background-color: #d4dad8;
-    opacity: 0.8;
-
+    opacity: 0.9;
 }
 
 .main-page-btn {
@@ -175,3 +182,18 @@ body {
     margin-right: 5%;
 }
 
+.glyphcolor {
+    color: #104d51;
+}
+
+.wellproject {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.contactme {
+    padding-left: 10px;
+    padding-right: 10px;
+}
