@@ -3,7 +3,7 @@
  */
 
 (function () {
-    angular.module('ShoppingAwesome' , ['ngRoute', 'angularModalService']);
+    angular.module('ShoppingAwesome' , ['ngRoute']);
 })();
 
 
