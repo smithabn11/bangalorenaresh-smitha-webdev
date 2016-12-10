@@ -15,6 +15,7 @@
             vm.userId = userId;
             vm.removeItemShoppingCart = removeItemShoppingCart;
             vm.checkOut = checkOut;
+            $('html').removeClass('project-bk');
 
 
             if (userId) {

@@ -12,11 +12,14 @@
         var orderId = $routeParams['oid'];
 
         function init() {
+            $('html').removeClass('project-bk');
             vm.userId = userId;
             vm.orderId = orderId;
             vm.deleteOrderByOrderId = deleteOrderByOrderId;
             vm.gotoProfile = gotoProfile;
             vm.submitOrder = submitOrder;
+            initializeDropdownData(vm);
+
 
             OrderService.findOrderByOrderId(userId, orderId)
                 .success(function (order) {
@@ -33,7 +36,8 @@
                                 vm.orderItems = items;
                             })
                             .error(function (error) {
-                                vm.error = error;
+                                vm.error = "<li>" + error + "</li>";
+                                updateError();
                             })
 
                         if (!order.submitted) {
@@ -47,7 +51,8 @@
                                     }
                                 })
                                 .error(function (error) {
-                                    vm.error = error;
+                                    vm.error = "<li>" + error + "</li>";
+                                    updateError();
                                 })
                         } else {
                             $('#staddress').attr('readonly', true);
@@ -61,7 +66,8 @@
                     }
                 })
                 .error(function (error) {
-                    vm.error = error;
+                    vm.error = "<li>" + error + "</li>";
+                    updateError();
                 })
         }
 
@@ -78,12 +84,14 @@
                                 $location.url("/shopper/" + userId + "/shoppingcart")
                             })
                             .error(function (error) {
-                                vm.error = error;
+                                vm.error = "<li>" + error + "</li>";
+                                updateError();
                             })
                     }
                 })
                 .error(function (order) {
-                    vm.error = error;
+                    vm.error = "<li>" + error + "</li>";
+                    updateError();
                 })
 
         }
@@ -97,13 +105,14 @@
                         $location.url("/shopper/" + vm.userId);
                     })
                     .error(function (error) {
-                        vm.error = error;
+                        vm.error = "<li>" + error + "</li>";
+                        updateError();
                     })
             }
         }
 
         function submitOrder() {
-            if (validateShippingAddressOrder()) {
+            if (validateOrder()) {
                 OrderService.submitOrder(userId, orderId, vm.order)
                     .success(function (order) {
                         if (order.submitted) {
@@ -118,56 +127,111 @@
                                     $('#zipcode').attr('readonly', true);
                                 })
                                 .error(function (error) {
-                                    vm.error = "Order could not be sucessfully submitted";
+                                    vm.error = "<li>Order could not be sucessfully submitted</li>";
                                     console.log("Could not delete shopping cart");
+                                    updateError();
                                 })
 
                         } else {
-                            vm.error = "Order could not be sucessfully submitted";
+                            vm.error = "<li>Order could not be sucessfully submitted</li>";
+                            updateError();
                         }
                     })
                     .error(function (error) {
-                        vm.error = error;
+                        vm.error = "<li>" + error + "</li>";
+                        updateError();
                     })
             }
         }
 
-        function validateShippingAddressOrder() {
+        function validateOrder() {
             var success = true;
+            vm.error = "";
             if (vm.order.shippingStreet == undefined || vm.order.shippingStreet == "") {
-                vm.error = "Shipping Street cannot be empty";
+                vm.error = "<li>Shipping Street cannot be empty</li>";
                 $('#fmgrp-staddress').addClass("has-error");
                 success = false;
-            } else if (vm.order.shippingCity == undefined || vm.order.shippingCity == "") {
-                vm.error = "Shipping City cannot be empty";
+            }
+            if (vm.order.shippingCity == undefined || vm.order.shippingCity == "") {
+                vm.error = vm.error + "<li>Shipping City cannot be empty</li>";
                 $('#fmgrp-city').addClass("has-error");
-                success = false;
-            } else if (vm.order.shippingState == undefined || vm.order.shippingState == "") {
-                vm.error = "Shipping State cannot be empty";
+                success = (success && false);
+            }
+            if (vm.order.shippingState == undefined || vm.order.shippingState == "") {
+                vm.error = vm.error + "<li>Shipping State cannot be empty</li>";
                 $('#fmgrp-state').addClass("has-error");
-                success = false;
-            } else if (vm.order.shippingZipcode == undefined || vm.order.shippingZipcode == "") {
-                vm.error = "Shipping Zipcode cannot be empty";
+                success = (success && false);
+            }
+            if (vm.order.shippingZipcode == undefined || vm.order.shippingZipcode == "") {
+                vm.error = vm.error + "<li>Shipping Zipcode cannot be empty</li>";
                 $('#fmgrp-zipcode').addClass("has-error");
-                success = false;
+                success = (success && false);
             }
 
-            // var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(vm.order.shippingZipcode);
-            // if(success == true && !isValidZip){
-            //     success = false;
-            //     vm.error = "Shipping Zipcode incorrect digits";
-            //     $('#fmgrp-zipcode').addClass("has-error");
-            // }
+            if (vm.creditcard.cardnum == undefined || vm.creditcard.cardnum == "") {
+                vm.error = vm.error + "<li>Card Number cannot be empty</li>";
+                $('#cardNum').addClass("has-error");
+                success = (success && false);
+            }
+
+            if (vm.creditcard.cardholdername == undefined || vm.creditcard.cardholdername == "") {
+                vm.error = vm.error + "<li>Card Holder Name cannot be empty</li>";
+                $('#cardUsrName').addClass("has-error");
+                success = (success && false);
+            }
+
+            if (vm.creditcard.expirymonth == undefined || vm.creditcard.expirymonth == "") {
+                vm.error = vm.error + "<li>Expiry Month cannot be empty</li>";
+                $('#expiryMM').addClass("has-error");
+                success = (success && false);
+            }
+
+            if (vm.creditcard.expiryyear == undefined || vm.creditcard.expiryyear == "") {
+                vm.error = vm.error + "<li>Expiry Year cannot be empty</li>";
+                $('#expiryYY').addClass("has-error");
+                success = (success && false);
+            }
+
+            if (vm.creditcard.cvv == undefined || vm.creditcard.cvv == "") {
+                vm.error = vm.error + "<li>CVV cannot be empty</li>";
+                $('#cvv').addClass("has-error");
+                success = (success && false);
+            }
 
             if (success == true) {
                 $('#fmgrp-staddress').removeClass("has-error");
                 $('#fmgrp-city').removeClass("has-error");
                 $('#fmgrp-state').removeClass("has-error");
                 $('#fmgrp-zipcode').removeClass("has-error");
+                $('#cardNum').removeClass("has-error");
+                $('#cardUsrName').removeClass("has-error");
+                $('#expiryMM').removeClass("has-error");
+                $('#expiryYY').removeClass("has-error");
+                $('#cvv').removeClass("has-error");
                 vm.error = "";
+                $('#loginerror').empty();
+            } else {
+                updateError();
             }
 
             return success;
+        }
+
+        function initializeDropdownData(vm) {
+            vm.usstates = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA",
+                "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI",
+                "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK",
+                "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+            vm.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            vm.years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+            vm.creditcard = {};
+        }
+
+        function updateError() {
+            $('#loginerror').empty();
+            $('#loginerror').append("<ul class='myPClass'>");
+            $('#loginerror').append(vm.error);
+            $('#loginerror').append("</ul>");
         }
     }
 

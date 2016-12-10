@@ -24,8 +24,8 @@
 
 <div class="container">
     <div class="row">
-        <div ng-show="model.error" class="alert alert-danger" role="alert">
-            {{model.error}}
+        <div id="loginerror" ng-show="model.error" class="alert alert-danger" role="alert">
+            <!--{{model.error}}-->
         </div>
         <div ng-show="model.success" class="alert alert-success" role="alert">
             {{model.successMsg}}
@@ -72,7 +72,10 @@
         </div>
         <div class="form-group" id="fmgrp-state">
             <label for="state">State</label>
-            <input ng-model="model.order.shippingState" type="text" class="form-control" id="state" required>
+            <!--<input ng-model="model.order.shippingState" type="text" class="form-control" id="state" required>-->
+            <select name="state" id="state" ng-model="model.order.shippingState" class="form-control">
+                <option ng-repeat="option in model.usstates" value="{{option}}">{{option}}</option>
+            </select>
         </div>
         <div class="form-group" id="fmgrp-zipcode">
             <label for="zipcode">Zipcode</label>
@@ -81,45 +84,60 @@
     </div>
     <div class="row well">
         <h4>Credit Card Info</h4>
-        <form role="form">
-            <div class="form-group">
-                <label for="cardNumber">
-                    Card Number</label>
+        <form novalidate role="form">
+            <div class="form-group" id="cardNum">
+                <label for="cardNumber">Card Number</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                           required autofocus/>
+                    <input type="text" class="form-control" id="cardNumber"
+                           ng-model="model.creditcard.cardnum"
+                           placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="16" required />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                 </div>
             </div>
             <!-- Name -->
-            <div class="control-group">
+            <div class="form-group" id="cardUsrName">
                 <label class="control-label" for="cardusername">Card Holder's Name</label>
                 <div class="controls">
-                    <input type="text" class="form-control" id="cardusername" placeholder=""
-                           required/>
+                    <input type="text" class="form-control" id="cardusername"
+                           ng-model="model.creditcard.cardholdername"
+                           placeholder="" required/>
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-xs-6 col-md-6">
+                <div class="col-xs-12 col-md-12">
                     <div class="form-group">
                         <label>Expiry Date</label>
                         <div class="row">
-                            <div class="col-xs-6 col-lg-6">
-                                <input type="text" class="form-control" id="expityMonth" placeholder="MM"
-                                       required/>
+                            <div class="col-xs-6 col-lg-6" id="expiryMM">
+                                <!--<input type="text" class="form-control" id="expityMonth" placeholder="MM"-->
+                                <!--required/>-->
+                                <label for="expiryMonth">Month</label>
+                                <select name="state" id="expiryMonth" ng-model="model.creditcard.expirymonth"
+                                        class="form-control">
+                                    <option ng-repeat="option in model.months" value="{{option}}">{{option}}
+                                    </option>
+                                </select>
                             </div>
-                            <div class="col-xs-6 col-lg-6">
-                                <input type="text" class="form-control" id="expityYear" placeholder="YY"
-                                       required/></div>
+                            <div class="col-xs-6 col-lg-6" id="expiryYY">
+                                <!--<input type="text" class="form-control" id="expityYear" placeholder="YY"-->
+                                <!--required/></div>-->
+                                <label for="expiryYear">Year</label>
+                                <select name="state" id="expiryYear" ng-model="model.creditcard.expiryyear"
+                                        class="form-control">
+                                    <option ng-repeat="option in model.years" value="{{option}}">{{option}}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-6 pull-right">
-                    <div class="form-group">
-                        <label for="cvCode">
-                            CVV2 CODE</label>
-                        <input type="password" class="form-control" id="cvCode" placeholder="CVV2"
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-6">
+                    <div class="form-group" id="cvv">
+                        <label for="cvvCode">CVV2 CODE</label>
+                        <input type="password" class="form-control" id="cvvCode" ng-model="model.creditcard.cvv"
+                               placeholder="CVV2"
                                required/>
                     </div>
                 </div>

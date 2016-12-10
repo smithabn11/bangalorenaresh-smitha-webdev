@@ -64,32 +64,37 @@
 
 
             <div class="col-md-4 well">
-                <h3>Address</h3><br>
-                <div class="form-group">
-                    <label for="staddress">Street</label>
-                    <input ng-model="model.user.street" type="text" class="form-control" id="staddress"
-                           placeholder="360 Huntington Avenue">
-                </div>
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input ng-model="model.user.city" type="text" class="form-control" id="city"
-                           placeholder="Boston">
-                </div>
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input ng-model="model.user.state" type="text" class="form-control" id="state"
-                           placeholder="MA">
-                </div>
-                <div class="form-group">
-                    <label for="zipcode">Zipcode</label>
-                    <input ng-model="model.user.zipcode" type="text" class="form-control" id="zipcode"
-                           placeholder="02115">
-                </div>
-                <div class="form-group">
-                    <label for="phonenum">Phone</label>
-                    <input ng-model="model.user.phone" type="text" class="form-control" id="phonenum"
-                           placeholder="617-373-2000">
-                </div>
+                <form>
+                    <h3>Address</h3><br>
+                    <div class="form-group">
+                        <label for="staddress">Street</label>
+                        <input ng-model="model.user.street" type="text" class="form-control" id="staddress"
+                               placeholder="360 Huntington Avenue">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input ng-model="model.user.city" type="text" class="form-control" id="city"
+                               placeholder="Boston">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <!--<input ng-model="model.user.state" type="text" class="form-control" id="state1"-->
+                        <!--placeholder="MA">-->
+                        <select name="state" id="state" ng-model="model.user.state" class="form-control">
+                            <option ng-repeat="option in model.usstates" value="{{option}}">{{option}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode">Zipcode</label>
+                        <input ng-model="model.user.zipcode" type="text" class="form-control" id="zipcode"
+                               placeholder="02115">
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenum">Phone</label>
+                        <input ng-model="model.user.phone" type="text" class="form-control" id="phonenum"
+                               placeholder="617-373-2000">
+                    </div>
+                </form>
             </div>
 
             <div class="hidden-sm hidden-xs">
