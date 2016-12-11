@@ -121,10 +121,8 @@
                                 .success(function (status) {
                                     vm.success = true;
                                     vm.successMsg = "Order is successfully submitted!!! Order Id " + order._id;
-                                    $('#staddress').attr('readonly', true);
-                                    $('#city').attr('readonly', true);
-                                    $('#state').attr('readonly', true);
-                                    $('#zipcode').attr('readonly', true);
+                                    onOrderSubmissionSuccess();
+                                    $('body').scrollTop(0);
                                 })
                                 .error(function (error) {
                                     vm.error = "<li>Order could not be sucessfully submitted</li>";
@@ -145,6 +143,8 @@
         }
 
         function validateOrder() {
+            removeErrors();
+
             var success = true;
             vm.error = "";
             if (vm.order.shippingStreet == undefined || vm.order.shippingStreet == "") {
@@ -172,10 +172,14 @@
                 vm.error = vm.error + "<li>Card Number cannot be empty</li>";
                 $('#cardNum').addClass("has-error");
                 success = (success && false);
+            } else if (vm.creditcard.cardnum && !(/\d{4}-?\d{4}-?\d{4}-?\d{4}/.test(vm.creditcard.cardnum))) {
+                vm.error = vm.error + "<li>Card Number Invalid Format. Use digits XXXX-XXXX-XXXX-XXXX</li>";
+                $('#cardNum').addClass("has-error");
+                success = (success && false);
             }
 
             if (vm.creditcard.cardholdername == undefined || vm.creditcard.cardholdername == "") {
-                vm.error = vm.error + "<li>Card Holder Name cannot be empty</li>";
+                vm.error = vm.error + "<li>Card Holder's Name cannot be empty</li>";
                 $('#cardUsrName').addClass("has-error");
                 success = (success && false);
             }
@@ -199,19 +203,12 @@
             }
 
             if (success == true) {
-                $('#fmgrp-staddress').removeClass("has-error");
-                $('#fmgrp-city').removeClass("has-error");
-                $('#fmgrp-state').removeClass("has-error");
-                $('#fmgrp-zipcode').removeClass("has-error");
-                $('#cardNum').removeClass("has-error");
-                $('#cardUsrName').removeClass("has-error");
-                $('#expiryMM').removeClass("has-error");
-                $('#expiryYY').removeClass("has-error");
-                $('#cvv').removeClass("has-error");
+                removeErrors();
                 vm.error = "";
-                $('#loginerror').empty();
+
             } else {
                 updateError();
+                $('body').scrollTop(0);
             }
 
             return success;
@@ -232,6 +229,34 @@
             $('#loginerror').append("<ul class='myPClass'>");
             $('#loginerror').append(vm.error);
             $('#loginerror').append("</ul>");
+        }
+
+        function removeErrors() {
+            $('#fmgrp-staddress').removeClass("has-error");
+            $('#fmgrp-city').removeClass("has-error");
+            $('#fmgrp-state').removeClass("has-error");
+            $('#fmgrp-zipcode').removeClass("has-error");
+            $('#cardNum').removeClass("has-error");
+            $('#cardUsrName').removeClass("has-error");
+            $('#expiryMM').removeClass("has-error");
+            $('#expiryYY').removeClass("has-error");
+            $('#cvv').removeClass("has-error");
+            $('#loginerror').empty();
+        }
+
+        function onOrderSubmissionSuccess() {
+            $('#staddress').attr('readonly', true);
+            $('#city').attr('readonly', true);
+            $('#state').attr('readonly', true);
+            $('#zipcode').attr('readonly', true);
+            $('#cardNumber').attr('readonly', true);
+            $('#cardUsername').attr('readonly', true);
+            $('#expiryMonth').attr('disabled', true);
+            $('#expiryYear').attr('disabled', true);
+            $('#cvvCode').attr('readonly', true);
+            var id = $('#cardNumber').val();
+            $('#cardNumber').val('XXXX-XXXX-XXXX-' + id.substr(id.length - 4));
+
         }
     }
 
