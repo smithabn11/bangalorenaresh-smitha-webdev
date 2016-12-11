@@ -58,10 +58,18 @@
                                 vm.totalResults = result.totalResults;
                             }
                         } else if (result.numItems == 0) {
+                            $rootScope.searchText = null;
+                            vm.reqPagination = false;
+                            vm.totalResults = 0;
+                            vm.searchItemList = null;
                             vm.error = result.message;
                         }
                     })
                     .error(function (response) {
+                        $rootScope.searchText = null;
+                        vm.reqPagination = false;
+                        vm.totalResults = 0;
+                        vm.searchItemList = null;
                         vm.error = response;
                     });
             }
