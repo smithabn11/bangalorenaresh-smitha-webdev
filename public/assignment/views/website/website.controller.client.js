@@ -47,7 +47,7 @@
 
         function createWebsite(sitename, description, userId) {
 
-            if (sitename == null) {
+            if (sitename == null || sitename == "") {
                 $('#websitename').addClass('has-error');
                 vm.error = "Website Name cannot be empty"
             } else {

@@ -15,9 +15,6 @@
 </nav>
 
 <div class="container-fluid">
-    <div ng-show="model.error" class="alert alert-danger" role="alert">
-        {{model.error}}
-    </div>
     <!--<form>-->
         <!--<div class="form-group">-->
             <!--<label for="name">Name</label>-->
@@ -33,7 +30,7 @@
          text-angular
          ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
-        ['indent','outdent'],['html']]">
+        ['indent','outdent'],['html']]" placeholder="Enter text...">
     </div>
     <a class="btn btn-danger btn-block"
        href ng-click="model.deleteWidget(model.widget._id)">Delete</a>

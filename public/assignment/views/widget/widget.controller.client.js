@@ -119,15 +119,29 @@
         init();
 
         function updateWidget(widget) {
+            vm.error = "";
             if (widget != null) {
-                WidgetService.updateWidget(vm.userId, vm.websiteId, vm.pageId, widget)
-                    .success(function () {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                    })
-                    .error(function (response) {
-                        vm.error = response;
-                        console.log(response);
-                    })
+                var success = true;
+                if ((widget.widgetType == 'HEADER' || widget.widgetType == 'IMAGE' || widget.widgetType == 'YOUTUBE') &&
+                    (widget.name == null || widget.name == "")) {
+                    vm.error = "Name cannot be empty";
+                    success = false;
+                } else if ((widget.widgetType == 'HTML' || widget.widgetType == 'INPUT') &&
+                    (widget.text == null || widget.text == "")) {
+                    vm.error = "Text cannot be empty";
+                    success = false;
+                }
+
+                if (success) {
+                    WidgetService.updateWidget(vm.userId, vm.websiteId, vm.pageId, widget)
+                        .success(function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        })
+                        .error(function (response) {
+                            vm.error = response;
+                            console.log(response);
+                        })
+                }
             }
         }
 
