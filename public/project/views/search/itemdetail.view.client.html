@@ -46,8 +46,10 @@
         <div class="col-sm-8">
             <div class="row">
                 <h4>{{model.item.name}}</h4>
-                <h5><span>MSRP :</span>{{model.item.msrp}}</h5>
-                <h5><span>Sale Price :</span>{{model.item.salePrice}}</h5>
+                <h5><span>MSRP : </span>{{model.item.msrp}}</h5>
+                <h5><span>Sale Price : </span>{{model.item.salePrice}}</h5>
+                <h5 ng-if="model.item.customerRating"><span>Customer Rating : </span>{{model.item.customerRating}}</h5>
+                <h5 ng-if="model.item.numReviews"><span>Number of Reviews : </span>{{model.item.numReviews}}</h5>
                 <div ng-if="model.item.longDescription"><h5>Description</h5></div>
                 <div class="panel">
                     <div id="longDesc" class="panel-body">
