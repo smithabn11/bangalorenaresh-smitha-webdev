@@ -12,7 +12,7 @@
         var vm = this;
 
         function init() {
-            $('html').addClass('project-bk');
+            // $('html').addClass('project-bk');
             vm.login = login;
             removeErrorClasses();
         }
